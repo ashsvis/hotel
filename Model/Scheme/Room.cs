@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Model
 {
@@ -23,6 +24,11 @@ namespace Model
             base.RemoveAll(item => item.IdCategory == idRoom);
         }
 
+        public List<Room> FilteredByFloor(int floor = 0)
+        {
+            if (floor == 0) return this;
+            return this.Where(item => item.Floor == floor).ToList();
+        }
     }
 
     [Serializable]
