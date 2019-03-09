@@ -6,9 +6,7 @@ namespace Reception
 {
     public partial class RoomsControl : UserControl
     {
-        private Categories _categories;
-        private Services _services;
-
+        Hotel _hotel;
         // Свойство, хранящее отображаемый объект модели данных
         public Rooms Rooms { get; private set; }
 
@@ -17,11 +15,10 @@ namespace Reception
             InitializeComponent();
         }
         //Занесение данных из Rooms в контролы
-        public void Build(Categories categories, Services services, Rooms rooms)
+        public void Build(Hotel hotel)
         {
-            _categories = categories;
-            _services = services;
-            Rooms = rooms;
+            _hotel = hotel;
+            Rooms = _hotel.Rooms;
             BuildTreeAndFillTable();
         }
 
@@ -60,7 +57,7 @@ namespace Reception
 
         private void tsbAddRoom_Click(object sender, System.EventArgs e)
         {
-            var frm = new RoomForm(_categories, _services);
+            var frm = new RoomForm(_hotel);
             frm.Build(new Room());
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
@@ -74,7 +71,7 @@ namespace Reception
             switch (e.ColumnIndex)
             {
                 case 0:
-                    var category = _categories.FirstOrDefault(item => item.IdCategory == Rooms[e.RowIndex].IdCategory);
+                    var category = _hotel.Categories.FirstOrDefault(item => item.IdCategory == Rooms[e.RowIndex].IdCategory);
                     e.Value = category != null ? category.NameCategory : "(нет данных)";
                     break;
                 case 1:

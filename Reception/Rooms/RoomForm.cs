@@ -8,20 +8,15 @@ namespace Reception
     {
         public Room Data { get; set; }
 
-        public RoomForm(Categories categories, Services services)
+        public RoomForm(Hotel hotel)
         {
             InitializeComponent();
-            foreach (var category in categories)
+            foreach (var category in hotel.Categories)
                 cbCategory.Items.Add(category);
-
-            cbNumberSeat.Items.Add(new KindOfSeat { Descriptor = "Двухместный", NumberSeat = 2 });
-            cbNumberSeat.Items.Add(new KindOfSeat { Descriptor = "Одноместный", NumberSeat = 1 });
-            cbNumberSeat.Items.Add(new KindOfSeat { Descriptor = "Трёхместный", NumberSeat = 2 });
-
-            foreach (var service in services)
-            {
+            foreach (var seat in hotel.Seats)
+                cbNumberSeat.Items.Add(seat);
+            foreach (var service in hotel.Services)
                 clbServices.Items.Add(service);
-            }
         }
 
         //занесение данных из объекта данных в контролы
@@ -50,17 +45,6 @@ namespace Reception
         private void cbCategory_SelectionChangeCommitted(object sender, System.EventArgs e)
         {
             btnOk.Enabled = true;
-        }
-    }
-
-    public class KindOfSeat
-    {
-        public int NumberSeat { get; set; }
-        public string Descriptor { get; set; }
-
-        public override string ToString()
-        {
-            return Descriptor;
         }
     }
 }
