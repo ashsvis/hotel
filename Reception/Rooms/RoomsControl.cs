@@ -24,7 +24,7 @@ namespace Reception
 
         private void BuildTreeAndFillTable()
         {
-            tsbDeleteRoom.Enabled = false;
+            tsbChangeRoom.Enabled = tsbDeleteRoom.Enabled = false;
             tvFloors.Nodes.Clear();
             var hotelNode = new TreeNode("Гостиница");
             tvFloors.Nodes.Add(hotelNode);
@@ -45,14 +45,7 @@ namespace Reception
             tvFloors.ExpandAll();
 
             dgvRooms.RowCount = Rooms.Count;
-        }
-
-        //Занесение данных из контролов в Rooms
-        public void UpdateData()
-        {
-            //здесь занесение значений контролов в поля Data
-            //например:
-            //Data.Name = tbName.Text;
+            dgvRooms.Invalidate();
         }
 
         private void tsbAddRoom_Click(object sender, System.EventArgs e)
@@ -61,7 +54,8 @@ namespace Reception
             frm.Build(new Room());
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
-                //Rooms.Add(_categories[0].IdCategory, 2, 1, 3500);
+                var room = frm.Data;
+                Rooms.Add(room);
                 BuildTreeAndFillTable();
             }
         }
@@ -71,7 +65,8 @@ namespace Reception
             switch (e.ColumnIndex)
             {
                 case 0:
-                    var category = _hotel.Categories.FirstOrDefault(item => item.IdCategory == Rooms[e.RowIndex].IdCategory);
+                    var category = _hotel.Categories.FirstOrDefault(item => 
+                                    e.RowIndex < Rooms.Count && item.IdCategory == Rooms[e.RowIndex].IdCategory);
                     e.Value = category != null ? category.NameCategory : "(нет данных)";
                     break;
                 case 1:
@@ -86,6 +81,31 @@ namespace Reception
                 case 4:
                     e.Value = Rooms[e.RowIndex].Services.Count;
                     break;
+            }
+        }
+
+        private void dgvRooms_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            tsbChangeRoom.Enabled = tsbDeleteRoom.Enabled = true;
+        }
+
+        private void tsbChangeRoom_Click(object sender, System.EventArgs e)
+        {
+            var frm = new RoomForm(_hotel);
+            frm.Build(Rooms[dgvRooms.SelectedRows[0].Index]);
+            if (frm.ShowDialog(this) == DialogResult.OK)
+            {
+                BuildTreeAndFillTable();
+            }
+        }
+
+        private void tsbDeleteRoom_Click(object sender, System.EventArgs e)
+        {
+            if (MessageBox.Show(this, "Удалить номер?", "Удаление номера", 
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Rooms.RemoveAt(dgvRooms.SelectedRows[0].Index);
+                BuildTreeAndFillTable();
             }
         }
     }

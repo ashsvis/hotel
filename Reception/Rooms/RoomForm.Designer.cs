@@ -63,7 +63,7 @@
             this.cbCategory.Location = new System.Drawing.Point(132, 12);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(180, 23);
-            this.cbCategory.TabIndex = 1;
+            this.cbCategory.TabIndex = 0;
             this.cbCategory.SelectionChangeCommitted += new System.EventHandler(this.cbCategory_SelectionChangeCommitted);
             // 
             // label2
@@ -83,19 +83,10 @@
             0,
             0,
             0});
-            this.nudFoor.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.nudFoor.Name = "nudFoor";
             this.nudFoor.Size = new System.Drawing.Size(54, 23);
             this.nudFoor.TabIndex = 2;
-            this.nudFoor.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudFoor.ValueChanged += new System.EventHandler(this.cbCategory_SelectionChangeCommitted);
             // 
             // label3
             // 
@@ -116,6 +107,7 @@
             this.cbNumberSeat.Name = "cbNumberSeat";
             this.cbNumberSeat.Size = new System.Drawing.Size(180, 23);
             this.cbNumberSeat.TabIndex = 1;
+            this.cbNumberSeat.SelectionChangeCommitted += new System.EventHandler(this.cbCategory_SelectionChangeCommitted);
             // 
             // label4
             // 
@@ -137,8 +129,9 @@
             0});
             this.nudPriceDay.Name = "nudPriceDay";
             this.nudPriceDay.Size = new System.Drawing.Size(92, 23);
-            this.nudPriceDay.TabIndex = 2;
+            this.nudPriceDay.TabIndex = 3;
             this.nudPriceDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPriceDay.ValueChanged += new System.EventHandler(this.cbCategory_SelectionChangeCommitted);
             // 
             // label5
             // 
@@ -180,6 +173,7 @@
             this.btnOk.TabIndex = 5;
             this.btnOk.Text = "Ввод";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel
             // 
@@ -188,7 +182,7 @@
             this.btnCancel.Location = new System.Drawing.Point(237, 292);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 5;
+            this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 

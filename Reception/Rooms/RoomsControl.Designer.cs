@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RoomsControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbAddRoom = new System.Windows.Forms.ToolStripButton();
+            this.tsbDeleteRoom = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tvFloors = new System.Windows.Forms.TreeView();
             this.dgvRooms = new System.Windows.Forms.DataGridView();
@@ -44,7 +45,7 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tsbDeleteRoom = new System.Windows.Forms.ToolStripButton();
+            this.tsbChangeRoom = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -57,6 +58,7 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbAddRoom,
+            this.tsbChangeRoom,
             this.tsbDeleteRoom});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -74,6 +76,18 @@
             this.tsbAddRoom.Text = "Добавить номер";
             this.tsbAddRoom.ToolTipText = "Добавить новый номер";
             this.tsbAddRoom.Click += new System.EventHandler(this.tsbAddRoom_Click);
+            // 
+            // tsbDeleteRoom
+            // 
+            this.tsbDeleteRoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbDeleteRoom.Enabled = false;
+            this.tsbDeleteRoom.Image = ((System.Drawing.Image)(resources.GetObject("tsbDeleteRoom.Image")));
+            this.tsbDeleteRoom.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbDeleteRoom.Name = "tsbDeleteRoom";
+            this.tsbDeleteRoom.Size = new System.Drawing.Size(94, 22);
+            this.tsbDeleteRoom.Text = "Удалить номер";
+            this.tsbDeleteRoom.ToolTipText = "Удалить выбранный номер";
+            this.tsbDeleteRoom.Click += new System.EventHandler(this.tsbDeleteRoom_Click);
             // 
             // splitContainer1
             // 
@@ -104,14 +118,14 @@
             // 
             this.dgvRooms.AllowUserToAddRows = false;
             this.dgvRooms.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRooms.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRooms.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvRooms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRooms.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -129,6 +143,7 @@
             this.dgvRooms.TabIndex = 0;
             this.dgvRooms.VirtualMode = true;
             this.dgvRooms.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvRooms_CellValueNeeded);
+            this.dgvRooms.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRooms_RowEnter);
             // 
             // Column1
             // 
@@ -138,48 +153,49 @@
             // 
             // Column2
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle12;
             this.Column2.HeaderText = "Количество мест";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             // 
             // Column3
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle13;
             this.Column3.HeaderText = "Этаж";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             // 
             // Column4
             // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle14;
             this.Column4.HeaderText = "Стоимость за сутки";
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             // 
             // Column5
             // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column5.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column5.DefaultCellStyle = dataGridViewCellStyle15;
             this.Column5.HeaderText = "Наличие услуг в номере";
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
             this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // tsbDeleteRoom
+            // tsbChangeRoom
             // 
-            this.tsbDeleteRoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbDeleteRoom.Enabled = false;
-            this.tsbDeleteRoom.Image = ((System.Drawing.Image)(resources.GetObject("tsbDeleteRoom.Image")));
-            this.tsbDeleteRoom.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbDeleteRoom.Name = "tsbDeleteRoom";
-            this.tsbDeleteRoom.Size = new System.Drawing.Size(94, 22);
-            this.tsbDeleteRoom.Text = "Удалить номер";
-            this.tsbDeleteRoom.ToolTipText = "Удалить выбранный номер";
+            this.tsbChangeRoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbChangeRoom.Enabled = false;
+            this.tsbChangeRoom.Image = ((System.Drawing.Image)(resources.GetObject("tsbChangeRoom.Image")));
+            this.tsbChangeRoom.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbChangeRoom.Name = "tsbChangeRoom";
+            this.tsbChangeRoom.Size = new System.Drawing.Size(104, 22);
+            this.tsbChangeRoom.Text = "Изменить номер";
+            this.tsbChangeRoom.ToolTipText = "Изменить данные номера";
+            this.tsbChangeRoom.Click += new System.EventHandler(this.tsbChangeRoom_Click);
             // 
             // RoomsControl
             // 
@@ -214,5 +230,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.ToolStripButton tsbDeleteRoom;
+        private System.Windows.Forms.ToolStripButton tsbChangeRoom;
     }
 }

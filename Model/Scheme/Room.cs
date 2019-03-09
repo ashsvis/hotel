@@ -30,8 +30,8 @@ namespace Model
     {
         public Guid IdRoom { get; set; } = Guid.NewGuid();
         public Guid IdCategory { get; set; }
-        public int NumberSeat { get; set; } = 2;
-        public int Floor { get; set; } = 1;
+        public int NumberSeat { get; set; }
+        public int Floor { get; set; }
         public decimal PriceDay { get; set; }
         public Services Services { get; set; } = new Services();
     }
