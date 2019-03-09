@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsmiReception = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTuning = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTuningRooms = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panelView = new System.Windows.Forms.Panel();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiSaveToFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,14 +50,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(933, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 497);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(933, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // tsmiReception
             // 
@@ -75,7 +69,9 @@
             // tsmiTuning
             // 
             this.tsmiTuning.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiTuningRooms});
+            this.tsmiTuningRooms,
+            this.toolStripMenuItem1,
+            this.tsmiSaveToFile});
             this.tsmiTuning.Name = "tsmiTuning";
             this.tsmiTuning.Size = new System.Drawing.Size(78, 20);
             this.tsmiTuning.Text = "Настройка";
@@ -83,9 +79,17 @@
             // tsmiTuningRooms
             // 
             this.tsmiTuningRooms.Name = "tsmiTuningRooms";
-            this.tsmiTuningRooms.Size = new System.Drawing.Size(234, 22);
+            this.tsmiTuningRooms.Size = new System.Drawing.Size(314, 22);
             this.tsmiTuningRooms.Text = "Конфигурирование номеров";
             this.tsmiTuningRooms.Click += new System.EventHandler(this.tsmiTuningRooms_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 497);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(933, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
             // 
             // panelView
             // 
@@ -94,6 +98,18 @@
             this.panelView.Name = "panelView";
             this.panelView.Size = new System.Drawing.Size(933, 473);
             this.panelView.TabIndex = 2;
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(311, 6);
+            // 
+            // tsmiSaveToFile
+            // 
+            this.tsmiSaveToFile.Name = "tsmiSaveToFile";
+            this.tsmiSaveToFile.Size = new System.Drawing.Size(314, 22);
+            this.tsmiSaveToFile.Text = "Сохранить настройки в локальном файле...";
+            this.tsmiSaveToFile.Click += new System.EventHandler(this.tsmiSaveToFile_Click);
             // 
             // MainForm
             // 
@@ -124,6 +140,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiTuning;
         private System.Windows.Forms.ToolStripMenuItem tsmiTuningRooms;
         private System.Windows.Forms.Panel panelView;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSaveToFile;
     }
 }
 

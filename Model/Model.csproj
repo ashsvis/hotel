@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hotel.cs" />
+    <Compile Include="Common\SaverLoader.cs" />
+    <Compile Include="Scheme\Hotel.cs" />
     <Compile Include="Scheme\Category.cs" />
     <Compile Include="Scheme\Client.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,5 +52,6 @@
     <Compile Include="Scheme\Room.cs" />
     <Compile Include="Scheme\Service.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

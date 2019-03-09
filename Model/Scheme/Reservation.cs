@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Model
 {
+    [Serializable]
     public class Reservations : List<Reservation>
     {
         public void Add(Guid idClient, Guid idRoom, DateTime arrivalDate, DateTime departureDate, Guid idStuff)

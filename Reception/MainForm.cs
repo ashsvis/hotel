@@ -1,5 +1,6 @@
 ﻿using Model;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Reception
@@ -16,6 +17,9 @@ namespace Reception
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            var fileName = Path.ChangeExtension(Application.ExecutablePath, ".dat");
+            if (File.Exists(fileName))
+                _hotel = SaverLoader.LoadFromFile(fileName);
             CenterToScreen();
         }
 
@@ -32,6 +36,12 @@ namespace Reception
             if (panelView.Controls.Count > 1)
                 panelView.Controls.RemoveAt(0);
    
+        }
+
+        private void tsmiSaveToFile_Click(object sender, EventArgs e)
+        {
+            var fileName = Path.ChangeExtension(Application.ExecutablePath, ".dat");
+            SaverLoader.SaveToFile(fileName, _hotel);
         }
     }
 }

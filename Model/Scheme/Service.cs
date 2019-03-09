@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Model
 {
+    [Serializable]
     public class Services : List<Service>
     {
         public void Add(string name)

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Model
 {
+    [Serializable]
     public class SeatKinds : List<KindOfSeat>
     {
         public void Add(string descriptor, int seats)
@@ -10,7 +12,7 @@ namespace Model
         }
     }
 
-
+    [Serializable]
     public class KindOfSeat
     {
         public int NumberSeat { get; set; }
