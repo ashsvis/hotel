@@ -56,8 +56,8 @@
             this.tsmiReception.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiExit});
             this.tsmiReception.Name = "tsmiReception";
-            this.tsmiReception.Size = new System.Drawing.Size(76, 20);
-            this.tsmiReception.Text = "Приёмная";
+            this.tsmiReception.Size = new System.Drawing.Size(92, 20);
+            this.tsmiReception.Text = "Регистратура";
             // 
             // tsmiExit
             // 

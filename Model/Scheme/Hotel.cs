@@ -5,10 +5,15 @@ namespace Model
     [Serializable]
     public class Hotel
     {
+        public Hotel()
+        {
+            Rooms = new Rooms(this);
+        }
+
         public Categories Categories { get; set; } = new Categories();
         public Services Services { get; set; } = new Services();
         public SeatKinds Seats { get; set; } = new SeatKinds();
-        public Rooms Rooms { get; set; } = new Rooms();
+        public Rooms Rooms { get; set; }
 
         public void BuildData()
         {

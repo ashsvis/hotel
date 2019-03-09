@@ -8,6 +8,7 @@ namespace Reception
     {
         Hotel _hotel;
         int _floor;
+        RoomOrdered _ordered = RoomOrdered.ByFloor;
 
         // Свойство, хранящее отображаемый объект модели данных
         public Rooms Rooms { get; private set; }
@@ -16,6 +17,7 @@ namespace Reception
         {
             InitializeComponent();
         }
+
         //Занесение данных из Rooms в контролы
         public void Build(Hotel hotel)
         {
@@ -41,7 +43,7 @@ namespace Reception
                 var hotelNode = new FloorTreeNode("Гостиница");
                 tvFloors.Nodes.Add(hotelNode);
                 // сформируем группы номеров по этажам
-                foreach (var floor in Rooms.GroupBy(f => f.Floor))
+                foreach (var floor in Rooms.OrderBy(f => f.Floor).GroupBy(f => f.Floor))
                 {
                     // добавляем узы этажей
                     var floorNode = new FloorTreeNode(string.Format($"{floor.Key} этаж")) { Floor = floor.Key };
@@ -69,7 +71,7 @@ namespace Reception
         private void tsbAddRoom_Click(object sender, System.EventArgs e)
         {
             var frm = new RoomForm(_hotel); // создаем форму
-            frm.Build(new Room()); // создаём "пустую" комнату и заполняем контролы формы
+            frm.Build(new Room(_hotel)); // создаём "пустую" комнату и заполняем контролы формы
             // показываем форму в диалоге
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
@@ -87,14 +89,13 @@ namespace Reception
         private void dgvRooms_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
             // получаем список комнат с фильтром по этажу
-            var filtered = Rooms.FilteredByFloor(_floor);
+            var filtered = Rooms.FilteredByFloor(_floor, _ordered);
             // для каждого столбца виртуальной таблицы
             switch (e.ColumnIndex)
             {
                 case 0: // категория номера
-                    var category = _hotel.Categories.FirstOrDefault(item => 
-                                    e.RowIndex < filtered.Count && item.IdCategory == filtered[e.RowIndex].IdCategory);
-                    e.Value = category != null ? category.NameCategory : "(нет данных)";
+                    var category = _hotel.Categories[filtered[e.RowIndex].IdCategory];
+                    e.Value = category.NameCategory;
                     break;
                 case 1: // количество гостей
                     e.Value = filtered[e.RowIndex].NumberSeat;
@@ -130,7 +131,7 @@ namespace Reception
         private void tsbChangeRoom_Click(object sender, System.EventArgs e)
         {
             var frm = new RoomForm(_hotel); // создаем форму
-            var filtered = Rooms.FilteredByFloor(_floor); // получаем отфильтрованный по этажам список комнат
+            var filtered = Rooms.FilteredByFloor(_floor, _ordered); // получаем отфильтрованный по этажам список комнат
             frm.Build(filtered[dgvRooms.SelectedRows[0].Index]); // заполняем контролы формы параметрами выбранной комнаты
             // вызываем форму на редактирование
             if (frm.ShowDialog(this) == DialogResult.OK)
@@ -150,7 +151,7 @@ namespace Reception
             if (MessageBox.Show(this, "Удалить номер?", "Удаление номера", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                var filtered = Rooms.FilteredByFloor(_floor); // получаем отфильтрованный по этажам список комнат
+                var filtered = Rooms.FilteredByFloor(_floor, _ordered); // получаем отфильтрованный по этажам список комнат
                 // получаем комнату из этого списка
                 var room = filtered[dgvRooms.SelectedRows[0].Index];
                 // удаляем комнату из списка комнат
@@ -178,6 +179,29 @@ namespace Reception
             dgvRooms.Invalidate();
         }
 
+        private void dgvRooms_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    _ordered = RoomOrdered.ByCategory;
+                    break;
+                case 1:
+                    _ordered = RoomOrdered.ByNumberSeat;
+                    break;
+                case 2:
+                    _ordered = RoomOrdered.ByFloor;
+                    break;
+                case 3:
+                    _ordered = RoomOrdered.ByPriceDay;
+                    break;
+                default:
+                    _ordered = RoomOrdered.None;
+                    break;
+            }
+            // просим перерисовать таблицу
+            dgvRooms.Invalidate();
+        }
     }
 
     /// <summary>

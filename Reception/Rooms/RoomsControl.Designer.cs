@@ -156,6 +156,7 @@
             this.dgvRooms.TabIndex = 0;
             this.dgvRooms.VirtualMode = true;
             this.dgvRooms.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvRooms_CellValueNeeded);
+            this.dgvRooms.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRooms_ColumnHeaderMouseClick);
             this.dgvRooms.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRooms_RowEnter);
             // 
             // Column1
