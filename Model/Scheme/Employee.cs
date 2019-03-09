@@ -6,9 +6,16 @@ namespace Model
     [Serializable]
     public class RegistryStaff: List<Employee>
     {
+        private readonly Hotel _hotel;
+
+        public RegistryStaff(Hotel hotel)
+        {
+            _hotel = hotel;
+        }
+
         public void Add(string surname, string name, string lastname, string phoneNumber)
         {
-            base.Add(new Employee
+            base.Add(new Employee(_hotel)
             {
                 Surname = surname,
                 Name = name,
@@ -26,6 +33,13 @@ namespace Model
     [Serializable]
     public class Employee
     {
+        private readonly Hotel _hotel;
+
+        public Employee(Hotel hotel)
+        {
+            _hotel = hotel;
+        }
+
         public Guid IdEmployee { get; set; } = Guid.NewGuid();
         public string Surname { get; set; }
         public string Name { get; set; }

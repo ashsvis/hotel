@@ -34,14 +34,22 @@ namespace Reception
             rc.Build(_hotel);
             panelView.Controls.Add(rc);
             if (panelView.Controls.Count > 1)
-                panelView.Controls.RemoveAt(0);
-   
+                panelView.Controls.RemoveAt(0); 
         }
 
         private void tsmiSaveToFile_Click(object sender, EventArgs e)
         {
             var fileName = Path.ChangeExtension(Application.ExecutablePath, ".dat");
             SaverLoader.SaveToFile(fileName, _hotel);
+        }
+
+        private void tsmiEmployees_Click(object sender, EventArgs e)
+        {
+            var rc = new EmployeesControl() { Dock = DockStyle.Fill };
+            rc.Build(_hotel);
+            panelView.Controls.Add(rc);
+            if (panelView.Controls.Count > 1)
+                panelView.Controls.RemoveAt(0);
         }
     }
 }

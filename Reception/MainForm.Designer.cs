@@ -37,6 +37,7 @@
             this.panelView = new System.Windows.Forms.Panel();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSaveToFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiEmployees = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +71,7 @@
             // 
             this.tsmiTuning.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiTuningRooms,
+            this.tsmiEmployees,
             this.toolStripMenuItem1,
             this.tsmiSaveToFile});
             this.tsmiTuning.Name = "tsmiTuning";
@@ -80,7 +82,7 @@
             // 
             this.tsmiTuningRooms.Name = "tsmiTuningRooms";
             this.tsmiTuningRooms.Size = new System.Drawing.Size(314, 22);
-            this.tsmiTuningRooms.Text = "Конфигурирование номеров";
+            this.tsmiTuningRooms.Text = "Номерной фонд";
             this.tsmiTuningRooms.Click += new System.EventHandler(this.tsmiTuningRooms_Click);
             // 
             // statusStrip1
@@ -110,6 +112,13 @@
             this.tsmiSaveToFile.Size = new System.Drawing.Size(314, 22);
             this.tsmiSaveToFile.Text = "Сохранить настройки в локальном файле...";
             this.tsmiSaveToFile.Click += new System.EventHandler(this.tsmiSaveToFile_Click);
+            // 
+            // tsmiEmployees
+            // 
+            this.tsmiEmployees.Name = "tsmiEmployees";
+            this.tsmiEmployees.Size = new System.Drawing.Size(314, 22);
+            this.tsmiEmployees.Text = "Данные сотрудников";
+            this.tsmiEmployees.Click += new System.EventHandler(this.tsmiEmployees_Click);
             // 
             // MainForm
             // 
@@ -142,6 +151,7 @@
         private System.Windows.Forms.Panel panelView;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem tsmiSaveToFile;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEmployees;
     }
 }
 

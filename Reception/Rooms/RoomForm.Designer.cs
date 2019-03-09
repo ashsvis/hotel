@@ -188,8 +188,10 @@
             // 
             // RoomForm
             // 
+            this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(325, 327);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
