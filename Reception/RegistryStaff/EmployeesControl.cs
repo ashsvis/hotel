@@ -35,6 +35,7 @@ namespace Reception
         private void dgvEmployees_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
             var sorted = _staff.SortedBy(_ordered);
+            if (sorted.Count == 0) return;
             // для каждого столбца виртуальной таблицы
             switch (e.ColumnIndex)
             {

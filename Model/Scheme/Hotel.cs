@@ -41,6 +41,41 @@ namespace Model
         }
 
         /// <summary>
+        /// Проверка на дублирование данных паспорта клиента
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="passport"></param>
+        public void CheckClientPassport(Client client, string passport)
+        {
+            if (Clients.Any(item => item != client && item.Passport == passport))
+                throw new Exception("Этот номер паспорта постояльца уже используется!");
+        }
+
+        /// <summary>
+        /// Проверка на дублирование полного имени клиента
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="surname"></param>
+        /// <param name="name"></param>
+        /// <param name="lastname"></param>
+        public void CheckClientFullName(Client client, string surname, string name, string lastname)
+        {
+            if (Clients.Any(item => item != client && item.Surname == surname && item.Name == name && item.LastName == lastname))
+                throw new Exception("Фамилия, имя и отчество постояльца уже используется!");
+        }
+
+        /// <summary>
+        /// Проверка на дублирование номера телефона клиента
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="phoneNumber"></param>
+        public void CheckClientPhoneNumber(Client client, string phoneNumber)
+        {
+            if (Clients.Any(item => item != client && item.PhoneNumber == phoneNumber))
+                throw new Exception("Этот номер телефона постояльца уже используется!");
+        }
+
+        /// <summary>
         /// Проверка на дублирование полного имени работника
         /// </summary>
         /// <param name="employee"></param>
@@ -54,7 +89,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Проверка на дублирование номера телефона
+        /// Проверка на дублирование номера телефона сотрудника
         /// </summary>
         /// <param name="employee"></param>
         /// <param name="phoneNumber"></param>

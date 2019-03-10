@@ -32,12 +32,16 @@
             this.tsmiReception = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTuning = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiTuningRooms = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEmployees = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTuningRooms = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSaveToFile = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panelView = new System.Windows.Forms.Panel();
+            this.tsmiClients = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiArrivals = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiReservations = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +59,10 @@
             // tsmiReception
             // 
             this.tsmiReception.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiClients,
+            this.tsmiArrivals,
+            this.tsmiReservations,
+            this.toolStripMenuItem2,
             this.tsmiExit});
             this.tsmiReception.Name = "tsmiReception";
             this.tsmiReception.Size = new System.Drawing.Size(92, 20);
@@ -63,7 +71,7 @@
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(108, 22);
+            this.tsmiExit.Size = new System.Drawing.Size(180, 22);
             this.tsmiExit.Text = "Выход";
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
@@ -78,19 +86,19 @@
             this.tsmiTuning.Size = new System.Drawing.Size(78, 20);
             this.tsmiTuning.Text = "Настройка";
             // 
-            // tsmiTuningRooms
-            // 
-            this.tsmiTuningRooms.Name = "tsmiTuningRooms";
-            this.tsmiTuningRooms.Size = new System.Drawing.Size(314, 22);
-            this.tsmiTuningRooms.Text = "Номерной фонд";
-            this.tsmiTuningRooms.Click += new System.EventHandler(this.tsmiTuningRooms_Click);
-            // 
             // tsmiEmployees
             // 
             this.tsmiEmployees.Name = "tsmiEmployees";
             this.tsmiEmployees.Size = new System.Drawing.Size(314, 22);
             this.tsmiEmployees.Text = "Сотрудники";
             this.tsmiEmployees.Click += new System.EventHandler(this.tsmiEmployees_Click);
+            // 
+            // tsmiTuningRooms
+            // 
+            this.tsmiTuningRooms.Name = "tsmiTuningRooms";
+            this.tsmiTuningRooms.Size = new System.Drawing.Size(314, 22);
+            this.tsmiTuningRooms.Text = "Номерной фонд";
+            this.tsmiTuningRooms.Click += new System.EventHandler(this.tsmiTuningRooms_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -119,6 +127,30 @@
             this.panelView.Name = "panelView";
             this.panelView.Size = new System.Drawing.Size(933, 473);
             this.panelView.TabIndex = 2;
+            // 
+            // tsmiClients
+            // 
+            this.tsmiClients.Name = "tsmiClients";
+            this.tsmiClients.Size = new System.Drawing.Size(180, 22);
+            this.tsmiClients.Text = "Постояльцы";
+            this.tsmiClients.Click += new System.EventHandler(this.tsmiClients_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // tsmiArrivals
+            // 
+            this.tsmiArrivals.Name = "tsmiArrivals";
+            this.tsmiArrivals.Size = new System.Drawing.Size(180, 22);
+            this.tsmiArrivals.Text = "Заезды";
+            // 
+            // tsmiReservations
+            // 
+            this.tsmiReservations.Name = "tsmiReservations";
+            this.tsmiReservations.Size = new System.Drawing.Size(180, 22);
+            this.tsmiReservations.Text = "Бронирование";
             // 
             // MainForm
             // 
@@ -152,6 +184,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem tsmiSaveToFile;
         private System.Windows.Forms.ToolStripMenuItem tsmiEmployees;
+        private System.Windows.Forms.ToolStripMenuItem tsmiClients;
+        private System.Windows.Forms.ToolStripMenuItem tsmiArrivals;
+        private System.Windows.Forms.ToolStripMenuItem tsmiReservations;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
     }
 }
 

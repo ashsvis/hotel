@@ -90,6 +90,7 @@ namespace Reception
         {
             // получаем список комнат с фильтром по этажу
             var filtered = Rooms.FilteredByFloor(_floor, _ordered);
+            if (filtered.Count == 0) return;
             // для каждого столбца виртуальной таблицы
             switch (e.ColumnIndex)
             {

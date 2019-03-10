@@ -32,9 +32,15 @@ namespace Reception
         {
             var rc = new RoomsControl() { Dock = DockStyle.Fill };
             rc.Build(_hotel);
+            CreateAndShowUserControl(rc);
+        }
+
+        private void CreateAndShowUserControl(UserControl rc)
+        {
+            if (panelView.Controls.Contains(rc)) return;
             panelView.Controls.Add(rc);
             if (panelView.Controls.Count > 1)
-                panelView.Controls.RemoveAt(0); 
+                panelView.Controls.RemoveAt(0);
         }
 
         private void tsmiSaveToFile_Click(object sender, EventArgs e)
@@ -47,9 +53,14 @@ namespace Reception
         {
             var rc = new EmployeesControl() { Dock = DockStyle.Fill };
             rc.Build(_hotel);
-            panelView.Controls.Add(rc);
-            if (panelView.Controls.Count > 1)
-                panelView.Controls.RemoveAt(0);
+            CreateAndShowUserControl(rc);
+        }
+
+        private void tsmiClients_Click(object sender, EventArgs e)
+        {
+            var rc = new ClientsControl() { Dock = DockStyle.Fill };
+            rc.Build(_hotel);
+            CreateAndShowUserControl(rc);
         }
     }
 }
