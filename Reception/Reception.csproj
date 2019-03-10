@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arrivals\ArrivalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Arrivals\ArrivalForm.Designer.cs">
+      <DependentUpon>ArrivalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Arrivals\ArrivalsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Arrivals\ArrivalsControl.Designer.cs">
+      <DependentUpon>ArrivalsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clients\ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +102,12 @@
     <Compile Include="Rooms\RoomsControl.Designer.cs">
       <DependentUpon>RoomsControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Arrivals\ArrivalForm.resx">
+      <DependentUpon>ArrivalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Arrivals\ArrivalsControl.resx">
+      <DependentUpon>ArrivalsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Clients\ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </EmbeddedResource>

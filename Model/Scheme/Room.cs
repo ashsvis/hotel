@@ -117,5 +117,11 @@ namespace Model
         public decimal PriceDay { get; set; }
         public Services Services { get; set; } = new Services();
         public string RoomNumber { get; set; }
+
+        public override string ToString()
+        {
+            var category = _hotel.Categories[IdCategory];
+            return string.Format($"{category} № {RoomNumber}, {NumberSeat}-х местный {Floor} этаж, {PriceDay} руб.");
+        }
     }
 }

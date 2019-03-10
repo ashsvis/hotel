@@ -43,22 +43,22 @@ namespace Model
             switch (ordered)
             {
                 case EmployeeOrdered.BySurname:
-                    return OrderedBySurname(this);
+                    return OrderedBySurname();
                 case EmployeeOrdered.ByPhone:
-                    return OrderedByPhone(this);
+                    return OrderedByPhone();
                 default:
                     return this;
             }
         }
 
-        public List<Employee> OrderedBySurname(List<Employee> staff)
+        public List<Employee> OrderedBySurname()
         {
-            return ((IEnumerable<Employee>)staff).OrderBy(item => string.Concat(item.Surname, item.Name, item.LastName)).ToList();
+            return ((IEnumerable<Employee>)this).OrderBy(item => string.Concat(item.Surname, item.Name, item.LastName)).ToList();
         }
 
-        public List<Employee> OrderedByPhone(List<Employee> staff)
+        public List<Employee> OrderedByPhone()
         {
-            return ((IEnumerable<Employee>)staff).OrderBy(item => item.PhoneNumber).ToList();
+            return ((IEnumerable<Employee>)this).OrderBy(item => item.PhoneNumber).ToList();
         }
     }
 

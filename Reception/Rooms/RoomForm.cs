@@ -18,7 +18,7 @@ namespace Reception
             InitializeComponent();
             _hotel = hotel;
             // заполнение списка категорий
-            foreach (var category in hotel.Categories)
+            foreach (var category in hotel.Categories.OrderBy(item => item.Value.NameCategory))
                 cbCategory.Items.Add(category.Value);
             // заполнение списка мест для номеров
             foreach (var seat in hotel.Seats)

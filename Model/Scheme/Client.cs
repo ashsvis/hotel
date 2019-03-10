@@ -43,36 +43,36 @@ namespace Model
             switch (ordered)
             {
                 case ClientOrdered.BySurname:
-                    return OrderedBySurname(this);
+                    return OrderedBySurname();
                 case ClientOrdered.ByPhone:
-                    return OrderedByPhone(this);
+                    return OrderedByPhone();
                 case ClientOrdered.ByBirthday:
-                    return OrderedByBirthday(this);
+                    return OrderedByBirthday();
                 case ClientOrdered.ByCity:
-                    return OrderedByCity(this);
+                    return OrderedByCity();
                 default:
                     return this;
             }
         }
 
-        public List<Client> OrderedBySurname(List<Client> clients)
+        public List<Client> OrderedBySurname()
         {
-            return ((IEnumerable<Client>)clients).OrderBy(item => string.Concat(item.Surname, item.Name, item.LastName)).ToList();
+            return ((IEnumerable<Client>)this).OrderBy(item => string.Concat(item.Surname, item.Name, item.LastName)).ToList();
         }
 
-        public List<Client> OrderedByPhone(List<Client> clients)
+        public List<Client> OrderedByPhone()
         {
-            return ((IEnumerable<Client>)clients).OrderBy(item => item.PhoneNumber).ToList();
+            return ((IEnumerable<Client>)this).OrderBy(item => item.PhoneNumber).ToList();
         }
 
-        public List<Client> OrderedByBirthday(List<Client> clients)
+        public List<Client> OrderedByBirthday()
         {
-            return ((IEnumerable<Client>)clients).OrderBy(item => item.Birthday).ToList();
+            return ((IEnumerable<Client>)this).OrderBy(item => item.Birthday).ToList();
         }
 
-        public List<Client> OrderedByCity(List<Client> clients)
+        public List<Client> OrderedByCity()
         {
-            return ((IEnumerable<Client>)clients).OrderBy(item => item.City).ToList();
+            return ((IEnumerable<Client>)this).OrderBy(item => item.City).ToList();
         }
     }
 
@@ -88,5 +88,10 @@ namespace Model
         public string PhoneNumber { get; set; }
         public string Passport { get; set; }
         public int NumberChild { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format($"{Surname} {Name} {LastName}");
+        }
     }
 }

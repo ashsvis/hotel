@@ -80,6 +80,7 @@
             this.tsmiArrivals.Name = "tsmiArrivals";
             this.tsmiArrivals.Size = new System.Drawing.Size(180, 22);
             this.tsmiArrivals.Text = "Заселение";
+            this.tsmiArrivals.Click += new System.EventHandler(this.tsmiArrivals_Click);
             // 
             // tsmiReservations
             // 

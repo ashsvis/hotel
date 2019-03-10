@@ -62,5 +62,12 @@ namespace Reception
             rc.Build(_hotel);
             CreateAndShowUserControl(rc);
         }
+
+        private void tsmiArrivals_Click(object sender, EventArgs e)
+        {
+            var rc = new ArrivalsControl() { Dock = DockStyle.Fill };
+            rc.Build(_hotel);
+            CreateAndShowUserControl(rc);
+        }
     }
 }
