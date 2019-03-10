@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scheme\Arrival.cs" />
     <Compile Include="Common\SaverLoader.cs" />
     <Compile Include="Scheme\Hotel.cs" />
     <Compile Include="Scheme\Category.cs" />

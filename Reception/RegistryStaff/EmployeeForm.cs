@@ -41,7 +41,7 @@ namespace Reception
             Data.Surname = tbSurname.Text;
             Data.Name = tbName.Text;
             Data.LastName = tbLastName.Text;
-            _hotel.CheckPhoneNumber(Data, tbPhoneNumber.Text);
+            _hotel.CheckEmployeePhoneNumber(Data, tbPhoneNumber.Text);
             Data.PhoneNumber = tbPhoneNumber.Text;
         }
 

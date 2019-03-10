@@ -17,6 +17,9 @@ namespace Model
         public SeatKinds Seats { get; set; } = new SeatKinds();
         public Rooms Rooms { get; set; }
         public RegistryStaff RegistryStaff { get; set; }
+        public Clients Clients { get; set; } = new Clients();
+        public Reservations Reservations { get; set; } = new Reservations();
+        public Arrivals Arrivals { get; set; } = new Arrivals();
 
         public void BuildData()
         {
@@ -55,10 +58,10 @@ namespace Model
         /// </summary>
         /// <param name="employee"></param>
         /// <param name="phoneNumber"></param>
-        public void CheckPhoneNumber(Employee employee, string phoneNumber)
+        public void CheckEmployeePhoneNumber(Employee employee, string phoneNumber)
         {
             if (RegistryStaff.Any(item => item != employee && item.PhoneNumber == phoneNumber))
-                throw new Exception("Этот номер телефона уже используется!");
+                throw new Exception("Этот номер телефона сотрудника уже используется!");
         }
 
         /// <summary>
