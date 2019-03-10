@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using Model;
 
 namespace Reception
@@ -7,6 +8,7 @@ namespace Reception
     {
         Hotel _hotel;
         RegistryStaff _staff;
+        EmployeeOrdered _ordered = EmployeeOrdered.BySurname;
 
         public EmployeesControl()
         {
@@ -32,20 +34,21 @@ namespace Reception
 
         private void dgvEmployees_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
+            var sorted = _staff.SortedBy(_ordered);
             // для каждого столбца виртуальной таблицы
             switch (e.ColumnIndex)
             {
                 case 0: // фамилия
-                    e.Value = _staff[e.RowIndex].Surname;
+                    e.Value = sorted[e.RowIndex].Surname;
                     break;
                 case 1: // имя
-                    e.Value = _staff[e.RowIndex].Name;
+                    e.Value = sorted[e.RowIndex].Name;
                     break;
                 case 2: // отчество
-                    e.Value = _staff[e.RowIndex].LastName;
+                    e.Value = sorted[e.RowIndex].LastName;
                     break;
                 case 3: // номер телефона
-                    e.Value = _staff[e.RowIndex].PhoneNumber;
+                    e.Value = sorted[e.RowIndex].PhoneNumber;
                     break;
             }
         }
@@ -66,7 +69,8 @@ namespace Reception
         private void tsbChangeEmployee_Click(object sender, System.EventArgs e)
         {
             var frm = new EmployeeForm(_hotel); // создаем форму
-            frm.Build(_staff[dgvEmployees.SelectedRows[0].Index]); // заполняем контролы формы параметрами выбранного сотрудника
+            var sorted = _staff.SortedBy(_ordered);
+            frm.Build(sorted[dgvEmployees.SelectedRows[0].Index]); // заполняем контролы формы параметрами выбранного сотрудника
             // вызываем форму на редактирование
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
@@ -80,7 +84,8 @@ namespace Reception
             if (MessageBox.Show(this, "Удалить данные сотрудника?", "Удаление данных сотрудника",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                var employee = _staff[dgvEmployees.SelectedRows[0].Index];
+                var sorted = _staff.SortedBy(_ordered);
+                var employee = sorted[dgvEmployees.SelectedRows[0].Index];
                 _staff.Remove(employee);
                 // обновляем данные интерфейса
                 FillTable();
@@ -90,6 +95,26 @@ namespace Reception
         private void dgvEmployees_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             tsbChangeEmployee.Enabled = tsbDeleteEmployee.Enabled = true;
+        }
+
+        private void dgvEmployees_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                case 1:
+                case 2:
+                    _ordered = EmployeeOrdered.BySurname;
+                    break;
+                case 3:
+                    _ordered = EmployeeOrdered.ByPhone;
+                    break;
+                default:
+                    _ordered = EmployeeOrdered.None;
+                    break;
+            }
+            // просим перерисовать таблицу
+            dgvEmployees.Invalidate();
         }
     }
 }

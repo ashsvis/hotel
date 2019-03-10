@@ -23,6 +23,10 @@ namespace Reception
 
             updating++; //включаем режим обновления
 
+            tbSurname.Text = data.Surname;
+            tbName.Text = data.Name;
+            tbLastName.Text = data.LastName;
+            tbPhoneNumber.Text = data.PhoneNumber;
 
             updating--; //выключаем режим обновления
         }
@@ -31,7 +35,19 @@ namespace Reception
         public void UpdateData()
         {
             if (updating > 0) return; //мы находимся в режиме обновления, не обрабатываем
+            Data.Surname = tbSurname.Text;
+            Data.Name = tbName.Text;
+            Data.LastName = tbLastName.Text;
+            Data.PhoneNumber = tbPhoneNumber.Text;
+        }
 
+        private void tbSurname_TextChanged(object sender, System.EventArgs e)
+        {
+            UpdateData();
+            btnOk.Enabled = !string.IsNullOrWhiteSpace(tbSurname.Text) &&
+                !string.IsNullOrWhiteSpace(tbName.Text) &&
+                !string.IsNullOrWhiteSpace(tbLastName.Text) &&
+                !string.IsNullOrWhiteSpace(tbPhoneNumber.Text);
         }
     }
 }

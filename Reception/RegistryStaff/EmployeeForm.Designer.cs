@@ -80,6 +80,7 @@
             this.tbSurname.Name = "tbSurname";
             this.tbSurname.Size = new System.Drawing.Size(245, 23);
             this.tbSurname.TabIndex = 0;
+            this.tbSurname.TextChanged += new System.EventHandler(this.tbSurname_TextChanged);
             // 
             // label2
             // 
@@ -98,6 +99,7 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(245, 23);
             this.tbName.TabIndex = 1;
+            this.tbName.TextChanged += new System.EventHandler(this.tbSurname_TextChanged);
             // 
             // label3
             // 
@@ -116,6 +118,7 @@
             this.tbLastName.Name = "tbLastName";
             this.tbLastName.Size = new System.Drawing.Size(245, 23);
             this.tbLastName.TabIndex = 2;
+            this.tbLastName.TextChanged += new System.EventHandler(this.tbSurname_TextChanged);
             // 
             // label4
             // 
@@ -134,6 +137,7 @@
             this.tbPhoneNumber.Name = "tbPhoneNumber";
             this.tbPhoneNumber.Size = new System.Drawing.Size(245, 23);
             this.tbPhoneNumber.TabIndex = 3;
+            this.tbPhoneNumber.TextChanged += new System.EventHandler(this.tbSurname_TextChanged);
             // 
             // EmployeeForm
             // 

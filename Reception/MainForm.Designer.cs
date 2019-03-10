@@ -33,11 +33,11 @@
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTuning = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTuningRooms = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.panelView = new System.Windows.Forms.Panel();
+            this.tsmiEmployees = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSaveToFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiEmployees = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.panelView = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,15 +63,15 @@
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(180, 22);
+            this.tsmiExit.Size = new System.Drawing.Size(108, 22);
             this.tsmiExit.Text = "Выход";
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
             // tsmiTuning
             // 
             this.tsmiTuning.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiTuningRooms,
             this.tsmiEmployees,
+            this.tsmiTuningRooms,
             this.toolStripMenuItem1,
             this.tsmiSaveToFile});
             this.tsmiTuning.Name = "tsmiTuning";
@@ -84,6 +84,25 @@
             this.tsmiTuningRooms.Size = new System.Drawing.Size(314, 22);
             this.tsmiTuningRooms.Text = "Номерной фонд";
             this.tsmiTuningRooms.Click += new System.EventHandler(this.tsmiTuningRooms_Click);
+            // 
+            // tsmiEmployees
+            // 
+            this.tsmiEmployees.Name = "tsmiEmployees";
+            this.tsmiEmployees.Size = new System.Drawing.Size(314, 22);
+            this.tsmiEmployees.Text = "Сотрудники";
+            this.tsmiEmployees.Click += new System.EventHandler(this.tsmiEmployees_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(311, 6);
+            // 
+            // tsmiSaveToFile
+            // 
+            this.tsmiSaveToFile.Name = "tsmiSaveToFile";
+            this.tsmiSaveToFile.Size = new System.Drawing.Size(314, 22);
+            this.tsmiSaveToFile.Text = "Сохранить настройки в локальном файле...";
+            this.tsmiSaveToFile.Click += new System.EventHandler(this.tsmiSaveToFile_Click);
             // 
             // statusStrip1
             // 
@@ -100,25 +119,6 @@
             this.panelView.Name = "panelView";
             this.panelView.Size = new System.Drawing.Size(933, 473);
             this.panelView.TabIndex = 2;
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(311, 6);
-            // 
-            // tsmiSaveToFile
-            // 
-            this.tsmiSaveToFile.Name = "tsmiSaveToFile";
-            this.tsmiSaveToFile.Size = new System.Drawing.Size(314, 22);
-            this.tsmiSaveToFile.Text = "Сохранить настройки в локальном файле...";
-            this.tsmiSaveToFile.Click += new System.EventHandler(this.tsmiSaveToFile_Click);
-            // 
-            // tsmiEmployees
-            // 
-            this.tsmiEmployees.Name = "tsmiEmployees";
-            this.tsmiEmployees.Size = new System.Drawing.Size(314, 22);
-            this.tsmiEmployees.Text = "Данные сотрудников";
-            this.tsmiEmployees.Click += new System.EventHandler(this.tsmiEmployees_Click);
             // 
             // MainForm
             // 

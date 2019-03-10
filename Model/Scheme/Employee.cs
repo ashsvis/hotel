@@ -1,8 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Model
 {
+    [Serializable]
+    public enum EmployeeOrdered
+    {
+        None,
+        BySurname,
+        ByPhone,
+    }
+
     [Serializable]
     public class RegistryStaff: List<Employee>
     {
@@ -27,6 +36,29 @@ namespace Model
         public void Delete(Guid idEmployee)
         {
             base.RemoveAll(item => item.IdEmployee == idEmployee);
+        }
+
+        public List<Employee> SortedBy(EmployeeOrdered ordered = EmployeeOrdered.None)
+        {
+            switch (ordered)
+            {
+                case EmployeeOrdered.BySurname:
+                    return OrderedBySurname(this);
+                case EmployeeOrdered.ByPhone:
+                    return OrderedByPhone(this);
+                default:
+                    return this;
+            }
+        }
+
+        public List<Employee> OrderedBySurname(List<Employee> staff)
+        {
+            return ((IEnumerable<Employee>)staff).OrderBy(item => string.Concat(item.Surname, item.Name, item.LastName)).ToList();
+        }
+
+        public List<Employee> OrderedByPhone(List<Employee> staff)
+        {
+            return ((IEnumerable<Employee>)staff).OrderBy(item => item.PhoneNumber).ToList();
         }
     }
 

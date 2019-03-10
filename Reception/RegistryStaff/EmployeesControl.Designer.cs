@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeesControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbNewEmployee = new System.Windows.Forms.ToolStripButton();
             this.tsbChangeEmployee = new System.Windows.Forms.ToolStripButton();
             this.tsbDeleteEmployee = new System.Windows.Forms.ToolStripButton();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
             this.SuspendLayout();
@@ -61,8 +61,8 @@
             this.tsbNewEmployee.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewEmployee.Image")));
             this.tsbNewEmployee.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbNewEmployee.Name = "tsbNewEmployee";
-            this.tsbNewEmployee.Size = new System.Drawing.Size(109, 22);
-            this.tsbNewEmployee.Text = "Новый сотрудник";
+            this.tsbNewEmployee.Size = new System.Drawing.Size(116, 22);
+            this.tsbNewEmployee.Text = "Нанять сотрудника";
             this.tsbNewEmployee.ToolTipText = "Добавить нового сотрудника";
             this.tsbNewEmployee.Click += new System.EventHandler(this.tsbNewEmployee_Click);
             // 
@@ -85,8 +85,8 @@
             this.tsbDeleteEmployee.Image = ((System.Drawing.Image)(resources.GetObject("tsbDeleteEmployee.Image")));
             this.tsbDeleteEmployee.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDeleteEmployee.Name = "tsbDeleteEmployee";
-            this.tsbDeleteEmployee.Size = new System.Drawing.Size(121, 22);
-            this.tsbDeleteEmployee.Text = "Удалить сотрудника";
+            this.tsbDeleteEmployee.Size = new System.Drawing.Size(122, 22);
+            this.tsbDeleteEmployee.Text = "Уволить сотрудника";
             this.tsbDeleteEmployee.ToolTipText = "Удалить выбранного сотрудника";
             this.tsbDeleteEmployee.Click += new System.EventHandler(this.tsbDeleteEmployee_Click);
             // 
@@ -106,25 +106,19 @@
             this.dgvEmployees.Name = "dgvEmployees";
             this.dgvEmployees.ReadOnly = true;
             this.dgvEmployees.RowHeadersVisible = false;
+            this.dgvEmployees.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEmployees.Size = new System.Drawing.Size(691, 240);
             this.dgvEmployees.TabIndex = 3;
             this.dgvEmployees.VirtualMode = true;
             this.dgvEmployees.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvEmployees_CellValueNeeded);
+            this.dgvEmployees.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvEmployees_ColumnHeaderMouseClick);
             this.dgvEmployees.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployees_RowEnter);
             // 
-            // Column1
+            // Column4
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Column1.HeaderText = "Фамилия";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Имя";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
+            this.Column4.HeaderText = "Телефонный номер";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
             // 
             // Column3
             // 
@@ -132,11 +126,19 @@
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             // 
-            // Column4
+            // Column2
             // 
-            this.Column4.HeaderText = "Телефонный номер";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
+            this.Column2.HeaderText = "Имя";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Column1.HeaderText = "Фамилия";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
             // 
             // EmployeesControl
             // 
