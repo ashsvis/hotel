@@ -30,14 +30,62 @@ namespace Model
             Categories.Add("Апартаменты");
             Services.Add("Интернет");
             Services.Add("Телевизор");
-            Services.Add("Фен");
             Services.Add("Душевая");
+            Services.Add("Фен");
             Services.Add("Кондиционер");
             Services.Add("Мини бар");
             Services.Add("Сейф");
             Seats.Add("Двухместный", 2);
             Seats.Add("Одноместный", 1);
             Seats.Add("Трёхместный", 3);
+            for (var floor = 1; floor < 5; floor++)
+            {
+                var roomNumber = 1;
+                foreach (var category in Categories)
+                {
+                    Room room;
+                    switch (category.Value.NameCategory)
+                    {
+                        case "Эконом":
+                            for (var i = 0; i < 3; i++)
+                            {
+                                room = Rooms.Add(category.Value.IdCategory, 3, floor, 3500);
+                                room.RoomNumber = (floor*100 + roomNumber++).ToString();
+                                room.Services.AddRange(Services.Take(1));
+                            }
+                            break;
+                        case "Стандарт":
+                            for (var i = 0; i < 10; i++)
+                            {
+                                room = Rooms.Add(category.Value.IdCategory, 2, floor, 4500);
+                                room.RoomNumber = (floor * 100 + roomNumber++).ToString();
+                                room.Services.AddRange(Services.Take(3));
+                            }
+                            break;
+                        case "Семейный":
+                            for (var i = 0; i < 2; i++)
+                            {
+                                room = Rooms.Add(category.Value.IdCategory, 3, floor, 5500);
+                                room.RoomNumber = (floor * 100 + roomNumber++).ToString();
+                                room.Services.AddRange(Services.Take(5));
+                            }
+                            break;
+                        case "Люкс":
+                            for (var i = 0; i < 2; i++)
+                            {
+                                room = Rooms.Add(category.Value.IdCategory, 1, floor, 8700);
+                                room.RoomNumber = (floor * 100 + roomNumber++).ToString();
+                                room.Services.AddRange(Services);
+                            }
+                            break;
+                        case "Апартаменты":
+                            room = Rooms.Add(category.Value.IdCategory, 1, floor, 15300);
+                            room.RoomNumber = (floor * 100 + roomNumber++).ToString();
+                            room.Services.AddRange(Services);
+                            break;
+                    }
+                }
+            }
         }
 
         /// <summary>

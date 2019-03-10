@@ -30,6 +30,10 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmiReception = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiClients = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiArrivals = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiReservations = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTuning = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEmployees = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,10 +42,6 @@
             this.tsmiSaveToFile = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panelView = new System.Windows.Forms.Panel();
-            this.tsmiClients = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiArrivals = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiReservations = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +67,30 @@
             this.tsmiReception.Name = "tsmiReception";
             this.tsmiReception.Size = new System.Drawing.Size(92, 20);
             this.tsmiReception.Text = "Регистратура";
+            // 
+            // tsmiClients
+            // 
+            this.tsmiClients.Name = "tsmiClients";
+            this.tsmiClients.Size = new System.Drawing.Size(180, 22);
+            this.tsmiClients.Text = "Оформление";
+            this.tsmiClients.Click += new System.EventHandler(this.tsmiClients_Click);
+            // 
+            // tsmiArrivals
+            // 
+            this.tsmiArrivals.Name = "tsmiArrivals";
+            this.tsmiArrivals.Size = new System.Drawing.Size(180, 22);
+            this.tsmiArrivals.Text = "Заселение";
+            // 
+            // tsmiReservations
+            // 
+            this.tsmiReservations.Name = "tsmiReservations";
+            this.tsmiReservations.Size = new System.Drawing.Size(180, 22);
+            this.tsmiReservations.Text = "Бронирование";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // tsmiExit
             // 
@@ -127,30 +151,6 @@
             this.panelView.Name = "panelView";
             this.panelView.Size = new System.Drawing.Size(933, 473);
             this.panelView.TabIndex = 2;
-            // 
-            // tsmiClients
-            // 
-            this.tsmiClients.Name = "tsmiClients";
-            this.tsmiClients.Size = new System.Drawing.Size(180, 22);
-            this.tsmiClients.Text = "Постояльцы";
-            this.tsmiClients.Click += new System.EventHandler(this.tsmiClients_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
-            // 
-            // tsmiArrivals
-            // 
-            this.tsmiArrivals.Name = "tsmiArrivals";
-            this.tsmiArrivals.Size = new System.Drawing.Size(180, 22);
-            this.tsmiArrivals.Text = "Заезды";
-            // 
-            // tsmiReservations
-            // 
-            this.tsmiReservations.Name = "tsmiReservations";
-            this.tsmiReservations.Size = new System.Drawing.Size(180, 22);
-            this.tsmiReservations.Text = "Бронирование";
             // 
             // MainForm
             // 

@@ -46,16 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientForm.cs">
+    <Compile Include="Clients\ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClientForm.Designer.cs">
+    <Compile Include="Clients\ClientForm.Designer.cs">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ClientsControl.cs">
+    <Compile Include="Clients\ClientsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ClientsControl.Designer.cs">
+    <Compile Include="Clients\ClientsControl.Designer.cs">
       <DependentUpon>ClientsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="RegistryStaff\EmployeeForm.cs">
@@ -90,10 +90,10 @@
     <Compile Include="Rooms\RoomsControl.Designer.cs">
       <DependentUpon>RoomsControl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ClientForm.resx">
+    <EmbeddedResource Include="Clients\ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ClientsControl.resx">
+    <EmbeddedResource Include="Clients\ClientsControl.resx">
       <DependentUpon>ClientsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RegistryStaff\EmployeeForm.resx">

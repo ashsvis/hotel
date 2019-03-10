@@ -25,14 +25,34 @@ namespace Reception
 
             updating++; //включаем режим обновления
 
-            tbSurname.Text = data.Surname;
-            tbName.Text = data.Name;
-            tbLastName.Text = data.LastName;
-            tbPhoneNumber.Text = data.PhoneNumber;
-            dtpBirthday.Value = data.Birthday;
-            tbCity.Text = data.City;
-            tbPassport.Text = data.Passport;
-            nudNumberChild.Value = data.NumberChild;
+            if (string.IsNullOrWhiteSpace(data.Surname))
+            {
+                var namesGenerator = new NamesGenerator();
+                namesGenerator.Build();
+                var name = namesGenerator.GetFullName();
+                tbSurname.Text = name.Item1;
+                tbName.Text = name.Item2;
+                tbLastName.Text = name.Item3;
+                var phoneGenerator = new PhoneNumberGenerator();
+                tbPhoneNumber.Text = phoneGenerator.GetNumber();
+                var dateGenerator = new BirthdayGenerator();
+                dtpBirthday.Value = dateGenerator.GetDate();
+                tbCity.Text = "Москва";
+                var pasportGenerator = new PassportNumberGenerator();
+                tbPassport.Text = pasportGenerator.GetNumber();
+                nudNumberChild.Value = 0;
+            }
+            else
+            {
+                tbSurname.Text = data.Surname;
+                tbName.Text = data.Name;
+                tbLastName.Text = data.LastName;
+                tbPhoneNumber.Text = data.PhoneNumber;
+                dtpBirthday.Value = data.Birthday;
+                tbCity.Text = data.City;
+                tbPassport.Text = data.Passport;
+                nudNumberChild.Value = data.NumberChild;
+            }
 
             updating--; //выключаем режим обновления
         }

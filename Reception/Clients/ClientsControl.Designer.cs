@@ -29,18 +29,14 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClientsControl));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClientsControl));
             this.dgvClients = new System.Windows.Forms.DataGridView();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tsbNewClient = new System.Windows.Forms.ToolStripButton();
-            this.tsbChangeClient = new System.Windows.Forms.ToolStripButton();
-            this.tsbDeleteClient = new System.Windows.Forms.ToolStripButton();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +45,10 @@
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tsbNewClient = new System.Windows.Forms.ToolStripButton();
+            this.tsbChangeClient = new System.Windows.Forms.ToolStripButton();
+            this.tsbDeleteClient = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClients)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -88,53 +88,6 @@
             this.dgvClients.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvClients_CellValueNeeded);
             this.dgvClients.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvClients_ColumnHeaderMouseClick);
             this.dgvClients.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClients_RowEnter);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsbNewClient,
-            this.tsbChangeClient,
-            this.tsbDeleteClient});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(836, 25);
-            this.toolStrip1.TabIndex = 4;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // tsbNewClient
-            // 
-            this.tsbNewClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbNewClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewClient.Image")));
-            this.tsbNewClient.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbNewClient.Name = "tsbNewClient";
-            this.tsbNewClient.Size = new System.Drawing.Size(165, 22);
-            this.tsbNewClient.Text = "Регистрировать постояльца";
-            this.tsbNewClient.ToolTipText = "Добавить нового постояльца";
-            this.tsbNewClient.Click += new System.EventHandler(this.tsbNewClient_Click);
-            // 
-            // tsbChangeClient
-            // 
-            this.tsbChangeClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbChangeClient.Enabled = false;
-            this.tsbChangeClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbChangeClient.Image")));
-            this.tsbChangeClient.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbChangeClient.Name = "tsbChangeClient";
-            this.tsbChangeClient.Size = new System.Drawing.Size(109, 22);
-            this.tsbChangeClient.Text = "Изменить данные";
-            this.tsbChangeClient.ToolTipText = "Изменить данные постояльца";
-            this.tsbChangeClient.Click += new System.EventHandler(this.tsbChangeClient_Click);
-            // 
-            // tsbDeleteClient
-            // 
-            this.tsbDeleteClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbDeleteClient.Enabled = false;
-            this.tsbDeleteClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbDeleteClient.Image")));
-            this.tsbDeleteClient.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbDeleteClient.Name = "tsbDeleteClient";
-            this.tsbDeleteClient.Size = new System.Drawing.Size(131, 22);
-            this.tsbDeleteClient.Text = "Удалить регистрацию";
-            this.tsbDeleteClient.ToolTipText = "Удалить регистрацию постояльца";
-            this.tsbDeleteClient.Click += new System.EventHandler(this.tsbDeleteClient_Click);
             // 
             // Column1
             // 
@@ -195,6 +148,53 @@
             this.Column7.HeaderText = "Количество детей";
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbNewClient,
+            this.tsbChangeClient,
+            this.tsbDeleteClient});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(836, 25);
+            this.toolStrip1.TabIndex = 4;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // tsbNewClient
+            // 
+            this.tsbNewClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbNewClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewClient.Image")));
+            this.tsbNewClient.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbNewClient.Name = "tsbNewClient";
+            this.tsbNewClient.Size = new System.Drawing.Size(90, 22);
+            this.tsbNewClient.Text = "Новый клиент";
+            this.tsbNewClient.ToolTipText = "Добавить нового постояльца";
+            this.tsbNewClient.Click += new System.EventHandler(this.tsbNewClient_Click);
+            // 
+            // tsbChangeClient
+            // 
+            this.tsbChangeClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbChangeClient.Enabled = false;
+            this.tsbChangeClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbChangeClient.Image")));
+            this.tsbChangeClient.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbChangeClient.Name = "tsbChangeClient";
+            this.tsbChangeClient.Size = new System.Drawing.Size(109, 22);
+            this.tsbChangeClient.Text = "Изменить данные";
+            this.tsbChangeClient.ToolTipText = "Изменить данные постояльца";
+            this.tsbChangeClient.Click += new System.EventHandler(this.tsbChangeClient_Click);
+            // 
+            // tsbDeleteClient
+            // 
+            this.tsbDeleteClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbDeleteClient.Enabled = false;
+            this.tsbDeleteClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbDeleteClient.Image")));
+            this.tsbDeleteClient.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbDeleteClient.Name = "tsbDeleteClient";
+            this.tsbDeleteClient.Size = new System.Drawing.Size(131, 22);
+            this.tsbDeleteClient.Text = "Удалить регистрацию";
+            this.tsbDeleteClient.ToolTipText = "Удалить регистрацию постояльца";
+            this.tsbDeleteClient.Click += new System.EventHandler(this.tsbDeleteClient_Click);
             // 
             // ClientsControl
             // 
