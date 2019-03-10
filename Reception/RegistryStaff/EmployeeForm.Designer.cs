@@ -54,7 +54,6 @@
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Enabled = false;
             this.btnOk.Location = new System.Drawing.Point(169, 140);
             this.btnOk.Name = "btnOk";
@@ -62,6 +61,7 @@
             this.btnOk.TabIndex = 4;
             this.btnOk.Text = "Ввод";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // label1
             // 

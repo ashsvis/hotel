@@ -8,7 +8,7 @@ namespace Reception
     {
         Hotel _hotel;
         int _floor;
-        RoomOrdered _ordered = RoomOrdered.ByFloor;
+        RoomOrdered _ordered = RoomOrdered.ByRoomNumber;
 
         // Свойство, хранящее отображаемый объект модели данных
         public Rooms Rooms { get; private set; }
@@ -93,20 +93,23 @@ namespace Reception
             // для каждого столбца виртуальной таблицы
             switch (e.ColumnIndex)
             {
-                case 0: // категория номера
+                case 0: // номер комнаты
+                    e.Value = filtered[e.RowIndex].RoomNumber;
+                    break;
+                case 1: // категория номера
                     var category = _hotel.Categories[filtered[e.RowIndex].IdCategory];
                     e.Value = category.NameCategory;
                     break;
-                case 1: // количество гостей
+                case 2: // количество гостей
                     e.Value = filtered[e.RowIndex].NumberSeat;
                     break;
-                case 2: // номер этажа
+                case 3: // номер этажа
                     e.Value = filtered[e.RowIndex].Floor;
                     break;
-                case 3: // стоимость номера за сутки
+                case 4: // стоимость номера за сутки
                     e.Value = filtered[e.RowIndex].PriceDay + " руб.";
                     break;
-                case 4: // количество подключенных услуг в номере
+                case 5: // количество подключенных услуг в номере
                     e.Value = filtered[e.RowIndex].Services.Count;
                     break;
             }
@@ -184,15 +187,18 @@ namespace Reception
             switch (e.ColumnIndex)
             {
                 case 0:
-                    _ordered = RoomOrdered.ByCategory;
+                    _ordered = RoomOrdered.ByRoomNumber;
                     break;
                 case 1:
-                    _ordered = RoomOrdered.ByNumberSeat;
+                    _ordered = RoomOrdered.ByCategory;
                     break;
                 case 2:
-                    _ordered = RoomOrdered.ByFloor;
+                    _ordered = RoomOrdered.ByNumberSeat;
                     break;
                 case 3:
+                    _ordered = RoomOrdered.ByFloor;
+                    break;
+                case 4:
                     _ordered = RoomOrdered.ByPriceDay;
                     break;
                 default:

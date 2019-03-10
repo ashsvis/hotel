@@ -11,7 +11,8 @@ namespace Model
         ByFloor,
         ByCategory,
         ByNumberSeat,
-        ByPriceDay
+        ByPriceDay,
+        ByRoomNumber
     }
 
     [Serializable]
@@ -57,6 +58,9 @@ namespace Model
                 case RoomOrdered.ByPriceDay:
                     if (floor == 0) return OrderedByPriceDay(this);
                     return OrderedByPriceDay(this.Where(item => item.Floor == floor).ToList());
+                case RoomOrdered.ByRoomNumber:
+                    if (floor == 0) return OrderedByRoomNumber(this);
+                    return OrderedByRoomNumber(this.Where(item => item.Floor == floor).ToList());
                 default:
                     if (floor == 0) return this;
                     return this.Where(item => item.Floor == floor).ToList();
@@ -66,6 +70,11 @@ namespace Model
         public List<Room> OrderedByFloor(List<Room> rooms)
         {
             return ((IEnumerable<Room>)rooms).OrderBy(item => item.Floor).ToList();
+        }
+
+        public List<Room> OrderedByRoomNumber(List<Room> rooms)
+        {
+            return ((IEnumerable<Room>)rooms).OrderBy(item => item.RoomNumber).ToList();
         }
 
         public List<Room> OrderedByCategory(List<Room> rooms)
@@ -105,5 +114,6 @@ namespace Model
         public int Floor { get; set; }
         public decimal PriceDay { get; set; }
         public Services Services { get; set; } = new Services();
+        public string RoomNumber { get; set; }
     }
 }

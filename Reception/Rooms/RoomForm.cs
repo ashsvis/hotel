@@ -1,4 +1,5 @@
 ﻿using Model;
+using System;
 using System.Windows.Forms;
 using System.Linq;
 
@@ -8,12 +9,14 @@ namespace Reception
     {
         //счетчик режима обновления
         private int updating;
+        private readonly Hotel _hotel;
 
         public Room Data { get; set; }
 
         public RoomForm(Hotel hotel)
         {
             InitializeComponent();
+            _hotel = hotel;
             // заполнение списка категорий
             foreach (var category in hotel.Categories)
                 cbCategory.Items.Add(category.Value);
@@ -31,6 +34,8 @@ namespace Reception
             Data = data;
 
             updating++; //включаем режим обновления
+
+            tbRoomNumber.Text = data.RoomNumber;
             // присваиваем текущее значение списка категорий
             foreach (var item in cbCategory.Items.Cast<Category>())
             {
@@ -68,6 +73,8 @@ namespace Reception
         public void UpdateData()
         {
             if (updating > 0) return; //мы находимся в режиме обновления, не обрабатываем
+            _hotel.CheckRoomNumber(Data, tbRoomNumber.Text);
+            Data.RoomNumber = tbRoomNumber.Text;
             // указываем выбранную категорию
             if (cbCategory.SelectedItem != null)
                 Data.IdCategory = ((Category)cbCategory.SelectedItem).IdCategory;
@@ -91,7 +98,8 @@ namespace Reception
         /// <param name="e"></param>
         private void cbCategory_SelectionChangeCommitted(object sender, System.EventArgs e)
         {
-            btnOk.Enabled = cbCategory.SelectedItem != null &&
+            btnOk.Enabled = !string.IsNullOrWhiteSpace(tbRoomNumber.Text) &&
+                            cbCategory.SelectedItem != null &&
                             cbNumberSeat.SelectedItem != null &&
                             nudFoor.Value > 0 &&
                             nudPriceDay.Value > 0;
@@ -104,7 +112,15 @@ namespace Reception
         /// <param name="e"></param>
         private void btnOk_Click(object sender, System.EventArgs e)
         {
-            UpdateData();
+            try
+            {
+                UpdateData();
+                DialogResult = DialogResult.OK;//выход из формы, если все введено правильно
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);//выводим сообщение об ошибке и не закрываем форму
+            }
         }
     }
 }
