@@ -146,7 +146,7 @@ namespace Reception
         }
 
         /// <summary>
-        /// Нажата кнопка "Удалитьт комнату"
+        /// Нажата кнопка "Удалить номер"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

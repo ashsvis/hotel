@@ -39,6 +39,11 @@ namespace Model
             return room;
         }
 
+        public Room Get(Guid idRoom)
+        {
+            return _hotel.Rooms.FirstOrDefault(item => item.IdRoom == idRoom);
+        }
+
         public void Delete(Guid idRoom)
         {
             base.RemoveAll(item => item.IdCategory == idRoom);
@@ -120,8 +125,9 @@ namespace Model
 
         public override string ToString()
         {
-            var category = _hotel.Categories[IdCategory];
-            return string.Format($"{category} № {RoomNumber}, {NumberSeat}-х местный {Floor} этаж, {PriceDay} руб.");
+            //var category = _hotel.Categories[IdCategory];
+            //return string.Format($"{category} № {RoomNumber}, {NumberSeat}-х местный {Floor} этаж, {PriceDay} руб.");
+            return RoomNumber;
         }
     }
 }

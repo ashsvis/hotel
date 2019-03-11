@@ -88,6 +88,11 @@ namespace Model
             }
         }
 
+        public int RoomUsed(Room room, DateTime first, DateTime last)
+        {
+            return Arrivals.Count(item => item.IdRoom == room.IdRoom);
+        }
+
         /// <summary>
         /// Проверка на дублирование данных паспорта клиента
         /// </summary>

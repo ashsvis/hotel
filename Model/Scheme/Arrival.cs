@@ -30,8 +30,8 @@ namespace Model
         public Guid IdArrival { get; set; } = Guid.NewGuid();
         public Guid IdClient { get; set; }
         public Guid IdRoom { get; set; }
-        public DateTime ArrivalDate { get; set; }
-        public DateTime DepartureDate { get; set; }
+        public DateTime ArrivalDate { get; set; } = new DateTime(1753, 1, 1);
+        public DateTime DepartureDate { get; set; } = new DateTime(1753, 1, 1);
         public Services Services { get; set; } = new Services();
 
     }
