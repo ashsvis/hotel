@@ -43,7 +43,7 @@ namespace Reception
                         var count = _hotel.RoomUsed(room, dtpArrivalDate.Value, dtpDepartureDate.Value);
                         var status = room.NumberSeat == count ? "(занят)" : count != 0 ? string.Format($"(ещё: {room.NumberSeat - count})") : "";  
                         var roomNode = new TreeNode(string.Format($"{room.RoomNumber} {status}"))
-                                           { Tag = room, Name = room.RoomNumber };
+                                           { Tag = room, Name = room.IdRoom.ToString() };
                         categoryNode.Nodes.Add(roomNode);
                     }
                 }
@@ -91,10 +91,10 @@ namespace Reception
                 if (_room != null)
                 {
                     UpdateRoomNumber(_room);
-                    var node = FindRoomInTree(tvRooms.Nodes, _room);
-                    if (node != null)
+                    var nodes = tvRooms.Nodes.Find(_room.IdRoom.ToString(), true);
+                    if (nodes.Length > 0)
                     {
-                        tvRooms.SelectedNode = node;
+                        tvRooms.SelectedNode = nodes[0];
                         tvRooms.SelectedNode.EnsureVisible();
                     }
                 }
@@ -113,18 +113,6 @@ namespace Reception
             UpdateServicesChecklistbox(data.Services);
 
             updating--; //выключаем режим обновления
-        }
-
-        private TreeNode FindRoomInTree(TreeNodeCollection nodes, Room room)
-        {
-            foreach (var node in nodes.Cast<TreeNode>())
-            {
-                var r = node.Tag as Room;
-                if (r == null) continue;
-                if (r.IdRoom == room.IdRoom)
-                    return node;
-            }
-            return FindRoomInTree(node.Nodes, room);
         }
 
         private void UpdateServicesChecklistbox(Services services)
@@ -172,7 +160,8 @@ namespace Reception
         private void UpdateOkButton()
         {
             btnOk.Enabled = cbClientFullName.SelectedItem != null && _room != null &&
-                            dtpArrivalDate.Value < dtpDepartureDate.Value;
+                            dtpArrivalDate.Value < dtpDepartureDate.Value &&
+                            dtpArrivalDate.Value.Date >= DateTime.Now.Date;
         }
 
         /// <summary>
@@ -195,6 +184,7 @@ namespace Reception
 
         private void dtpArrivalDate_ValueChanged(object sender, EventArgs e)
         {
+            BuildTree();
             UpdateOkButton();
         }
 
@@ -203,6 +193,13 @@ namespace Reception
             if (e.Node == null) return;
             _room = e.Node.Tag as Room;
             if (_room == null) return;
+            if (Data.IdRoom != _room.IdRoom && 
+                _hotel.RoomBusy(_room, dtpArrivalDate.Value, dtpDepartureDate.Value))
+            {
+                _room = null;
+                lbRoom.Text = "-";
+                return;
+            }
             UpdateRoomNumber(_room);
             // выставление услуг
             UpdateServicesChecklistbox(_room.Services);

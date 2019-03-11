@@ -88,9 +88,31 @@ namespace Model
             }
         }
 
+        /// <summary>
+        /// Сколько проживает в номере в промежуток времени
+        /// </summary>
+        /// <param name="room">комната</param>
+        /// <param name="first">начало периода</param>
+        /// <param name="last">конец периода</param>
+        /// <returns></returns>
         public int RoomUsed(Room room, DateTime first, DateTime last)
         {
-            return Arrivals.Count(item => item.IdRoom == room.IdRoom);
+            return Arrivals.Where(item => 
+                                  item.ArrivalDate >= first && item.ArrivalDate <= last ||
+                                  item.DepartureDate >= first && item.DepartureDate <= last)
+                           .Count(item => item.IdRoom == room.IdRoom);
+        }
+
+        /// <summary>
+        /// Номер полностью занят в промежуток времени
+        /// </summary>
+        /// <param name="room">комната</param>
+        /// <param name="first">начало периода</param>
+        /// <param name="last">конец перода</param>
+        /// <returns></returns>
+        public bool RoomBusy(Room room, DateTime first, DateTime last)
+        {
+            return RoomUsed(room, first, last) == room.NumberSeat;
         }
 
         /// <summary>
