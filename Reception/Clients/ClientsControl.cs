@@ -125,9 +125,18 @@ namespace Reception
             {
                 var sorted = _clients.SortedBy(_ordered);
                 var client = sorted[dgvClients.SelectedRows[0].Index];
-                _clients.Remove(client);
-                // обновляем данные интерфейса
-                FillTable();
+                try
+                {
+                    _hotel.CheckClientUsed(client);
+                    // удаляем клиента из списка клиентов
+                    _clients.Remove(client);
+                    // обновляем данные интерфейса
+                    FillTable();
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show(ex.Message); //выводим сообщение об ошибке и не закрываем форму
+                }
             }
         }
 

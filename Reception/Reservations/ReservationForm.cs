@@ -12,8 +12,9 @@ namespace Reception
         private int updating;
         private readonly Hotel _hotel;
         private Room _room;
+        private Dictionary<Room, TreeNode> _index = new Dictionary<Room, TreeNode>();
 
-        public Arrival Data { get; set; }
+        public Reservation Data { get; set; }
 
         public ArrivalForm(Hotel hotel)
         {
@@ -24,33 +25,44 @@ namespace Reception
 
         private void BuildTree()
         {
-            tvRooms.Nodes.Clear();
-            // добавим корневой узел
-            var hotelNode = new FloorTreeNode("Гостиница");
-            tvRooms.Nodes.Add(hotelNode);
-            // сформируем группы номеров по этажам
-            foreach (var floors in _hotel.Rooms.OrderBy(f => f.Floor).GroupBy(f => f.Floor))
+            _index.Clear();
+            try
             {
-                // добавляем узы этажей
-                var floorNode = new TreeNode(string.Format($"{floors.Key} этаж"));
-                hotelNode.Nodes.Add(floorNode);
-                foreach (var categories in floors.GroupBy(c => c.IdCategory).OrderBy(c => _hotel.Categories[c.Key].NameCategory))
+                tvRooms.AfterSelect -= tvRooms_AfterSelect;
+                tvRooms.BeginUpdate();
+                tvRooms.Nodes.Clear();
+                // добавим корневой узел
+                var hotelNode = new FloorTreeNode("Гостиница");
+                tvRooms.Nodes.Add(hotelNode);
+                // сформируем группы номеров по этажам
+                foreach (var floors in _hotel.Rooms.OrderBy(f => f.Floor).GroupBy(f => f.Floor))
                 {
-                    var categoryNode = new TreeNode(_hotel.Categories[categories.Key].NameCategory);
-                    floorNode.Nodes.Add(categoryNode);
-                    foreach (var room in categories)
+                    // добавляем узы этажей
+                    var floorNode = new TreeNode(string.Format($"{floors.Key} этаж"));
+                    hotelNode.Nodes.Add(floorNode);
+                    foreach (var categories in floors.GroupBy(c => c.IdCategory).OrderBy(c => _hotel.Categories[c.Key].NameCategory))
                     {
-                        var count = _hotel.RoomUsed(room, dtpArrivalDate.Value, dtpDepartureDate.Value);
-                        var status = room.NumberSeat == count ? "(занят)" : count != 0 ? string.Format($"(ещё: {room.NumberSeat - count})") : "";  
-                        var roomNode = new TreeNode(string.Format($"{room.RoomNumber} {status}"))
-                                           { Tag = room, Name = room.IdRoom.ToString() };
-                        categoryNode.Nodes.Add(roomNode);
+                        var categoryNode = new TreeNode(_hotel.Categories[categories.Key].NameCategory);
+                        floorNode.Nodes.Add(categoryNode);
+                        foreach (var room in categories)
+                        {
+                            var count = _hotel.RoomUsed(room, dtpArrivalDate.Value, dtpDepartureDate.Value);
+                            var status = room.NumberSeat == count ? "(занят)" : count != 0 ? string.Format($"(ещё: {room.NumberSeat - count})") : "";
+                            var roomNode = new TreeNode(string.Format($"{room.RoomNumber} {status}")) { Tag = room };
+                            _index.Add(room, roomNode);
+                            categoryNode.Nodes.Add(roomNode);
+                        }
                     }
                 }
+
+            }
+            finally
+            {
+                tvRooms.EndUpdate();
+                tvRooms.AfterSelect += tvRooms_AfterSelect;
             }
             // раскрываем все узлы этажей
             tvRooms.ExpandAll();
-
         }
 
         private void ResetFilters()
@@ -60,14 +72,10 @@ namespace Reception
             cbClientFullName.Items.Clear();
             foreach (var client in _hotel.Clients.OrderedBySurname())
                 cbClientFullName.Items.Add(client);
-            // заполнение возможных услуг в номере
-            clbServices.Items.Clear();
-            foreach (var service in _hotel.Services)
-                clbServices.Items.Add(service);
         }
 
         //занесение данных из объекта данных в контролы
-        public void Build(Arrival data)
+        public void Build(Reservation data)
         {
             Data = data;
 
@@ -87,21 +95,21 @@ namespace Reception
             // если комната выбрана
             if (cbClientFullName.SelectedItem != null)
             {
-                _room = _hotel.Rooms.Get(data.IdRoom);
-                if (_room != null)
-                {
-                    UpdateRoomNumber(_room);
-                    var nodes = tvRooms.Nodes.Find(_room.IdRoom.ToString(), true);
-                    if (nodes.Length > 0)
-                    {
-                        tvRooms.SelectedNode = nodes[0];
-                        tvRooms.SelectedNode.EnsureVisible();
-                    }
-                }
                 // день заезда
                 dtpArrivalDate.Value = data.ArrivalDate.Date;
                 // день выезда
                 dtpDepartureDate.Value = data.DepartureDate.Date;
+                _room = _hotel.Rooms.Get(data.IdRoom);
+                if (_room != null)
+                {
+                    UpdateRoomNumber(_room);
+                    UpdateServicesChecklistbox(_room.Services);
+                    UpdateArrivalPrice(_room);
+                    var node = _index[_room];
+                    node.EnsureVisible();
+                    tvRooms.SelectedNode = node;
+                    tvRooms.Select();
+                }
             }
             else
             {
@@ -109,25 +117,19 @@ namespace Reception
                 dtpArrivalDate.Value = DateTime.Now.Date;
                 dtpDepartureDate.Value = DateTime.Now.AddDays(1).Date;
             }
-            // выставление услуг
-            UpdateServicesChecklistbox(data.Services);
 
             updating--; //выключаем режим обновления
         }
 
+        /// <summary>
+        /// Выставление подключённых услуг
+        /// </summary>
+        /// <param name="services"></param>
         private void UpdateServicesChecklistbox(Services services)
         {
-            // выставление галочек подключённых услуг
-            var n = 0;
-            foreach (var item in clbServices.Items.Cast<Service>().ToList())
-            {
-                // если услуга подключена, устанавливаем для неё "галочку"
-                if (services.Contains(item))
-                    clbServices.SetItemChecked(n, true);
-                else
-                    clbServices.SetItemChecked(n, false);
-                n++;
-            }
+            lbServices.Items.Clear();
+            foreach (var item in services)
+                lbServices.Items.Add(item);
         }
 
         //Занесение данных из контролов в Data
@@ -143,10 +145,6 @@ namespace Reception
             // заезд и выезд
             Data.ArrivalDate = dtpArrivalDate.Value.Date;
             Data.DepartureDate = dtpDepartureDate.Value.Date;
-            // обновляем услуги подключаемые услуги в номере
-            Data.Services.Clear();
-            foreach (var item in clbServices.CheckedItems.Cast<Service>())
-                Data.Services.Add(item);
         }
 
         private void cbClientFullName_SelectionChangeCommitted(object sender, System.EventArgs e)
@@ -160,8 +158,7 @@ namespace Reception
         private void UpdateOkButton()
         {
             btnOk.Enabled = cbClientFullName.SelectedItem != null && _room != null &&
-                            dtpArrivalDate.Value < dtpDepartureDate.Value &&
-                            dtpArrivalDate.Value.Date >= DateTime.Now.Date;
+                            dtpArrivalDate.Value < dtpDepartureDate.Value;
         }
 
         /// <summary>
@@ -182,12 +179,23 @@ namespace Reception
             }
         }
 
+        /// <summary>
+        /// Обработчик изменения даты приезда и отъезда
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dtpArrivalDate_ValueChanged(object sender, EventArgs e)
         {
             BuildTree();
+            UpdateArrivalPrice(_room);
             UpdateOkButton();
         }
 
+        /// <summary>
+        /// Обработчик изменения комнаты
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tvRooms_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node == null) return;
@@ -203,13 +211,25 @@ namespace Reception
             UpdateRoomNumber(_room);
             // выставление услуг
             UpdateServicesChecklistbox(_room.Services);
+            UpdateArrivalPrice(_room);
             UpdateOkButton();
         }
 
+        /// <summary>
+        /// Вывод номера комнаты с атрибутами
+        /// </summary>
+        /// <param name="room"></param>
         private void UpdateRoomNumber(Room room)
         {
             var category = _hotel.Categories[room.IdCategory];
             lbRoom.Text = string.Format($"{room.RoomNumber} ({room.NumberSeat}-х местный \"{category.NameCategory}\", {room.Floor}-й этаж)");
+            lbPriceDay.Text = string.Format($"{room.PriceDay} руб./сут.");
+        }
+
+        private void UpdateArrivalPrice(Room room)
+        {
+            if (room == null) return;
+            lbArrivalPrice.Text = string.Format($"{_hotel.CalcArrivalPrice(room, dtpArrivalDate.Value, dtpDepartureDate.Value)} руб.");
         }
     }
 }

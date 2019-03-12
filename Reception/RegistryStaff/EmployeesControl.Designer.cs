@@ -94,6 +94,7 @@
             // 
             this.dgvEmployees.AllowUserToAddRows = false;
             this.dgvEmployees.AllowUserToDeleteRows = false;
+            this.dgvEmployees.AllowUserToResizeRows = false;
             this.dgvEmployees.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployees.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -111,6 +112,7 @@
             this.dgvEmployees.Size = new System.Drawing.Size(691, 240);
             this.dgvEmployees.TabIndex = 3;
             this.dgvEmployees.VirtualMode = true;
+            this.dgvEmployees.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployees_RowEnter);
             this.dgvEmployees.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvEmployees_CellValueNeeded);
             this.dgvEmployees.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvEmployees_ColumnHeaderMouseClick);
             this.dgvEmployees.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployees_RowEnter);

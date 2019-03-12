@@ -43,8 +43,10 @@
   <ItemGroup>
     <Compile Include="Helpers\BirthdayGenerator.cs" />
     <Compile Include="Helpers\NamesGenerator.cs" />
+    <Compile Include="Helpers\PassportNumberGenerator.cs" />
     <Compile Include="Helpers\PhoneNumberGenerator.cs" />
-    <Compile Include="Scheme\Arrival.cs" />
+    <Compile Include="Scheme\EmployeeRole.cs" />
+    <Compile Include="Scheme\Reservation.cs" />
     <Compile Include="Common\SaverLoader.cs" />
     <Compile Include="Scheme\Hotel.cs" />
     <Compile Include="Scheme\Category.cs" />
@@ -52,9 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scheme\Employee.cs" />
     <Compile Include="Scheme\KindOfSeat.cs" />
-    <Compile Include="Scheme\Reservation.cs" />
     <Compile Include="Scheme\Room.cs" />
     <Compile Include="Scheme\Service.cs" />
+    <Compile Include="Scheme\Transfer.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

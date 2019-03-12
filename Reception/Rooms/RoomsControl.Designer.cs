@@ -134,6 +134,7 @@
             // 
             this.dgvRooms.AllowUserToAddRows = false;
             this.dgvRooms.AllowUserToDeleteRows = false;
+            this.dgvRooms.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));

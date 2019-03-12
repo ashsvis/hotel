@@ -19,25 +19,28 @@ namespace Model
         public RegistryStaff RegistryStaff { get; set; }
         public Clients Clients { get; set; } = new Clients();
         public Reservations Reservations { get; set; } = new Reservations();
-        public Arrivals Arrivals { get; set; } = new Arrivals();
+        public Reservations Arrivals { get; set; } = new Reservations();
 
         public void BuildData()
         {
+            Seats.Add("Одноместный", 1);
+            Seats.Add("Двухместный", 2);
+            Seats.Add("Трёхместный", 3);
+
             Categories.Add("Эконом");
             Categories.Add("Семейный");
             Categories.Add("Стандарт");
             Categories.Add("Люкс");
             Categories.Add("Апартаменты");
-            Services.Add("Интернет");
-            Services.Add("Телевизор");
-            Services.Add("Душевая");
-            Services.Add("Фен");
-            Services.Add("Кондиционер");
-            Services.Add("Мини бар");
-            Services.Add("Сейф");
-            Seats.Add("Двухместный", 2);
-            Seats.Add("Одноместный", 1);
-            Seats.Add("Трёхместный", 3);
+
+            Services.Add("Интернет", 5);
+            Services.Add("Телевизор", 5);
+            Services.Add("Душевая", 15);
+            Services.Add("Фен", 1);
+            Services.Add("Кондиционер", 10);
+            Services.Add("Мини бар", 100);
+            Services.Add("Сейф", 100);
+
             for (var floor = 1; floor < 5; floor++)
             {
                 var roomNumber = 1;
@@ -86,6 +89,102 @@ namespace Model
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Проверить уникальность названия категории
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="name"></param>
+        public void CheckCategoryName(Category category, string name)
+        {
+            if (Categories.Any(item => item.Value != category && item.Value.NameCategory == name))
+                throw new Exception("Это название категории уже используется!");
+        }
+
+        /// <summary>
+        /// Проверка на использование категории в комнатах
+        /// </summary>
+        /// <param name="category"></param>
+        public void CheckCategoryUsed(Category category)
+        {
+            if (Rooms.Any(item => item.IdCategory == category.IdCategory))
+                throw new Exception("Это категория ещё используется!");
+        }
+
+        /// <summary>
+        /// Проверка на использование услуги в комнатах
+        /// </summary>
+        /// <param name="service"></param>
+        public void CheckServiceUsed(Service service)
+        {
+            if (Rooms.Any(item => item.Services.Any(s => s.IdService == service.IdService)))
+                throw new Exception("Это услуга ещё используется!");
+        }
+
+        /// <summary>
+        /// Проверка на использование комнаты в заселении
+        /// </summary>
+        /// <param name="room"></param>
+        public void CheckRoomUsed(Room room)
+        {
+            if (Arrivals.Any(r => r.IdRoom == room.IdRoom))
+                throw new Exception("Этот номер ещё используется!");
+        }
+
+        /// <summary>
+        /// Проверка на использование записи клиента в заселении
+        /// </summary>
+        /// <param name="client"></param>
+        public void CheckClientUsed(Client client)
+        {
+            if (Arrivals.Any(r => r.IdClient == client.IdClient))
+                throw new Exception("Эта запись о клиенте ещё используется!");
+        }
+
+        /// <summary>
+        /// Проверить уникальность названия услуги
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="name"></param>
+        public void CheckServiceName(Service service, string name)
+        {
+            if (Services.Any(item => item != service && item.NameService == name))
+                throw new Exception("Это название услуги уже используется!");
+        }
+
+        /// <summary>
+        /// Подсчет стоимости номера с услугами за период  
+        /// </summary>
+        /// <param name="room">номер</param>
+        /// <param name="first">начало периода</param>
+        /// <param name="last">конец периода</param>
+        /// <returns></returns>
+        public decimal CalcArrivalPrice(Room room, DateTime first, DateTime last)
+        {
+            var span = last.Date - first.Date;
+            var price = room.CalcPriceDayTotal() * span.Days;
+            return price;
+        }
+
+        /// <summary>
+        /// Получить ссылку на клиента по его Id
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <returns></returns>
+        public Client GetClient(Guid clientId)
+        {
+            return this.Clients.FirstOrDefault(item => item.IdClient == clientId);
+        }
+
+        /// <summary>
+        /// Получить ссылку на номер по его Id
+        /// </summary>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        public Room GetRoom(Guid roomId)
+        {
+            return this.Rooms.FirstOrDefault(item => item.IdRoom == roomId);
         }
 
         /// <summary>

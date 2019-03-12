@@ -152,16 +152,24 @@ namespace Reception
         /// <param name="e"></param>
         private void tsbDeleteRoom_Click(object sender, System.EventArgs e)
         {
-            if (MessageBox.Show(this, "Удалить номер?", "Удаление номера", 
+            if (MessageBox.Show(this, "Удалить номер?", "Удаление номера",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 var filtered = Rooms.FilteredByFloor(_floor, _ordered); // получаем отфильтрованный по этажам список комнат
                 // получаем комнату из этого списка
                 var room = filtered[dgvRooms.SelectedRows[0].Index];
-                // удаляем комнату из списка комнат
-                Rooms.Remove(room);
-                // обновляем данные интерфейса
-                BuildTreeAndFillTable();
+                try
+                {
+                    _hotel.CheckRoomUsed(room);
+                    // удаляем комнату из списка комнат
+                    Rooms.Remove(room);
+                    // обновляем данные интерфейса
+                    BuildTreeAndFillTable();
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show(ex.Message); //выводим сообщение об ошибке и не закрываем форму
+                }
             }
         }
 

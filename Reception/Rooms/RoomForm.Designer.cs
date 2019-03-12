@@ -43,6 +43,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.tbRoomNumber = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbTotal = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudFoor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPriceDay)).BeginInit();
             this.SuspendLayout();
@@ -134,6 +136,7 @@
             this.nudPriceDay.TabIndex = 4;
             this.nudPriceDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.nudPriceDay.ValueChanged += new System.EventHandler(this.cbCategory_SelectionChangeCommitted);
+            this.nudPriceDay.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nudPriceDay_KeyUp);
             // 
             // label5
             // 
@@ -163,12 +166,14 @@
             this.clbServices.Name = "clbServices";
             this.clbServices.Size = new System.Drawing.Size(300, 148);
             this.clbServices.TabIndex = 5;
+            this.clbServices.Click += new System.EventHandler(this.cbCategory_SelectionChangeCommitted);
+            this.clbServices.SelectedValueChanged += new System.EventHandler(this.cbCategory_SelectionChangeCommitted);
             // 
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOk.Enabled = false;
-            this.btnOk.Location = new System.Drawing.Point(156, 346);
+            this.btnOk.Location = new System.Drawing.Point(156, 364);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 6;
@@ -180,7 +185,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(237, 346);
+            this.btnCancel.Location = new System.Drawing.Point(237, 364);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 7;
@@ -204,13 +209,31 @@
             this.tbRoomNumber.TabIndex = 0;
             this.tbRoomNumber.TextChanged += new System.EventHandler(this.cbCategory_SelectionChangeCommitted);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 338);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(181, 15);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Стоимость за сутки с услугами:";
+            // 
+            // lbTotal
+            // 
+            this.lbTotal.AutoSize = true;
+            this.lbTotal.Location = new System.Drawing.Point(199, 338);
+            this.lbTotal.Name = "lbTotal";
+            this.lbTotal.Size = new System.Drawing.Size(12, 15);
+            this.lbTotal.TabIndex = 0;
+            this.lbTotal.Text = "-";
+            // 
             // RoomForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(325, 381);
+            this.ClientSize = new System.Drawing.Size(325, 399);
             this.Controls.Add(this.tbRoomNumber);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
@@ -221,6 +244,8 @@
             this.Controls.Add(this.cbCategory);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.lbTotal);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -258,5 +283,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbRoomNumber;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lbTotal;
     }
 }

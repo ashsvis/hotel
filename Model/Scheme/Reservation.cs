@@ -6,7 +6,7 @@ namespace Model
     [Serializable]
     public class Reservations : List<Reservation>
     {
-        public void Add(Guid idClient, Guid idRoom, DateTime arrivalDate, DateTime departureDate, Guid idStuff)
+        public void Add(Guid idClient, Guid idRoom, DateTime arrivalDate, DateTime departureDate)
         {
             base.Add(new Reservation
             {
@@ -14,13 +14,12 @@ namespace Model
                 IdRoom = idRoom,
                 ArrivalDate = arrivalDate,
                 DepartureDate = departureDate,
-                IdStuff = idStuff
             });
         }
 
-        public void Delete(Guid idReservation)
+        public void Delete(Guid idArrival)
         {
-            base.RemoveAll(item => item.IdReservation == idReservation);
+            base.RemoveAll(item => item.IdReservation == idArrival);
         }
     }
 
@@ -32,6 +31,6 @@ namespace Model
         public Guid IdRoom { get; set; }
         public DateTime ArrivalDate { get; set; } = new DateTime(1753, 1, 1);
         public DateTime DepartureDate { get; set; } = new DateTime(1753, 1, 1);
-        public Guid IdStuff { get; set; }
+
     }
 }

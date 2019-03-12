@@ -46,17 +46,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arrivals\ArrivalForm.cs">
+    <Compile Include="Reservations\ReservationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Arrivals\ArrivalForm.Designer.cs">
-      <DependentUpon>ArrivalForm.cs</DependentUpon>
+    <Compile Include="Reservations\ReservationForm.Designer.cs">
+      <DependentUpon>ReservationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Arrivals\ArrivalsControl.cs">
+    <Compile Include="Reservations\ReservationsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Arrivals\ArrivalsControl.Designer.cs">
-      <DependentUpon>ArrivalsControl.cs</DependentUpon>
+    <Compile Include="Reservations\ReservationsControl.Designer.cs">
+      <DependentUpon>ReservationsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Categories\CategoriesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\CategoriesControl.Designer.cs">
+      <DependentUpon>CategoriesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Categories\CategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Categories\CategoryForm.Designer.cs">
+      <DependentUpon>CategoryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Clients\ClientForm.cs">
       <SubType>Form</SubType>
@@ -102,11 +114,29 @@
     <Compile Include="Rooms\RoomsControl.Designer.cs">
       <DependentUpon>RoomsControl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Arrivals\ArrivalForm.resx">
-      <DependentUpon>ArrivalForm.cs</DependentUpon>
+    <Compile Include="Services\ServiceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\ServiceForm.Designer.cs">
+      <DependentUpon>ServiceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ServicesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Services\ServicesControl.Designer.cs">
+      <DependentUpon>ServicesControl.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Reservations\ReservationForm.resx">
+      <DependentUpon>ReservationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Arrivals\ArrivalsControl.resx">
-      <DependentUpon>ArrivalsControl.cs</DependentUpon>
+    <EmbeddedResource Include="Reservations\ReservationsControl.resx">
+      <DependentUpon>ReservationsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\CategoriesControl.resx">
+      <DependentUpon>CategoriesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\CategoryForm.resx">
+      <DependentUpon>CategoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Clients\ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
@@ -137,6 +167,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Rooms\RoomsControl.resx">
       <DependentUpon>RoomsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\ServiceForm.resx">
+      <DependentUpon>ServiceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\ServicesControl.resx">
+      <DependentUpon>ServicesControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

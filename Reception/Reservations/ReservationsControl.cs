@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using Model;
 
 namespace Reception
 {
-    public partial class ArrivalsControl : UserControl
+    public partial class ReservationsControl : UserControl
     {
         Hotel _hotel;
-        Arrivals _arrivals;
+        Reservations _arrivals;
 
-        public ArrivalsControl()
+        public ReservationsControl()
         {
             InitializeComponent();
         }
@@ -41,14 +40,14 @@ namespace Reception
             {
                 case 0: // фамилия, имя и отчество клиента
                     var clientId = sorted[e.RowIndex].IdClient;
-                    var client = _hotel.Clients.FirstOrDefault(item => item.IdClient == clientId);
+                    var client = _hotel.GetClient(clientId);
                     e.Value = client != null 
                         ? string.Format($"{client.Surname} {client.Name} {client.LastName}") 
                         : "нет данных";
                     break;
                 case 1: // информация о номере
                     var roomId = sorted[e.RowIndex].IdRoom;
-                    var room = _hotel.Rooms.FirstOrDefault(item => item.IdRoom == roomId);
+                    var room = _hotel.GetRoom(roomId);
                     var category = _hotel.Categories[room.IdCategory];
                     e.Value = room != null 
                         ? string.Format($"{room.NumberSeat}-х местный \"{category.NameCategory}\" №{room.RoomNumber} на {room.Floor}-м этаже") 
@@ -71,7 +70,7 @@ namespace Reception
         private void tsbArrivalClient_Click(object sender, EventArgs e)
         {
             var frm = new ArrivalForm(_hotel); // создаем форму
-            frm.Build(new Arrival()); // создаём "пустое" заселение и заполняем контролы формы
+            frm.Build(new Reservation()); // создаём "пустое" заселение и заполняем контролы формы
             // показываем форму в диалоге
             if (frm.ShowDialog(this) == DialogResult.OK)
             {

@@ -6,11 +6,12 @@ namespace Model
     [Serializable]
     public class Services : List<Service>
     {
-        public void Add(string name)
+        public void Add(string name, decimal priceDay)
         {
             base.Add(new Service
             {
-                NameService = name
+                NameService = name,
+                PriceDay = priceDay
             });
         }
 
@@ -26,10 +27,11 @@ namespace Model
     {
         public Guid IdService { get; set; } = Guid.NewGuid();
         public string NameService { get; set; }
+        public decimal PriceDay { get; set; }
 
         public override string ToString()
         {
-            return NameService;
+            return string.Format($"{NameService} ({PriceDay} р/с)");
         }
     }
 }

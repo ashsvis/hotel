@@ -1,6 +1,6 @@
 ﻿namespace Reception
 {
-    partial class ArrivalsControl
+    partial class ReservationsControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArrivalsControl));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReservationsControl));
             this.dgvArrivals = new System.Windows.Forms.DataGridView();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tsbArrivalClient = new System.Windows.Forms.ToolStripButton();
-            this.tsbChangeArrivalClient = new System.Windows.Forms.ToolStripButton();
-            this.tsbDepartureClient = new System.Windows.Forms.ToolStripButton();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tsbArrivalClient = new System.Windows.Forms.ToolStripButton();
+            this.tsbChangeArrivalClient = new System.Windows.Forms.ToolStripButton();
+            this.tsbDepartureClient = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArrivals)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -50,6 +50,7 @@
             // 
             this.dgvArrivals.AllowUserToAddRows = false;
             this.dgvArrivals.AllowUserToDeleteRows = false;
+            this.dgvArrivals.AllowUserToResizeRows = false;
             this.dgvArrivals.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -75,55 +76,9 @@
             this.dgvArrivals.Size = new System.Drawing.Size(816, 148);
             this.dgvArrivals.TabIndex = 7;
             this.dgvArrivals.VirtualMode = true;
+            this.dgvArrivals.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArrivals_RowEnter);
             this.dgvArrivals.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvArrivals_CellValueNeeded);
             this.dgvArrivals.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArrivals_RowEnter);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsbArrivalClient,
-            this.tsbChangeArrivalClient,
-            this.tsbDepartureClient});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(816, 25);
-            this.toolStrip1.TabIndex = 6;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // tsbArrivalClient
-            // 
-            this.tsbArrivalClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbArrivalClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbArrivalClient.Image")));
-            this.tsbArrivalClient.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbArrivalClient.Name = "tsbArrivalClient";
-            this.tsbArrivalClient.Size = new System.Drawing.Size(69, 22);
-            this.tsbArrivalClient.Text = "Заселение";
-            this.tsbArrivalClient.ToolTipText = "Добавить запись о заселении";
-            this.tsbArrivalClient.Click += new System.EventHandler(this.tsbArrivalClient_Click);
-            // 
-            // tsbChangeArrivalClient
-            // 
-            this.tsbChangeArrivalClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbChangeArrivalClient.Enabled = false;
-            this.tsbChangeArrivalClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbChangeArrivalClient.Image")));
-            this.tsbChangeArrivalClient.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbChangeArrivalClient.Name = "tsbChangeArrivalClient";
-            this.tsbChangeArrivalClient.Size = new System.Drawing.Size(109, 22);
-            this.tsbChangeArrivalClient.Text = "Изменить данные";
-            this.tsbChangeArrivalClient.ToolTipText = "Изменить данные постояльца";
-            this.tsbChangeArrivalClient.Click += new System.EventHandler(this.tsbChangeArrivalClient_Click);
-            // 
-            // tsbDepartureClient
-            // 
-            this.tsbDepartureClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbDepartureClient.Enabled = false;
-            this.tsbDepartureClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbDepartureClient.Image")));
-            this.tsbDepartureClient.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbDepartureClient.Name = "tsbDepartureClient";
-            this.tsbDepartureClient.Size = new System.Drawing.Size(99, 22);
-            this.tsbDepartureClient.Text = "Удалить данные";
-            this.tsbDepartureClient.ToolTipText = "Удалить данные о заселении";
-            this.tsbDepartureClient.Click += new System.EventHandler(this.tsbDepartureClient_Click);
             // 
             // Column1
             // 
@@ -158,6 +113,53 @@
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             this.Column4.Width = 90;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbArrivalClient,
+            this.tsbChangeArrivalClient,
+            this.tsbDepartureClient});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(816, 25);
+            this.toolStrip1.TabIndex = 6;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // tsbArrivalClient
+            // 
+            this.tsbArrivalClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbArrivalClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbArrivalClient.Image")));
+            this.tsbArrivalClient.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbArrivalClient.Name = "tsbArrivalClient";
+            this.tsbArrivalClient.Size = new System.Drawing.Size(92, 22);
+            this.tsbArrivalClient.Text = "Бронирование";
+            this.tsbArrivalClient.ToolTipText = "Добавить запись о заселении";
+            this.tsbArrivalClient.Click += new System.EventHandler(this.tsbArrivalClient_Click);
+            // 
+            // tsbChangeArrivalClient
+            // 
+            this.tsbChangeArrivalClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbChangeArrivalClient.Enabled = false;
+            this.tsbChangeArrivalClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbChangeArrivalClient.Image")));
+            this.tsbChangeArrivalClient.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbChangeArrivalClient.Name = "tsbChangeArrivalClient";
+            this.tsbChangeArrivalClient.Size = new System.Drawing.Size(109, 22);
+            this.tsbChangeArrivalClient.Text = "Изменить данные";
+            this.tsbChangeArrivalClient.ToolTipText = "Изменить данные постояльца";
+            this.tsbChangeArrivalClient.Click += new System.EventHandler(this.tsbChangeArrivalClient_Click);
+            // 
+            // tsbDepartureClient
+            // 
+            this.tsbDepartureClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbDepartureClient.Enabled = false;
+            this.tsbDepartureClient.Image = ((System.Drawing.Image)(resources.GetObject("tsbDepartureClient.Image")));
+            this.tsbDepartureClient.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbDepartureClient.Name = "tsbDepartureClient";
+            this.tsbDepartureClient.Size = new System.Drawing.Size(99, 22);
+            this.tsbDepartureClient.Text = "Удалить данные";
+            this.tsbDepartureClient.ToolTipText = "Удалить данные о заселении";
+            this.tsbDepartureClient.Click += new System.EventHandler(this.tsbDepartureClient_Click);
             // 
             // ArrivalsControl
             // 

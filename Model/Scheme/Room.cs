@@ -125,9 +125,15 @@ namespace Model
 
         public override string ToString()
         {
-            //var category = _hotel.Categories[IdCategory];
-            //return string.Format($"{category} № {RoomNumber}, {NumberSeat}-х местный {Floor} этаж, {PriceDay} руб.");
             return RoomNumber;
+        }
+
+        public decimal CalcPriceDayTotal()
+        {
+            var price = this.PriceDay;
+            foreach (var service in this.Services)
+                price += service.PriceDay;
+            return price;
         }
     }
 }

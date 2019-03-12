@@ -103,6 +103,8 @@ namespace Reception
                             cbNumberSeat.SelectedItem != null &&
                             nudFoor.Value > 0 &&
                             nudPriceDay.Value > 0;
+            UpdateData();
+            lbTotal.Text = string.Format($"{Data.CalcPriceDayTotal()} руб.");
         }
 
         /// <summary>
@@ -121,6 +123,11 @@ namespace Reception
             {
                 MessageBox.Show(ex.Message);//выводим сообщение об ошибке и не закрываем форму
             }
+        }
+
+        private void nudPriceDay_KeyUp(object sender, KeyEventArgs e)
+        {
+            cbCategory_SelectionChangeCommitted(null, EventArgs.Empty);
         }
     }
 }
