@@ -84,5 +84,11 @@ namespace Reception
             CreateAndShowUserControl(rc);
         }
 
+        private void tsmiEmployeeRoles_Click(object sender, EventArgs e)
+        {
+            var rc = new EmployeeRolesControl() { Dock = DockStyle.Fill };
+            rc.Build(_hotel);
+            CreateAndShowUserControl(rc);
+        }
     }
 }

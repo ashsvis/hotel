@@ -51,6 +51,10 @@ namespace Reception
                 case 3: // номер телефона
                     e.Value = sorted[e.RowIndex].PhoneNumber;
                     break;
+                case 4: // должность
+                    var role = _hotel.GetEmployeeRole(sorted[e.RowIndex].IdEmployeeRole);
+                    e.Value = role.NameRole;
+                    break;
             }
         }
 

@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmployeeRolesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EmployeeRolesControl.Designer.cs">
+      <DependentUpon>EmployeeRolesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reservations\ReservationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,9 @@
     <Compile Include="Services\ServicesControl.Designer.cs">
       <DependentUpon>ServicesControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="EmployeeRolesControl.resx">
+      <DependentUpon>EmployeeRolesControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reservations\ReservationForm.resx">
       <DependentUpon>ReservationForm.cs</DependentUpon>
     </EmbeddedResource>

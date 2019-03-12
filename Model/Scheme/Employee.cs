@@ -22,14 +22,15 @@ namespace Model
             _hotel = hotel;
         }
 
-        public void Add(string surname, string name, string lastname, string phoneNumber)
+        public void Add(string surname, string name, string lastname, string phoneNumber, Guid idEmployeeRole)
         {
             base.Add(new Employee(_hotel)
             {
                 Surname = surname,
                 Name = name,
                 LastName = lastname,
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                IdEmployeeRole = idEmployeeRole
             });
         }
 
@@ -77,5 +78,6 @@ namespace Model
         public string Name { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
+        public Guid IdEmployeeRole { get; set; }
     }
 }

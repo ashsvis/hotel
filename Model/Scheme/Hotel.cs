@@ -16,6 +16,7 @@ namespace Model
         public Services Services { get; set; } = new Services();
         public SeatKinds Seats { get; set; } = new SeatKinds();
         public Rooms Rooms { get; set; }
+        public EmployeeRoles EmployeeRoles { get; set; } = new EmployeeRoles();
         public RegistryStaff RegistryStaff { get; set; }
         public Clients Clients { get; set; } = new Clients();
         public Reservations Reservations { get; set; } = new Reservations();
@@ -23,6 +24,10 @@ namespace Model
 
         public void BuildData()
         {
+            EmployeeRoles.Add("Управляющий", 15000, AllowedOperations.All);
+            EmployeeRoles.Add("Регистратор", 12000, AllowedOperations.All ^ AllowedOperations.ManageEmployees);
+            EmployeeRoles.Add("Горничная", 8500, AllowedOperations.None);
+
             Seats.Add("Одноместный", 1);
             Seats.Add("Двухместный", 2);
             Seats.Add("Трёхместный", 3);
@@ -165,6 +170,16 @@ namespace Model
             var span = last.Date - first.Date;
             var price = room.CalcPriceDayTotal() * span.Days;
             return price;
+        }
+
+        /// <summary>
+        /// Получить ссылку на роль сотрудника по её Id
+        /// </summary>
+        /// <param name="employeeRoleId"></param>
+        /// <returns></returns>
+        public EmployeeRole GetEmployeeRole(Guid employeeRoleId)
+        {
+            return this.EmployeeRoles.FirstOrDefault(item => item.IdEmployeeRole == employeeRoleId);
         }
 
         /// <summary>

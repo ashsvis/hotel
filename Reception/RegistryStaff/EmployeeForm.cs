@@ -1,5 +1,6 @@
 ﻿using Model;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Reception
@@ -16,6 +17,9 @@ namespace Reception
         {
             InitializeComponent();
             _hotel = hotel;
+            // заполнение списка должностей
+            foreach (var role in hotel.EmployeeRoles.OrderBy(item => item.NameRole))
+                cbEmployeeRole.Items.Add(role);
         }
 
         //занесение данных из объекта данных в контролы
@@ -29,6 +33,15 @@ namespace Reception
             tbName.Text = data.Name;
             tbLastName.Text = data.LastName;
             tbPhoneNumber.Text = data.PhoneNumber;
+            // присваиваем текущее значение списка должностей
+            foreach (var item in cbEmployeeRole.Items.Cast<EmployeeRole>())
+            {
+                if (item.IdEmployeeRole == data.IdEmployeeRole)
+                {
+                    cbEmployeeRole.SelectedItem = item;
+                    break;
+                }
+            }
 
             updating--; //выключаем режим обновления
         }
@@ -43,6 +56,9 @@ namespace Reception
             Data.LastName = tbLastName.Text;
             _hotel.CheckEmployeePhoneNumber(Data, tbPhoneNumber.Text);
             Data.PhoneNumber = tbPhoneNumber.Text;
+            // указываем выбранную должность
+            if (cbEmployeeRole.SelectedItem != null)
+                Data.IdEmployeeRole = ((EmployeeRole)cbEmployeeRole.SelectedItem).IdEmployeeRole;
         }
 
         private void tbSurname_TextChanged(object sender, System.EventArgs e)
@@ -50,7 +66,8 @@ namespace Reception
             btnOk.Enabled = !string.IsNullOrWhiteSpace(tbSurname.Text) &&
                 !string.IsNullOrWhiteSpace(tbName.Text) &&
                 !string.IsNullOrWhiteSpace(tbLastName.Text) &&
-                !string.IsNullOrWhiteSpace(tbPhoneNumber.Text);
+                !string.IsNullOrWhiteSpace(tbPhoneNumber.Text) &&
+                cbEmployeeRole.SelectedItem != null;
         }
 
         private void btnOk_Click(object sender, System.EventArgs e)
