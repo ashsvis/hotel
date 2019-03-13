@@ -28,7 +28,6 @@ namespace Reception
             if (string.IsNullOrWhiteSpace(data.Surname))
             {
                 var namesGenerator = new NamesGenerator();
-                namesGenerator.Build();
                 var name = namesGenerator.GetFullName();
                 tbSurname.Text = name.Item1;
                 tbName.Text = name.Item2;

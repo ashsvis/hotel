@@ -91,9 +91,17 @@ namespace Reception
             {
                 var sorted = _staff.SortedBy(_ordered);
                 var employee = sorted[dgvEmployees.SelectedRows[0].Index];
-                _staff.Remove(employee);
-                // обновляем данные интерфейса
-                FillTable();
+                try
+                {
+                    _hotel.CheckEmployeeUsed(employee);
+                    _staff.Remove(employee);
+                    // обновляем данные интерфейса
+                    FillTable();
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show(ex.Message); //выводим сообщение об ошибке и не закрываем форму
+                }
             }
         }
 

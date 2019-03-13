@@ -79,5 +79,10 @@ namespace Model
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public Guid IdEmployeeRole { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format($"{Surname} {Name} {LastName}");
+        }
     }
 }

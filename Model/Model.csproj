@@ -45,7 +45,9 @@
     <Compile Include="Helpers\NamesGenerator.cs" />
     <Compile Include="Helpers\PassportNumberGenerator.cs" />
     <Compile Include="Helpers\PhoneNumberGenerator.cs" />
+    <Compile Include="Scheme\AccordancePayChannel.cs" />
     <Compile Include="Scheme\EmployeeRole.cs" />
+    <Compile Include="Scheme\PayChannel.cs" />
     <Compile Include="Scheme\Reservation.cs" />
     <Compile Include="Common\SaverLoader.cs" />
     <Compile Include="Scheme\Hotel.cs" />

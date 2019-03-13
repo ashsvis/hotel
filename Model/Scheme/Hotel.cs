@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Model
@@ -10,6 +11,8 @@ namespace Model
         {
             Rooms = new Rooms(this);
             RegistryStaff = new RegistryStaff(this);
+            Reservations = new Reservations(this);
+            Transfers = new Transfers(this);
         }
 
         public Categories Categories { get; set; } = new Categories();
@@ -19,18 +22,20 @@ namespace Model
         public EmployeeRoles EmployeeRoles { get; set; } = new EmployeeRoles();
         public RegistryStaff RegistryStaff { get; set; }
         public Clients Clients { get; set; } = new Clients();
-        public Reservations Reservations { get; set; } = new Reservations();
-        public Reservations Arrivals { get; set; } = new Reservations();
+        public Reservations Reservations { get; set; }
+        public Transfers Transfers { get; set; }
+        public PayChannels PayChannels { get; set; } = new PayChannels();
+        public AccordancePayChannels AccordancePayChannels { get; set; } = new AccordancePayChannels();
 
         public void BuildData()
         {
-            EmployeeRoles.Add("Управляющий", 15000, AllowedOperations.All);
-            EmployeeRoles.Add("Регистратор", 12000, AllowedOperations.All ^ AllowedOperations.ManageEmployees);
-            EmployeeRoles.Add("Горничная", 8500, AllowedOperations.None);
-
             Seats.Add("Одноместный", 1);
             Seats.Add("Двухместный", 2);
             Seats.Add("Трёхместный", 3);
+
+            EmployeeRoles.Add("Управляющий", 15000, AllowedOperations.All);
+            EmployeeRoles.Add("Регистратор", 12000, AllowedOperations.All ^ AllowedOperations.ManageEmployees);
+            EmployeeRoles.Add("Горничная", 8500, AllowedOperations.None);
 
             Categories.Add("Эконом");
             Categories.Add("Семейный");
@@ -96,6 +101,54 @@ namespace Model
             }
         }
 
+        public void CheckPayChannelUsed(PayChannel channel)
+        {
+            if (AccordancePayChannels.Any(item => item.PayChannels.Any(p => p.IdPayChannel == channel.IdPayChannel)))
+                throw new Exception("Этот канал ещё используется!");
+        }
+
+        /// <summary>
+        /// Проверить на использование сотрудника в списке бронирования
+        /// </summary>
+        /// <param name="employee"></param>
+        public void CheckEmployeeUsed(Employee employee)
+        {
+            if (Reservations.Any(item => item.IdEmployee == employee.IdEmployee))
+                throw new Exception("Эта запись сотрудника ещё используется!");
+        }
+
+        /// <summary>
+        /// Проверить уникальность названия канала
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <param name="name"></param>
+        public void CheckPayChannelName(PayChannel channel, string name)
+        {
+            if (PayChannels.Any(item => item != channel && item.NameChannel == name))
+                throw new Exception("Это название канала уже используется!");
+        }
+
+        /// <summary>
+        /// Проверить уникальность названия должности
+        /// </summary>
+        /// <param name="role"></param>
+        /// <param name="name"></param>
+        public void CheckEmployeeRoleName(EmployeeRole role, string name)
+        {
+            if (EmployeeRoles.Any(item => item != role && item.NameRole == name))
+                throw new Exception("Это название должности уже используется!");
+        }
+
+        /// <summary>
+        /// Проверка на использование должности у сотрудников
+        /// </summary>
+        /// <param name="role"></param>
+        public void CheckEmployeeRoleUsed(EmployeeRole role)
+        {
+            if (RegistryStaff.Any(item => item.IdEmployeeRole == role.IdEmployeeRole))
+                throw new Exception("Это должность ещё используется!");
+        }
+
         /// <summary>
         /// Проверить уникальность названия категории
         /// </summary>
@@ -133,7 +186,7 @@ namespace Model
         /// <param name="room"></param>
         public void CheckRoomUsed(Room room)
         {
-            if (Arrivals.Any(r => r.IdRoom == room.IdRoom))
+            if (Reservations.Any(r => r.IdRoom == room.IdRoom))
                 throw new Exception("Этот номер ещё используется!");
         }
 
@@ -143,7 +196,7 @@ namespace Model
         /// <param name="client"></param>
         public void CheckClientUsed(Client client)
         {
-            if (Arrivals.Any(r => r.IdClient == client.IdClient))
+            if (Reservations.Any(r => r.IdClient == client.IdClient))
                 throw new Exception("Эта запись о клиенте ещё используется!");
         }
 
@@ -183,6 +236,16 @@ namespace Model
         }
 
         /// <summary>
+        /// Получить ссылку на заселение по его Id
+        /// </summary>
+        /// <param name="reservationId"></param>
+        /// <returns></returns>
+        public Reservation GetReservation(Guid reservationId)
+        {
+            return this.Reservations.FirstOrDefault(item => item.IdReservation == reservationId);
+        }
+
+        /// <summary>
         /// Получить ссылку на клиента по его Id
         /// </summary>
         /// <param name="clientId"></param>
@@ -190,6 +253,16 @@ namespace Model
         public Client GetClient(Guid clientId)
         {
             return this.Clients.FirstOrDefault(item => item.IdClient == clientId);
+        }
+
+        /// <summary>
+        /// Получить ссылку на сотрудника по его Id
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        public Employee GetEmployee(Guid employeeId)
+        {
+            return this.RegistryStaff.FirstOrDefault(item => item.IdEmployee == employeeId);
         }
 
         /// <summary>
@@ -211,7 +284,7 @@ namespace Model
         /// <returns></returns>
         public int RoomUsed(Room room, DateTime first, DateTime last)
         {
-            return Arrivals.Where(item => 
+            return Reservations.Where(item => 
                                   item.ArrivalDate >= first && item.ArrivalDate <= last ||
                                   item.DepartureDate >= first && item.DepartureDate <= last)
                            .Count(item => item.IdRoom == room.IdRoom);
@@ -286,6 +359,28 @@ namespace Model
         {
             if (RegistryStaff.Any(item => item != employee && item.PhoneNumber == phoneNumber))
                 throw new Exception("Этот номер телефона сотрудника уже используется!");
+        }
+
+        /// <summary>
+        /// Получить список сотрудников, имеющих право регистрировать клиентов
+        /// </summary>
+        /// <returns></returns>
+        public List<Employee> GetRegistrators()
+        {
+            return RegistryStaff.Where(item => GetEmployeeRole(item.IdEmployeeRole)
+                                .AllowedOperations.HasFlag(AllowedOperations.ManageClients))
+                                .OrderBy(item => string.Concat(item.Surname,item.Name,item.LastName)).ToList();
+        }
+
+        /// <summary>
+        /// Получить список сотрудников, имеющих право регистрировать сотрудников
+        /// </summary>
+        /// <returns></returns>
+        public List<Employee> GetAdministrators()
+        {
+            return RegistryStaff.Where(item => GetEmployeeRole(item.IdEmployeeRole)
+                                .AllowedOperations.HasFlag(AllowedOperations.ManageEmployees))
+                                .OrderBy(item => string.Concat(item.Surname, item.Name, item.LastName)).ToList();
         }
 
         /// <summary>

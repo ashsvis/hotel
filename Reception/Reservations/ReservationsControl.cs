@@ -7,7 +7,7 @@ namespace Reception
     public partial class ReservationsControl : UserControl
     {
         Hotel _hotel;
-        Reservations _arrivals;
+        Reservations _reservations;
 
         public ReservationsControl()
         {
@@ -18,22 +18,22 @@ namespace Reception
         public void Build(Hotel hotel)
         {
             _hotel = hotel;
-            _arrivals = _hotel.Arrivals;
+            _reservations = _hotel.Reservations;
             FillTable();
         }
 
         private void FillTable()
         {
-            tsbChangeArrivalClient.Enabled = tsbDepartureClient.Enabled = false;
+            tsbChangeReservationClient.Enabled = tsbDepartureClient.Enabled = false;
             // устанавливаем размер виртуальной таблицы
-            dgvArrivals.RowCount = _arrivals.Count;
+            dgvReservations.RowCount = _reservations.Count;
             // просим перерисовать таблицу
-            dgvArrivals.Invalidate();
+            dgvReservations.Invalidate();
         }
 
-        private void dgvArrivals_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        private void dgvReservations_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
-            var sorted = _arrivals;
+            var sorted = _reservations;
             if (sorted.Count == 0) return;
             // для каждого столбца виртуальной таблицы
             switch (e.ColumnIndex)
@@ -59,6 +59,13 @@ namespace Reception
                 case 3: // дата выезда
                     e.Value = sorted[e.RowIndex].DepartureDate.ToShortDateString();
                     break;
+                case 4: // фамилия, имя и отчество сотрудника
+                    var employeeId = sorted[e.RowIndex].IdEmployee;
+                    var employee = _hotel.GetEmployee(employeeId);
+                    e.Value = employee != null
+                        ? string.Format($"{employee.Surname} {employee.Name} {employee.LastName}")
+                        : "нет данных";
+                    break;
             }
         }
 
@@ -67,15 +74,15 @@ namespace Reception
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tsbArrivalClient_Click(object sender, EventArgs e)
+        private void tsbReservationClient_Click(object sender, EventArgs e)
         {
             var frm = new ArrivalForm(_hotel); // создаем форму
-            frm.Build(new Reservation()); // создаём "пустое" заселение и заполняем контролы формы
+            frm.Build(new Reservation(_hotel)); // создаём "пустое" заселение и заполняем контролы формы
             // показываем форму в диалоге
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
                 var arrival = frm.Data; // получаем измененные данные клиента
-                _arrivals.Add(arrival); // добавляем в список клиентов
+                _reservations.Add(arrival); // добавляем в список клиентов
                 FillTable(); // перестраиваем таблицу
             }
         }
@@ -85,10 +92,10 @@ namespace Reception
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tsbChangeArrivalClient_Click(object sender, EventArgs e)
+        private void tsbChangeReservationClient_Click(object sender, EventArgs e)
         {
             var frm = new ArrivalForm(_hotel); // создаем форму
-            frm.Build(_arrivals[dgvArrivals.SelectedRows[0].Index]); // заполняем контролы формы параметрами выбранного заезда
+            frm.Build(_reservations[dgvReservations.SelectedRows[0].Index]); // заполняем контролы формы параметрами выбранного заезда
             // вызываем форму на редактирование
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
@@ -104,20 +111,20 @@ namespace Reception
         /// <param name="e"></param>
         private void tsbDepartureClient_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(this, "Удалить информацию о заселении?", "Удаление заезда",
+            if (MessageBox.Show(this, "Удалить информацию о заселении?", "Удаление брони",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                var arival = _arrivals[dgvArrivals.SelectedRows[0].Index];
+                var reservation = _reservations[dgvReservations.SelectedRows[0].Index];
                 // удаляем комнату из списка комнат
-                _arrivals.Remove(arival);
+                _reservations.Remove(reservation);
                 // обновляем данные интерфейса
                 FillTable();
             }
         }
 
-        private void dgvArrivals_RowEnter(object sender, DataGridViewCellEventArgs e)
+        private void dgvReservations_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            tsbChangeArrivalClient.Enabled = tsbDepartureClient.Enabled = true;
+            tsbChangeReservationClient.Enabled = tsbDepartureClient.Enabled = true;
         }
     }
 }

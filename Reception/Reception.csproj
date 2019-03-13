@@ -46,11 +46,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmployeeRolesControl.cs">
+    <Compile Include="AccordancePayChannels\AccordancePayChannelsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="EmployeeRolesControl.Designer.cs">
+    <Compile Include="AccordancePayChannels\AccordancePayChannelsControl.Designer.cs">
+      <DependentUpon>AccordancePayChannelsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AccordancePayChannels\AccordancePayChannelsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AccordancePayChannels\AccordancePayChannelsForm.Designer.cs">
+      <DependentUpon>AccordancePayChannelsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeRoles\EmployeeRolesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EmployeeRoles\EmployeeRolesControl.Designer.cs">
       <DependentUpon>EmployeeRolesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeRoles\EmployeeRoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeRoles\EmployeeRoleForm.Designer.cs">
+      <DependentUpon>EmployeeRoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PayChannels\PayChannelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PayChannels\PayChannelForm.Designer.cs">
+      <DependentUpon>PayChannelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PayChannels\PayChannelsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PayChannels\PayChannelsControl.Designer.cs">
+      <DependentUpon>PayChannelsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Reservations\ReservationForm.cs">
       <SubType>Form</SubType>
@@ -88,16 +118,16 @@
     <Compile Include="Clients\ClientsControl.Designer.cs">
       <DependentUpon>ClientsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="RegistryStaff\EmployeeForm.cs">
+    <Compile Include="Employees\EmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistryStaff\EmployeeForm.Designer.cs">
+    <Compile Include="Employees\EmployeeForm.Designer.cs">
       <DependentUpon>EmployeeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="RegistryStaff\EmployeesControl.cs">
+    <Compile Include="Employees\EmployeesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RegistryStaff\EmployeesControl.Designer.cs">
+    <Compile Include="Employees\EmployeesControl.Designer.cs">
       <DependentUpon>EmployeesControl.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -132,8 +162,35 @@
     <Compile Include="Services\ServicesControl.Designer.cs">
       <DependentUpon>ServicesControl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="EmployeeRolesControl.resx">
+    <Compile Include="Transfers\TransferControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transfers\TransferControl.Designer.cs">
+      <DependentUpon>TransferControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transfers\TransferForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Transfers\TransferForm.Designer.cs">
+      <DependentUpon>TransferForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AccordancePayChannels\AccordancePayChannelsControl.resx">
+      <DependentUpon>AccordancePayChannelsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AccordancePayChannels\AccordancePayChannelsForm.resx">
+      <DependentUpon>AccordancePayChannelsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeRoles\EmployeeRolesControl.resx">
       <DependentUpon>EmployeeRolesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeRoles\EmployeeRoleForm.resx">
+      <DependentUpon>EmployeeRoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PayChannels\PayChannelForm.resx">
+      <DependentUpon>PayChannelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PayChannels\PayChannelsControl.resx">
+      <DependentUpon>PayChannelsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reservations\ReservationForm.resx">
       <DependentUpon>ReservationForm.cs</DependentUpon>
@@ -153,10 +210,10 @@
     <EmbeddedResource Include="Clients\ClientsControl.resx">
       <DependentUpon>ClientsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegistryStaff\EmployeeForm.resx">
+    <EmbeddedResource Include="Employees\EmployeeForm.resx">
       <DependentUpon>EmployeeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegistryStaff\EmployeesControl.resx">
+    <EmbeddedResource Include="Employees\EmployeesControl.resx">
       <DependentUpon>EmployeesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -182,6 +239,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Services\ServicesControl.resx">
       <DependentUpon>ServicesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transfers\TransferControl.resx">
+      <DependentUpon>TransferControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transfers\TransferForm.resx">
+      <DependentUpon>TransferForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

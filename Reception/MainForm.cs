@@ -90,5 +90,26 @@ namespace Reception
             rc.Build(_hotel);
             CreateAndShowUserControl(rc);
         }
+
+        private void tsmiTransfer_Click(object sender, EventArgs e)
+        {
+            var rc = new TransferControl() { Dock = DockStyle.Fill };
+            rc.Build(_hotel);
+            CreateAndShowUserControl(rc);
+        }
+
+        private void tsmiPayChannelsTV_Click(object sender, EventArgs e)
+        {
+            var rc = new PayChannelsControl() { Dock = DockStyle.Fill };
+            rc.Build(_hotel);
+            CreateAndShowUserControl(rc);
+        }
+
+        private void tsmiAccordancePayChannels_Click(object sender, EventArgs e)
+        {
+            var rc = new AccordancePayChannelsControl() { Dock = DockStyle.Fill };
+            rc.Build(_hotel);
+            CreateAndShowUserControl(rc);
+        }
     }
 }

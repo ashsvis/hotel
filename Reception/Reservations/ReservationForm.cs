@@ -72,6 +72,10 @@ namespace Reception
             cbClientFullName.Items.Clear();
             foreach (var client in _hotel.Clients.OrderedBySurname())
                 cbClientFullName.Items.Add(client);
+            // заполнение списка сотрудников
+            cbEmployeeFullName.Items.Clear();
+            foreach (var employee in _hotel.GetRegistrators())
+                cbEmployeeFullName.Items.Add(employee);
         }
 
         //занесение данных из объекта данных в контролы
@@ -89,6 +93,15 @@ namespace Reception
                 if (item.IdClient == data.IdClient)
                 {
                     cbClientFullName.SelectedItem = item;
+                    break;
+                }
+            }
+            // присваиваем текущее значение списка сотрудников
+            foreach (var item in cbEmployeeFullName.Items.Cast<Employee>())
+            {
+                if (item.IdEmployee == data.IdEmployee)
+                {
+                    cbEmployeeFullName.SelectedItem = item;
                     break;
                 }
             }
@@ -145,6 +158,9 @@ namespace Reception
             // заезд и выезд
             Data.ArrivalDate = dtpArrivalDate.Value.Date;
             Data.DepartureDate = dtpDepartureDate.Value.Date;
+            // указываем выбранного сотрудника
+            if (cbEmployeeFullName.SelectedItem != null)
+                Data.IdEmployee = ((Employee)cbEmployeeFullName.SelectedItem).IdEmployee;
         }
 
         private void cbClientFullName_SelectionChangeCommitted(object sender, System.EventArgs e)
@@ -158,7 +174,8 @@ namespace Reception
         private void UpdateOkButton()
         {
             btnOk.Enabled = cbClientFullName.SelectedItem != null && _room != null &&
-                            dtpArrivalDate.Value < dtpDepartureDate.Value;
+                            dtpArrivalDate.Value < dtpDepartureDate.Value &&
+                            cbEmployeeFullName.SelectedItem != null;
         }
 
         /// <summary>

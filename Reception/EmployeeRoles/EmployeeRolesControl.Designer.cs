@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeRolesControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvEmployeeRoles = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbNewEmployeeRole = new System.Windows.Forms.ToolStripButton();
             this.tsbChangeEmployeeRole = new System.Windows.Forms.ToolStripButton();
             this.tsbDeleteEmployeeRole = new System.Windows.Forms.ToolStripButton();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeRoles)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -48,14 +48,14 @@
             this.dgvEmployeeRoles.AllowUserToDeleteRows = false;
             this.dgvEmployeeRoles.AllowUserToResizeRows = false;
             this.dgvEmployeeRoles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvEmployeeRoles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvEmployeeRoles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvEmployeeRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployeeRoles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -72,6 +72,22 @@
             this.dgvEmployeeRoles.VirtualMode = true;
             this.dgvEmployeeRoles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployeeRoles_CellClick);
             this.dgvEmployeeRoles.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvEmployeeRoles_CellValueNeeded);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Наименование должности";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 163;
+            // 
+            // Column2
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Column2.HeaderText = "Оклад жалования за месяц";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 134;
             // 
             // toolStrip1
             // 
@@ -94,6 +110,7 @@
             this.tsbNewEmployeeRole.Size = new System.Drawing.Size(108, 22);
             this.tsbNewEmployeeRole.Text = "Новая должность";
             this.tsbNewEmployeeRole.ToolTipText = "Добавить должность";
+            this.tsbNewEmployeeRole.Click += new System.EventHandler(this.tsbNewEmployeeRole_Click);
             // 
             // tsbChangeEmployeeRole
             // 
@@ -105,6 +122,7 @@
             this.tsbChangeEmployeeRole.Size = new System.Drawing.Size(109, 22);
             this.tsbChangeEmployeeRole.Text = "Изменить данные";
             this.tsbChangeEmployeeRole.ToolTipText = "Изменить данные";
+            this.tsbChangeEmployeeRole.Click += new System.EventHandler(this.tsbChangeEmployeeRole_Click);
             // 
             // tsbDeleteEmployeeRole
             // 
@@ -116,22 +134,7 @@
             this.tsbDeleteEmployeeRole.Size = new System.Drawing.Size(118, 22);
             this.tsbDeleteEmployeeRole.Text = "Удалить должность";
             this.tsbDeleteEmployeeRole.ToolTipText = "Удалить должность";
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Наименование должности";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 163;
-            // 
-            // Column2
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Column2.HeaderText = "Оклад жалования за месяц";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 134;
+            this.tsbDeleteEmployeeRole.Click += new System.EventHandler(this.tsbDeleteEmployeeRole_Click);
             // 
             // EmployeeRolesControl
             // 

@@ -46,6 +46,8 @@
             this.lbPriceDay = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lbArrivalPrice = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cbEmployeeFullName = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -73,7 +75,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(327, 331);
+            this.btnCancel.Location = new System.Drawing.Point(327, 375);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
@@ -84,7 +86,7 @@
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOk.Enabled = false;
-            this.btnOk.Location = new System.Drawing.Point(246, 331);
+            this.btnOk.Location = new System.Drawing.Point(246, 375);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 5;
@@ -211,7 +213,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(12, 331);
+            this.label5.Location = new System.Drawing.Point(215, 322);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(106, 15);
             this.label5.TabIndex = 11;
@@ -221,11 +223,32 @@
             // 
             this.lbArrivalPrice.AutoSize = true;
             this.lbArrivalPrice.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbArrivalPrice.Location = new System.Drawing.Point(120, 331);
+            this.lbArrivalPrice.Location = new System.Drawing.Point(323, 322);
             this.lbArrivalPrice.Name = "lbArrivalPrice";
             this.lbArrivalPrice.Size = new System.Drawing.Size(12, 15);
             this.lbArrivalPrice.TabIndex = 11;
             this.lbArrivalPrice.Text = "-";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(14, 343);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(134, 15);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Фамилия сотрудника:";
+            // 
+            // cbEmployeeFullName
+            // 
+            this.cbEmployeeFullName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbEmployeeFullName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbEmployeeFullName.FormattingEnabled = true;
+            this.cbEmployeeFullName.Location = new System.Drawing.Point(154, 340);
+            this.cbEmployeeFullName.Name = "cbEmployeeFullName";
+            this.cbEmployeeFullName.Size = new System.Drawing.Size(255, 23);
+            this.cbEmployeeFullName.TabIndex = 0;
+            this.cbEmployeeFullName.SelectionChangeCommitted += new System.EventHandler(this.cbClientFullName_SelectionChangeCommitted);
             // 
             // ArrivalForm
             // 
@@ -233,7 +256,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(414, 366);
+            this.ClientSize = new System.Drawing.Size(414, 410);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lbServices);
             this.Controls.Add(this.lbRoom);
@@ -250,7 +273,9 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.cbEmployeeFullName);
             this.Controls.Add(this.cbClientFullName);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -285,5 +310,7 @@
         private System.Windows.Forms.Label lbPriceDay;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lbArrivalPrice;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cbEmployeeFullName;
     }
 }
