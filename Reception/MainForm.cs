@@ -20,6 +20,7 @@ namespace Reception
             var fileName = Path.ChangeExtension(Application.ExecutablePath, ".dat");
             if (File.Exists(fileName))
                 _hotel = SaverLoader.LoadFromFile(fileName);
+            _hotel = SaverLoader.LoadFromBase("Data Source=EPKS;Initial Catalog=Hotel;User ID=mngr;Password=mngr");
             CenterToScreen();
         }
 
@@ -47,6 +48,8 @@ namespace Reception
         {
             var fileName = Path.ChangeExtension(Application.ExecutablePath, ".dat");
             SaverLoader.SaveToFile(fileName, _hotel);
+
+            SaverLoader.SaveToBase("Data Source=EPKS;Initial Catalog=Hotel;User ID=mngr;Password=mngr", _hotel);
         }
 
         private void tsmiEmployees_Click(object sender, EventArgs e)
@@ -109,6 +112,42 @@ namespace Reception
         {
             var rc = new AccordancePayChannelsControl() { Dock = DockStyle.Fill };
             rc.Build(_hotel);
+            CreateAndShowUserControl(rc);
+        }
+
+        private void tsmiCurrentClients_Click(object sender, EventArgs e)
+        {
+            var rc = new ReportViewControl() { Dock = DockStyle.Fill };
+            var generator = new ReportsBuilder();
+            var report = generator.GetClientsByDate(_hotel, DateTime.Now);
+            rc.Build(_hotel, report);
+            CreateAndShowUserControl(rc);
+        }
+
+        private void tsmiEmptyRooms_Click(object sender, EventArgs e)
+        {
+            var rc = new ReportViewControl() { Dock = DockStyle.Fill };
+            var generator = new ReportsBuilder();
+            var report = generator.GetEmptyRoomsByDate(_hotel, DateTime.Now);
+            rc.Build(_hotel, report);
+            CreateAndShowUserControl(rc);
+        }
+
+        private void tsmiBusyRooms_Click(object sender, EventArgs e)
+        {
+            var rc = new ReportViewControl() { Dock = DockStyle.Fill };
+            var generator = new ReportsBuilder();
+            var report = generator.GetBusyRoomsByDate(_hotel, DateTime.Now);
+            rc.Build(_hotel, report);
+            CreateAndShowUserControl(rc);
+        }
+
+        private void tsmiLastMonthClients_Click(object sender, EventArgs e)
+        {
+            var rc = new ReportViewControl() { Dock = DockStyle.Fill };
+            var generator = new ReportsBuilder();
+            var report = generator.GetClientsByLastMonth(_hotel);
+            rc.Build(_hotel, report);
             CreateAndShowUserControl(rc);
         }
     }

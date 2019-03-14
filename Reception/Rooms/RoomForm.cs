@@ -21,7 +21,7 @@ namespace Reception
             foreach (var category in hotel.Categories.OrderBy(item => item.Value.NameCategory))
                 cbCategory.Items.Add(category.Value);
             // заполнение списка мест для номеров
-            foreach (var seat in hotel.Seats)
+            for (var seat = 1; seat < 4; seat++)
                 cbNumberSeat.Items.Add(seat);
             // заполнение возможных услуг в номере
             foreach (var service in hotel.Services)
@@ -46,11 +46,11 @@ namespace Reception
                 }
             }
             // присваиваем текущее значение списка мест
-            foreach (var item in cbNumberSeat.Items.Cast<KindOfSeat>())
+            foreach (var seat in cbNumberSeat.Items.Cast<int>())
             {
-                if (item.NumberSeat == data.NumberSeat)
+                if (seat == data.NumberSeat)
                 {
-                    cbNumberSeat.SelectedItem = item;
+                    cbNumberSeat.SelectedItem = seat;
                     break;
                 }
             }
@@ -80,7 +80,7 @@ namespace Reception
                 Data.IdCategory = ((Category)cbCategory.SelectedItem).IdCategory;
             // указываем количество мест в номере
             if (cbNumberSeat.SelectedItem != null)
-                Data.NumberSeat = ((KindOfSeat)cbNumberSeat.SelectedItem).NumberSeat;
+                Data.NumberSeat = (int)cbNumberSeat.SelectedItem;
             // указываем этаж
             Data.Floor = (int)nudFoor.Value;
             // указываем цену номера за сутки

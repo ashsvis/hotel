@@ -51,6 +51,13 @@
             this.tsmiSaveToFile = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panelView = new System.Windows.Forms.Panel();
+            this.tsmiReports = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCurrentTime = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCurrentClients = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiEmptyRooms = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiBusyRooms = new System.Windows.Forms.ToolStripMenuItem();
+            this.заПоследнийМесяцToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiLastMonthClients = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,6 +65,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiReception,
+            this.tsmiReports,
             this.tsmiTuning});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -241,6 +249,61 @@
             this.panelView.Size = new System.Drawing.Size(933, 473);
             this.panelView.TabIndex = 2;
             // 
+            // tsmiReports
+            // 
+            this.tsmiReports.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiCurrentTime,
+            this.заПоследнийМесяцToolStripMenuItem});
+            this.tsmiReports.Name = "tsmiReports";
+            this.tsmiReports.Size = new System.Drawing.Size(60, 20);
+            this.tsmiReports.Text = "Отчёты";
+            // 
+            // tsmiCurrentTime
+            // 
+            this.tsmiCurrentTime.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiCurrentClients,
+            this.tsmiEmptyRooms,
+            this.tsmiBusyRooms});
+            this.tsmiCurrentTime.Name = "tsmiCurrentTime";
+            this.tsmiCurrentTime.Size = new System.Drawing.Size(187, 22);
+            this.tsmiCurrentTime.Text = "На текущий момент";
+            // 
+            // tsmiCurrentClients
+            // 
+            this.tsmiCurrentClients.Name = "tsmiCurrentClients";
+            this.tsmiCurrentClients.Size = new System.Drawing.Size(188, 22);
+            this.tsmiCurrentClients.Text = "Список постояльцев";
+            this.tsmiCurrentClients.Click += new System.EventHandler(this.tsmiCurrentClients_Click);
+            // 
+            // tsmiEmptyRooms
+            // 
+            this.tsmiEmptyRooms.Name = "tsmiEmptyRooms";
+            this.tsmiEmptyRooms.Size = new System.Drawing.Size(188, 22);
+            this.tsmiEmptyRooms.Text = "Свободные номера";
+            this.tsmiEmptyRooms.Click += new System.EventHandler(this.tsmiEmptyRooms_Click);
+            // 
+            // tsmiBusyRooms
+            // 
+            this.tsmiBusyRooms.Name = "tsmiBusyRooms";
+            this.tsmiBusyRooms.Size = new System.Drawing.Size(188, 22);
+            this.tsmiBusyRooms.Text = "Занятые номера";
+            this.tsmiBusyRooms.Click += new System.EventHandler(this.tsmiBusyRooms_Click);
+            // 
+            // заПоследнийМесяцToolStripMenuItem
+            // 
+            this.заПоследнийМесяцToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiLastMonthClients});
+            this.заПоследнийМесяцToolStripMenuItem.Name = "заПоследнийМесяцToolStripMenuItem";
+            this.заПоследнийМесяцToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.заПоследнийМесяцToolStripMenuItem.Text = "За последний месяц";
+            // 
+            // tsmiLastMonthClients
+            // 
+            this.tsmiLastMonthClients.Name = "tsmiLastMonthClients";
+            this.tsmiLastMonthClients.Size = new System.Drawing.Size(188, 22);
+            this.tsmiLastMonthClients.Text = "Список постояльцев";
+            this.tsmiLastMonthClients.Click += new System.EventHandler(this.tsmiLastMonthClients_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -286,6 +349,13 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiPayChannelsTV;
         private System.Windows.Forms.ToolStripMenuItem tsmiAccordancePayChannels;
         private System.Windows.Forms.ToolStripMenuItem tsmiClientsBlackList;
+        private System.Windows.Forms.ToolStripMenuItem tsmiReports;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCurrentTime;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCurrentClients;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEmptyRooms;
+        private System.Windows.Forms.ToolStripMenuItem tsmiBusyRooms;
+        private System.Windows.Forms.ToolStripMenuItem заПоследнийМесяцToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiLastMonthClients;
     }
 }
 

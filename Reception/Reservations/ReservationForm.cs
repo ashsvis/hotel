@@ -37,7 +37,7 @@ namespace Reception
                 // сформируем группы номеров по этажам
                 foreach (var floors in _hotel.Rooms.OrderBy(f => f.Floor).GroupBy(f => f.Floor))
                 {
-                    // добавляем узы этажей
+                    // добавляем узлы этажей
                     var floorNode = new TreeNode(string.Format($"{floors.Key} этаж"));
                     hotelNode.Nodes.Add(floorNode);
                     foreach (var categories in floors.GroupBy(c => c.IdCategory).OrderBy(c => _hotel.Categories[c.Key].NameCategory))
@@ -47,7 +47,11 @@ namespace Reception
                         foreach (var room in categories)
                         {
                             var count = _hotel.RoomUsed(room, dtpArrivalDate.Value, dtpDepartureDate.Value);
-                            var status = room.NumberSeat == count ? "(занят)" : count != 0 ? string.Format($"(ещё: {room.NumberSeat - count})") : "";
+                            var status = room.NumberSeat == count 
+                                ? "(занят)" 
+                                : count != 0 
+                                      ? string.Format($"(ещё: {room.NumberSeat - count})") 
+                                      : "";
                             var roomNode = new TreeNode(string.Format($"{room.RoomNumber} {status}")) { Tag = room };
                             _index.Add(room, roomNode);
                             categoryNode.Nodes.Add(roomNode);
