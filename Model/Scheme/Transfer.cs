@@ -13,6 +13,20 @@ namespace Model
             _hotel = hotel;
         }
 
+        public Transfer Add(Guid idTransfer, Guid idReservation, string feedAddress, DateTime feedDateTime, int numberSeat)
+        {
+            var transfer = new Transfer(_hotel)
+            {
+                IdTransfer = idTransfer,
+                IdReservation = idReservation,
+                FeedAddress = feedAddress,
+                FeedDateTime = feedDateTime,
+                NumberSeat = numberSeat
+            };
+            base.Add(transfer);
+            return transfer;
+        }
+
         public Transfer Add(Guid idReservation, string feedAddress, DateTime feedDateTime, int numberSeat)
         {
             var transfer = new Transfer(_hotel)
@@ -24,6 +38,11 @@ namespace Model
             };
             base.Add(transfer);
             return transfer;
+        }
+
+        public void Delete(Guid idTransfer)
+        {
+            base.RemoveAll(item => item.IdTransfer == idTransfer);
         }
     }
 

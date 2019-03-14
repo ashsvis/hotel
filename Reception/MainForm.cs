@@ -17,9 +17,9 @@ namespace Reception
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            var fileName = Path.ChangeExtension(Application.ExecutablePath, ".dat");
-            if (File.Exists(fileName))
-                _hotel = SaverLoader.LoadFromFile(fileName);
+            //var fileName = Path.ChangeExtension(Application.ExecutablePath, ".dat");
+            //if (File.Exists(fileName))
+            //    _hotel = SaverLoader.LoadFromFile(fileName);
             _hotel = SaverLoader.LoadFromBase("Data Source=EPKS;Initial Catalog=Hotel;User ID=mngr;Password=mngr");
             CenterToScreen();
         }

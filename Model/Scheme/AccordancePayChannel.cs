@@ -7,6 +7,18 @@ namespace Model
     public class AccordancePayChannels : List<AccordancePayChannel>
     {
 
+        public AccordancePayChannel Add(Guid idAccordancePayChannel, Guid idReservation)
+        {
+            var room = new AccordancePayChannel
+            {
+                IdAccordancePayChannel = idAccordancePayChannel,
+                IdReservation = idReservation,
+                PayChannels = new PayChannels()
+            };
+            base.Add(room);
+            return room;
+        }
+
         public AccordancePayChannel Add(Guid idReservation)
         {
             var room = new AccordancePayChannel

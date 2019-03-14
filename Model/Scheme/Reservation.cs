@@ -13,6 +13,19 @@ namespace Model
             _hotel = hotel;
         }
 
+        public void Add(Guid idArrival, Guid idClient, Guid idRoom, DateTime arrivalDate, DateTime departureDate, Guid idEmployee)
+        {
+            base.Add(new Reservation(_hotel)
+            {
+                IdReservation = idArrival,
+                IdClient = idClient,
+                IdRoom = idRoom,
+                ArrivalDate = arrivalDate,
+                DepartureDate = departureDate,
+                IdEmployee = idEmployee
+            });
+        }
+
         public void Add(Guid idClient, Guid idRoom, DateTime arrivalDate, DateTime departureDate, Guid idEmployee)
         {
             base.Add(new Reservation(_hotel)

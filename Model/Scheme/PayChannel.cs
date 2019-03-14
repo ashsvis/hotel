@@ -7,6 +7,16 @@ namespace Model
     public class PayChannels : List<PayChannel>
     {
 
+        public void Add(Guid idPayChannel, string nameChannel, decimal priceHour)
+        {
+            base.Add(new PayChannel
+            {
+                IdPayChannel = idPayChannel,
+                NameChannel = nameChannel,
+                PriceHour = priceHour
+            });
+        }
+
         public void Add(string nameChannel, decimal priceHour)
         {
             base.Add(new PayChannel

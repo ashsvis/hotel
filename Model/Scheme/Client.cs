@@ -17,6 +17,23 @@ namespace Model
     [Serializable]
     public class Clients : List<Client>
     {
+        public void Add(Guid idClient, string surname, string name, string lastname,
+            DateTime birthday, string city, string phoneNumber, string passport, int numberChild = 0)
+        {
+            base.Add(new Client
+            {
+                IdClient = idClient,
+                Surname = surname,
+                Name = name,
+                LastName = lastname,
+                Birthday = birthday,
+                City = city,
+                PhoneNumber = phoneNumber,
+                Passport = passport,
+                NumberChild = numberChild
+            });
+        }
+
         public void Add(string surname, string name, string lastname, 
             DateTime birthday, string city, string phoneNumber, string passport, int numberChild = 0)
         {

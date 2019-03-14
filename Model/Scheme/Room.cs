@@ -25,7 +25,23 @@ namespace Model
             _hotel = hotel;
         }
 
-        public Room Add(Guid idCategory, int numberSeat, int floor, decimal priceDay)
+        public Room Add(Guid idRoom, Guid idCategory, int numberSeat, int floor, decimal priceDay, string roomNumber)
+        {
+            var room = new Room(_hotel)
+            {
+                IdRoom = idRoom,
+                IdCategory = idCategory,
+                NumberSeat = numberSeat,
+                Floor = floor,
+                PriceDay = priceDay,
+                RoomNumber = roomNumber,
+                Services = new Services()
+            };
+            base.Add(room);
+            return room;
+        }
+
+        public Room Add(Guid idCategory, int numberSeat, int floor, decimal priceDay, string roomNumber)
         {
             var room = new Room(_hotel)
             {
@@ -33,6 +49,7 @@ namespace Model
                 NumberSeat = numberSeat,
                 Floor = floor,
                 PriceDay = priceDay,
+                RoomNumber = roomNumber,
                 Services = new Services()
             };
             base.Add(room);

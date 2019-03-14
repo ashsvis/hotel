@@ -22,6 +22,19 @@ namespace Model
             _hotel = hotel;
         }
 
+        public void Add(Guid idEmployee, string surname, string name, string lastname, string phoneNumber, Guid idEmployeeRole)
+        {
+            base.Add(new Employee(_hotel)
+            {
+                IdEmployee = idEmployee,
+                Surname = surname,
+                Name = name,
+                LastName = lastname,
+                PhoneNumber = phoneNumber,
+                IdEmployeeRole = idEmployeeRole
+            });
+        }
+
         public void Add(string surname, string name, string lastname, string phoneNumber, Guid idEmployeeRole)
         {
             base.Add(new Employee(_hotel)

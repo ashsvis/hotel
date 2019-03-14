@@ -6,6 +6,16 @@ namespace Model
     [Serializable]
     public class Services : List<Service>
     {
+        public void Add(Guid idService, string name, decimal priceDay)
+        {
+            base.Add(new Service
+            {
+                IdService = idService,
+                NameService = name,
+                PriceDay = priceDay
+            });
+        }
+
         public void Add(string name, decimal priceDay)
         {
             base.Add(new Service

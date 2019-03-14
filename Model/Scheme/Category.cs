@@ -35,6 +35,16 @@ namespace Model
                 info.AddValue(key.ToString(), this[key].NameCategory);
         }
 
+        public void Add(Guid idCategory, string name)
+        {
+            var category = new Category
+            {
+                IdCategory = idCategory,
+                NameCategory = name
+            };
+            base.Add(category.IdCategory, category);
+        }
+
         public void Add(string name)
         {
             var category = new Category

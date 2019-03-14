@@ -6,6 +6,17 @@ namespace Model
     [Serializable]
     public class EmployeeRoles : List<EmployeeRole>
     {
+        public void Add(Guid idEmployeeRole, string nameRole, decimal salary, AllowedOperations allowedOperations)
+        {
+            base.Add(new EmployeeRole
+            {
+                IdEmployeeRole = idEmployeeRole,
+                NameRole = nameRole,
+                Salary = salary,
+                AllowedOperations = allowedOperations
+            });
+        }
+
         public void Add(string nameRole, decimal salary, AllowedOperations allowedOperations)
         {
             base.Add(new EmployeeRole

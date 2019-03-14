@@ -2,6 +2,9 @@
 using System.IO.Compression;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Data;
+using System.Linq;
+using System;
 
 namespace Model
 {
@@ -44,6 +47,128 @@ namespace Model
         public static Hotel LoadFromBase(string connection)
         {
             var hotel = new Hotel();
+            var server = new Database.SqlServer { Connection = connection };
+            // категории
+            var dataSet = server.GetRows("Categories");
+            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+            {
+                if (row.ItemArray.Length != 2) continue;
+                hotel.Categories.Add(Guid.Parse(row.ItemArray[0].ToString()), 
+                    row.ItemArray[1].ToString());
+            }
+            // услуги
+            dataSet = server.GetRows("Services");
+            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+            {
+                if (row.ItemArray.Length != 3) continue;
+                hotel.Services.Add(Guid.Parse(row.ItemArray[0].ToString()), 
+                    row.ItemArray[1].ToString(), 
+                    decimal.Parse(row.ItemArray[2].ToString()));
+            }
+            // комнаты
+            dataSet = server.GetRows("Rooms");
+            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+            {
+                if (row.ItemArray.Length != 6) continue;
+                hotel.Rooms.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                    Guid.Parse(row.ItemArray[1].ToString()),
+                    int.Parse(row.ItemArray[2].ToString()),
+                    int.Parse(row.ItemArray[3].ToString()),
+                    decimal.Parse(row.ItemArray[4].ToString()),
+                    row.ItemArray[5].ToString());
+            }
+            //TODO: подписка на услуги (галочки)!
+            // должности
+            dataSet = server.GetRows("EmployeeRoles");
+            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+            {
+                if (row.ItemArray.Length != 4) continue;
+                AllowedOperations allop;
+                var allow = row.ItemArray[3].ToString();
+                switch (allow)
+                {
+                    case "All":
+                        allop = AllowedOperations.All;
+                        break;
+                    case "None":
+                        allop = AllowedOperations.None;
+                        break;
+                    default:
+                        allop = (AllowedOperations)uint.Parse(allow);
+                        break;
+                }
+                hotel.EmployeeRoles.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                    row.ItemArray[1].ToString(),
+                    decimal.Parse(row.ItemArray[2].ToString()), allop);
+            }
+            // штат сотрудников
+            dataSet = server.GetRows("RegistryStaff");
+            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+            {
+                if (row.ItemArray.Length != 6) continue;
+                hotel.RegistryStaff.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                    row.ItemArray[1].ToString(),
+                    row.ItemArray[2].ToString(),
+                    row.ItemArray[3].ToString(),
+                    row.ItemArray[4].ToString(),
+                    Guid.Parse(row.ItemArray[5].ToString()));
+            }
+            // клиенты
+            dataSet = server.GetRows("Clients");
+            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+            {
+                if (row.ItemArray.Length != 9) continue;
+                hotel.Clients.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                    row.ItemArray[1].ToString(),
+                    row.ItemArray[2].ToString(),
+                    row.ItemArray[3].ToString(),
+                    DateTime.Parse(row.ItemArray[4].ToString()),
+                    row.ItemArray[5].ToString(),
+                    row.ItemArray[6].ToString(),
+                    row.ItemArray[7].ToString(),
+                    int.Parse(row.ItemArray[8].ToString()));
+            }
+            // бронирование
+            dataSet = server.GetRows("Reservations");
+            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+            {
+                if (row.ItemArray.Length != 6) continue;
+                hotel.Reservations.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                    Guid.Parse(row.ItemArray[1].ToString()),
+                    Guid.Parse(row.ItemArray[2].ToString()),
+                    DateTime.Parse(row.ItemArray[3].ToString()),
+                    DateTime.Parse(row.ItemArray[4].ToString()),
+                    Guid.Parse(row.ItemArray[5].ToString()));
+            }
+            // доставка до гостиницы
+            dataSet = server.GetRows("Transfers");
+            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+            {
+                if (row.ItemArray.Length != 5) continue;
+                hotel.Transfers.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                    Guid.Parse(row.ItemArray[1].ToString()),
+                    row.ItemArray[2].ToString(),
+                    DateTime.Parse(row.ItemArray[3].ToString()),
+                    int.Parse(row.ItemArray[4].ToString()));
+            }
+            // перечень каналов
+            dataSet = server.GetRows("PayChannels");
+            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+            {
+                if (row.ItemArray.Length != 3) continue;
+                hotel.PayChannels.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                    row.ItemArray[1].ToString(),
+                    decimal.Parse(row.ItemArray[2].ToString()));
+            }
+            // перечень подписок
+            dataSet = server.GetRows("AccordancePayChannels");
+            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+            {
+                if (row.ItemArray.Length != 2) continue;
+                hotel.AccordancePayChannels.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                    Guid.Parse(row.ItemArray[1].ToString()));
+            }
+            //TODO: подписка на каналы (галочки)!
 
             return hotel;
         }
