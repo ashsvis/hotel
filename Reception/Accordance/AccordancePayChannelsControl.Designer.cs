@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccordancePayChannelsControl));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccordancePayChannelsControl));
             this.dgvAccordances = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbNewAccordance = new System.Windows.Forms.ToolStripButton();
             this.tsbChangeAccordance = new System.Windows.Forms.ToolStripButton();
             this.tsbDeleteAccordance = new System.Windows.Forms.ToolStripButton();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccordances)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -75,6 +75,29 @@
             this.dgvAccordances.VirtualMode = true;
             this.dgvAccordances.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAccordances_RowEnter);
             this.dgvAccordances.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvAccordances_CellValueNeeded);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Фамилия клиента";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 119;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Подключение в номер";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 112;
+            // 
+            // Column3
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Column3.HeaderText = "Количество каналов";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 132;
             // 
             // toolStrip1
             // 
@@ -116,32 +139,9 @@
             this.tsbDeleteAccordance.Image = ((System.Drawing.Image)(resources.GetObject("tsbDeleteAccordance.Image")));
             this.tsbDeleteAccordance.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDeleteAccordance.Name = "tsbDeleteAccordance";
-            this.tsbDeleteAccordance.Size = new System.Drawing.Size(131, 22);
-            this.tsbDeleteAccordance.Text = "Удалить регистрацию";
+            this.tsbDeleteAccordance.Size = new System.Drawing.Size(110, 22);
+            this.tsbDeleteAccordance.Text = "Удалить подписку";
             this.tsbDeleteAccordance.Click += new System.EventHandler(this.tsbDeleteAccordance_Click);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Фамилия клиента";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 119;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Подключение в номер";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 112;
-            // 
-            // Column3
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Column3.HeaderText = "Количество каналов";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 132;
             // 
             // AccordancePayChannelsControl
             // 

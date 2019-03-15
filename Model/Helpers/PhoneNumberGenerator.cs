@@ -3,6 +3,9 @@ using System.Text;
 
 namespace Model
 {
+    /// <summary>
+    /// Генератор телефонных номеров
+    /// </summary>
     public class PhoneNumberGenerator
     {
         Random random = new Random();

@@ -2,12 +2,18 @@
 
 namespace Model
 {
+    /// <summary>
+    /// Отчёт 
+    /// </summary>
     public class Report
     {
-        public string Caption { get; set; } = string.Empty;
-        public ReportColumns ReportColumns { get; set; } = new ReportColumns();
-        public ReportRows ReportRows { get; set; } = new ReportRows();
+        public string Caption { get; set; } = string.Empty; // заголовок отчета
+        public ReportColumns ReportColumns { get; set; } = new ReportColumns(); // колонки отчета
+        public ReportRows ReportRows { get; set; } = new ReportRows(); // строки отчета
 
+        /// <summary>
+        /// Инициализация
+        /// </summary>
         public void Clear()
         {
             Caption = string.Empty;

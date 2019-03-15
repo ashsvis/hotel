@@ -3,9 +3,18 @@ using System.Collections.Generic;
 
 namespace Model
 {
+    /// <summary>
+    /// Перечень услуг
+    /// </summary>
     [Serializable]
     public class Services : List<Service>
     {
+        /// <summary>
+        /// Добавить услугу
+        /// </summary>
+        /// <param name="idService"></param>
+        /// <param name="name">Наименование</param>
+        /// <param name="priceDay">Цена за сутки</param>
         public void Add(Guid idService, string name, decimal priceDay)
         {
             base.Add(new Service
@@ -16,6 +25,11 @@ namespace Model
             });
         }
 
+        /// <summary>
+        /// Добавить услугу
+        /// </summary>
+        /// <param name="name">Наименование</param>
+        /// <param name="priceDay">Цена за сутки</param>
         public void Add(string name, decimal priceDay)
         {
             base.Add(new Service
@@ -25,6 +39,10 @@ namespace Model
             });
         }
 
+        /// <summary>
+        /// Удалить услугу
+        /// </summary>
+        /// <param name="idService"></param>
         public void Delete(Guid idService)
         {
             base.RemoveAll(item => item.IdService == idService);
@@ -32,12 +50,15 @@ namespace Model
 
     }
 
+    /// <summary>
+    /// Запись об услуге
+    /// </summary>
     [Serializable]
     public class Service
     {
         public Guid IdService { get; set; } = Guid.NewGuid();
-        public string NameService { get; set; }
-        public decimal PriceDay { get; set; }
+        public string NameService { get; set; } // наименование
+        public decimal PriceDay { get; set; } // цена за сутки использования
 
         public override string ToString()
         {

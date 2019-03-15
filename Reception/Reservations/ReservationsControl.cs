@@ -115,10 +115,18 @@ namespace Reception
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 var reservation = _reservations[dgvReservations.SelectedRows[0].Index];
-                // удаляем комнату из списка комнат
-                _reservations.Remove(reservation);
-                // обновляем данные интерфейса
-                FillTable();
+                try
+                {
+                    _hotel.CheckReservationUsed(reservation);
+                    // удаляем заселение из списка заседений
+                    _reservations.Remove(reservation);
+                    // обновляем данные интерфейса
+                    FillTable();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 

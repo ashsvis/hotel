@@ -44,139 +44,202 @@ namespace Model
             }
         }
 
+        public static string OperationResult { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// Метод загрузки сохранённой ранее конфигурации из базы данных
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <returns></returns>
         public static Hotel LoadFromBase(string connection)
         {
             var hotel = new Hotel();
             var server = new Database.SqlServer { Connection = connection };
             // категории
             var dataSet = server.GetRows("Categories");
-            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
-            {
-                if (row.ItemArray.Length != 2) continue;
-                hotel.Categories.Add(Guid.Parse(row.ItemArray[0].ToString()), 
-                    row.ItemArray[1].ToString());
-            }
+            if (dataSet.Tables.Count > 0)
+                foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+                {
+                    if (row.ItemArray.Length != 2) continue;
+                    hotel.Categories.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                        row.ItemArray[1].ToString());
+                }
+            OperationResult = server.LastError;
             // услуги
             dataSet = server.GetRows("Services");
-            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
-            {
-                if (row.ItemArray.Length != 3) continue;
-                hotel.Services.Add(Guid.Parse(row.ItemArray[0].ToString()), 
-                    row.ItemArray[1].ToString(), 
-                    decimal.Parse(row.ItemArray[2].ToString()));
-            }
+            if (dataSet.Tables.Count > 0)
+                foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+                {
+                    if (row.ItemArray.Length != 3) continue;
+                    hotel.Services.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                        row.ItemArray[1].ToString(),
+                        decimal.Parse(row.ItemArray[2].ToString()));
+                }
+            OperationResult = server.LastError;
             // комнаты
             dataSet = server.GetRows("Rooms");
-            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
-            {
-                if (row.ItemArray.Length != 6) continue;
-                hotel.Rooms.Add(Guid.Parse(row.ItemArray[0].ToString()),
-                    Guid.Parse(row.ItemArray[1].ToString()),
-                    int.Parse(row.ItemArray[2].ToString()),
-                    int.Parse(row.ItemArray[3].ToString()),
-                    decimal.Parse(row.ItemArray[4].ToString()),
-                    row.ItemArray[5].ToString());
-            }
-            //TODO: подписка на услуги (галочки)!
+            if (dataSet.Tables.Count > 0)
+                foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+                {
+                    if (row.ItemArray.Length != 6) continue;
+                    var room = hotel.Rooms.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                        Guid.Parse(row.ItemArray[1].ToString()),
+                        int.Parse(row.ItemArray[2].ToString()),
+                        int.Parse(row.ItemArray[3].ToString()),
+                        decimal.Parse(row.ItemArray[4].ToString()),
+                        row.ItemArray[5].ToString());
+                    var ds = server.GetRows("RoomServices");
+                    if (ds.Tables.Count > 0)
+                    {
+                        foreach (var item in ds.Tables[0].Rows.Cast<DataRow>())
+                        {
+                            if (item.ItemArray.Length != 2) continue;
+                            var roomId = Guid.Parse(item.ItemArray[0].ToString());
+                            var serviceId = Guid.Parse(item.ItemArray[1].ToString());
+                            if (room.IdRoom == roomId)
+                            {
+                                var service = hotel.Services.FirstOrDefault(s => s.IdService == serviceId);
+                                if (service != null)
+                                    room.Services.Add(service);
+                            }
+                        }
+                    }
+                }
+            OperationResult = server.LastError;
             // должности
             dataSet = server.GetRows("EmployeeRoles");
-            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
-            {
-                if (row.ItemArray.Length != 4) continue;
-                AllowedOperations allop;
-                var allow = row.ItemArray[3].ToString();
-                switch (allow)
+            if (dataSet.Tables.Count > 0)
+                foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
                 {
-                    case "All":
-                        allop = AllowedOperations.All;
-                        break;
-                    case "None":
-                        allop = AllowedOperations.None;
-                        break;
-                    default:
-                        allop = (AllowedOperations)uint.Parse(allow);
-                        break;
+                    if (row.ItemArray.Length != 4) continue;
+                    AllowedOperations allop;
+                    var allow = row.ItemArray[3].ToString();
+                    switch (allow)
+                    {
+                        case "All":
+                            allop = AllowedOperations.All;
+                            break;
+                        case "None":
+                            allop = AllowedOperations.None;
+                            break;
+                        default:
+                            allop = (AllowedOperations)uint.Parse(allow);
+                            break;
+                    }
+                    hotel.EmployeeRoles.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                        row.ItemArray[1].ToString(),
+                        decimal.Parse(row.ItemArray[2].ToString()), allop);
                 }
-                hotel.EmployeeRoles.Add(Guid.Parse(row.ItemArray[0].ToString()),
-                    row.ItemArray[1].ToString(),
-                    decimal.Parse(row.ItemArray[2].ToString()), allop);
-            }
+            OperationResult = server.LastError;
             // штат сотрудников
             dataSet = server.GetRows("RegistryStaff");
-            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
-            {
-                if (row.ItemArray.Length != 6) continue;
-                hotel.RegistryStaff.Add(Guid.Parse(row.ItemArray[0].ToString()),
-                    row.ItemArray[1].ToString(),
-                    row.ItemArray[2].ToString(),
-                    row.ItemArray[3].ToString(),
-                    row.ItemArray[4].ToString(),
-                    Guid.Parse(row.ItemArray[5].ToString()));
-            }
+            if (dataSet.Tables.Count > 0)
+                foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+                {
+                    if (row.ItemArray.Length != 6) continue;
+                    hotel.RegistryStaff.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                        row.ItemArray[1].ToString(),
+                        row.ItemArray[2].ToString(),
+                        row.ItemArray[3].ToString(),
+                        row.ItemArray[4].ToString(),
+                        Guid.Parse(row.ItemArray[5].ToString()));
+                }
+            OperationResult = server.LastError;
             // клиенты
             dataSet = server.GetRows("Clients");
-            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
-            {
-                if (row.ItemArray.Length != 9) continue;
-                hotel.Clients.Add(Guid.Parse(row.ItemArray[0].ToString()),
-                    row.ItemArray[1].ToString(),
-                    row.ItemArray[2].ToString(),
-                    row.ItemArray[3].ToString(),
-                    DateTime.Parse(row.ItemArray[4].ToString()),
-                    row.ItemArray[5].ToString(),
-                    row.ItemArray[6].ToString(),
-                    row.ItemArray[7].ToString(),
-                    int.Parse(row.ItemArray[8].ToString()));
-            }
+            if (dataSet.Tables.Count > 0)
+                foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+                {
+                    if (row.ItemArray.Length != 9) continue;
+                    hotel.Clients.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                        row.ItemArray[1].ToString(),
+                        row.ItemArray[2].ToString(),
+                        row.ItemArray[3].ToString(),
+                        DateTime.Parse(row.ItemArray[4].ToString()),
+                        row.ItemArray[5].ToString(),
+                        row.ItemArray[6].ToString(),
+                        row.ItemArray[7].ToString(),
+                        int.Parse(row.ItemArray[8].ToString()));
+                }
+            OperationResult = server.LastError;
             // бронирование
             dataSet = server.GetRows("Reservations");
-            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
-            {
-                if (row.ItemArray.Length != 6) continue;
-                hotel.Reservations.Add(Guid.Parse(row.ItemArray[0].ToString()),
-                    Guid.Parse(row.ItemArray[1].ToString()),
-                    Guid.Parse(row.ItemArray[2].ToString()),
-                    DateTime.Parse(row.ItemArray[3].ToString()),
-                    DateTime.Parse(row.ItemArray[4].ToString()),
-                    Guid.Parse(row.ItemArray[5].ToString()));
-            }
+            if (dataSet.Tables.Count > 0)
+                foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+                {
+                    if (row.ItemArray.Length != 6) continue;
+                    hotel.Reservations.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                        Guid.Parse(row.ItemArray[1].ToString()),
+                        Guid.Parse(row.ItemArray[2].ToString()),
+                        DateTime.Parse(row.ItemArray[3].ToString()),
+                        DateTime.Parse(row.ItemArray[4].ToString()),
+                        Guid.Parse(row.ItemArray[5].ToString()));
+                }
+            OperationResult = server.LastError;
             // доставка до гостиницы
             dataSet = server.GetRows("Transfers");
-            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
-            {
-                if (row.ItemArray.Length != 5) continue;
-                hotel.Transfers.Add(Guid.Parse(row.ItemArray[0].ToString()),
-                    Guid.Parse(row.ItemArray[1].ToString()),
-                    row.ItemArray[2].ToString(),
-                    DateTime.Parse(row.ItemArray[3].ToString()),
-                    int.Parse(row.ItemArray[4].ToString()));
-            }
+            if (dataSet.Tables.Count > 0)
+                foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+                {
+                    if (row.ItemArray.Length != 5) continue;
+                    hotel.Transfers.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                        Guid.Parse(row.ItemArray[1].ToString()),
+                        row.ItemArray[2].ToString(),
+                        DateTime.Parse(row.ItemArray[3].ToString()),
+                        int.Parse(row.ItemArray[4].ToString()));
+                }
+            OperationResult = server.LastError;
             // перечень каналов
             dataSet = server.GetRows("PayChannels");
-            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
-            {
-                if (row.ItemArray.Length != 3) continue;
-                hotel.PayChannels.Add(Guid.Parse(row.ItemArray[0].ToString()),
-                    row.ItemArray[1].ToString(),
-                    decimal.Parse(row.ItemArray[2].ToString()));
-            }
+            if (dataSet.Tables.Count > 0)
+                foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+                {
+                    if (row.ItemArray.Length != 3) continue;
+                    hotel.PayChannels.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                        row.ItemArray[1].ToString(),
+                        decimal.Parse(row.ItemArray[2].ToString()));
+                }
+            OperationResult = server.LastError;
             // перечень подписок
             dataSet = server.GetRows("AccordancePayChannels");
-            foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
-            {
-                if (row.ItemArray.Length != 2) continue;
-                hotel.AccordancePayChannels.Add(Guid.Parse(row.ItemArray[0].ToString()),
-                    Guid.Parse(row.ItemArray[1].ToString()));
-            }
-            //TODO: подписка на каналы (галочки)!
-
+            if (dataSet.Tables.Count > 0)
+                foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
+                {
+                    if (row.ItemArray.Length != 2) continue;
+                    var accordance = hotel.AccordancePayChannels.Add(Guid.Parse(row.ItemArray[0].ToString()),
+                        Guid.Parse(row.ItemArray[1].ToString()));
+                    var ds = server.GetRows("RoomPayChannels");
+                    if (ds.Tables.Count > 0)
+                    {
+                        foreach (var item in ds.Tables[0].Rows.Cast<DataRow>())
+                        {
+                            if (item.ItemArray.Length != 2) continue;
+                            var accordanceId = Guid.Parse(item.ItemArray[0].ToString());
+                            var channelId = Guid.Parse(item.ItemArray[1].ToString());
+                            if (accordance.IdAccordancePayChannel == accordanceId)
+                            {
+                                var channel = hotel.PayChannels.FirstOrDefault(c => c.IdPayChannel == channelId);
+                                if (channel != null)
+                                    accordance.PayChannels.Add(channel);
+                            }
+                        }
+                    }
+                }
+            OperationResult = server.LastError;
             return hotel;
         }
 
+        /// <summary>
+        /// Метод сохранения конфигурации в базу данных
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="hotel"></param>
         public static void SaveToBase(string connection, Hotel hotel)
         {
             var server = new Database.SqlServer { Connection = connection };
             // категории
+            server.DeleteInto("Categories", "IdCategory", hotel.Categories.Select(item => item.Value.IdCategory));
+            OperationResult = server.LastError;
             foreach (var item in hotel.Categories.Values)
             {
                 var columns = new Dictionary<string, string>
@@ -185,8 +248,11 @@ namespace Model
                     { "NameCategory", item.NameCategory }
                 };
                 if (!server.InsertInto("Categories", columns)) server.UpdateInto("Categories", columns);
+                OperationResult = server.LastError;
             }
             // услуги
+            server.DeleteInto("Services", "IdService", hotel.Services.Select(item => item.IdService));
+            OperationResult = server.LastError;
             foreach (var item in hotel.Services)
             {
                 var columns = new Dictionary<string, string>
@@ -196,22 +262,37 @@ namespace Model
                     { "PriceDay", item.PriceDay.ToString() }
                 };
                 if (!server.InsertInto("Services", columns)) server.UpdateInto("Services", columns);
+                OperationResult = server.LastError;
             }
             // комнаты
-            foreach (var item in hotel.Rooms)
+            server.DeleteInto("Rooms", "IdRoom", hotel.Rooms.Select(item => item.IdRoom));
+            foreach (var room in hotel.Rooms)
             {
                 var columns = new Dictionary<string, string>
                 {
-                    { "IdRoom", item.IdRoom.ToString() },
-                    { "IdCategory", item.IdCategory.ToString() },
-                    { "NumberSeat", item.NumberSeat.ToString() },
-                    { "Floor", item.Floor.ToString() },
-                    { "PriceDay", item.PriceDay.ToString() },
-                    { "RoomNumber", item.RoomNumber }
+                    { "IdRoom", room.IdRoom.ToString() },
+                    { "IdCategory", room.IdCategory.ToString() },
+                    { "NumberSeat", room.NumberSeat.ToString() },
+                    { "Floor", room.Floor.ToString() },
+                    { "PriceDay", room.PriceDay.ToString() },
+                    { "RoomNumber", room.RoomNumber }
                 };
+                server.DeleteInto("RoomServices", columns);
+                OperationResult = server.LastError;
                 if (!server.InsertInto("Rooms", columns)) server.UpdateInto("Rooms", columns);
+                foreach (var service in room.Services)
+                {
+                    var cols = new Dictionary<string, string>
+                    {
+                        { "IdRoom", room.IdRoom.ToString() },
+                        { "IdService", service.IdService.ToString() }
+                    };
+                    if (!server.InsertInto("RoomServices", cols)) server.UpdateInto("RoomServices", cols);
+                    OperationResult = server.LastError;
+                }
             }
             // должности
+            server.DeleteInto("EmployeeRoles", "IdEmployeeRole", hotel.EmployeeRoles.Select(item => item.IdEmployeeRole));
             foreach (var item in hotel.EmployeeRoles)
             {
                 var columns = new Dictionary<string, string>
@@ -224,6 +305,8 @@ namespace Model
                 if (!server.InsertInto("EmployeeRoles", columns)) server.UpdateInto("EmployeeRoles", columns);
             }
             // штат сотрудников
+            server.DeleteInto("RegistryStaff", "IdEmployee", hotel.RegistryStaff.Select(item => item.IdEmployee));
+            OperationResult = server.LastError;
             foreach (var item in hotel.RegistryStaff)
             {
                 var columns = new Dictionary<string, string>
@@ -236,8 +319,11 @@ namespace Model
                     { "IdEmployeeRole", item.IdEmployeeRole.ToString() }
                 };
                 if (!server.InsertInto("RegistryStaff", columns)) server.UpdateInto("RegistryStaff", columns);
+                OperationResult = server.LastError;
             }
             // клиенты
+            server.DeleteInto("Clients", "IdClient", hotel.Clients.Select(item => item.IdClient));
+            OperationResult = server.LastError;
             foreach (var item in hotel.Clients)
             {
                 var columns = new Dictionary<string, string>
@@ -253,8 +339,11 @@ namespace Model
                     { "NumberChild", item.NumberChild.ToString() }
                 };
                 if (!server.InsertInto("Clients", columns)) server.UpdateInto("Clients", columns);
+                OperationResult = server.LastError;
             }
             // бронирование
+            server.DeleteInto("Reservations", "IdReservation", hotel.Reservations.Select(item => item.IdReservation));
+            OperationResult = server.LastError;
             foreach (var item in hotel.Reservations)
             {
                 var columns = new Dictionary<string, string>
@@ -267,8 +356,11 @@ namespace Model
                     { "IdEmployee", item.IdEmployee.ToString() }
                 };
                 if (!server.InsertInto("Reservations", columns)) server.UpdateInto("Reservations", columns);
+                OperationResult = server.LastError;
             }
             // доставка до гостиницы
+            server.DeleteInto("Transfers", "IdTransfer", hotel.Transfers.Select(item => item.IdTransfer));
+            OperationResult = server.LastError;
             foreach (var item in hotel.Transfers)
             {
                 var columns = new Dictionary<string, string>
@@ -280,8 +372,11 @@ namespace Model
                     { "NumberSeat", item.NumberSeat.ToString() }
                 };
                 if (!server.InsertInto("Transfers", columns)) server.UpdateInto("Transfers", columns);
+                OperationResult = server.LastError;
             }
             // перечень каналов
+            server.DeleteInto("PayChannels", "IdPayChannel", hotel.PayChannels.Select(item => item.IdPayChannel));
+            OperationResult = server.LastError;
             foreach (var item in hotel.PayChannels)
             {
                 var columns = new Dictionary<string, string>
@@ -291,16 +386,33 @@ namespace Model
                     { "PriceHour", item.PriceHour.ToString() }
                 };
                 if (!server.InsertInto("PayChannels", columns)) server.UpdateInto("PayChannels", columns);
+                OperationResult = server.LastError;
             }
             // перечень подписок
-            foreach (var item in hotel.AccordancePayChannels)
+            server.DeleteInto("AccordancePayChannels", "IdAccordancePayChannel", 
+                hotel.AccordancePayChannels.Select(item => item.IdAccordancePayChannel));
+            OperationResult = server.LastError;
+            foreach (var accordance in hotel.AccordancePayChannels)
             {
                 var columns = new Dictionary<string, string>
                 {
-                    { "IdAccordancePayChannel", item.IdAccordancePayChannel.ToString() },
-                    { "IdReservation", item.IdReservation.ToString() }
+                    { "IdAccordancePayChannel", accordance.IdAccordancePayChannel.ToString() },
+                    { "IdReservation", accordance.IdReservation.ToString() }
                 };
+                server.DeleteInto("RoomPayChannels", columns);
+                OperationResult = server.LastError;
                 if (!server.InsertInto("AccordancePayChannels", columns)) server.UpdateInto("AccordancePayChannels", columns);
+                OperationResult = server.LastError;
+                foreach (var channel in accordance.PayChannels)
+                {
+                    var cols = new Dictionary<string, string>
+                    {
+                        { "IdAccordancePayChannel", accordance.IdAccordancePayChannel.ToString() },
+                        { "IdPayChannel", channel.IdPayChannel.ToString() }
+                    };
+                    if (!server.InsertInto("RoomPayChannels", cols)) server.UpdateInto("RoomPayChannels", cols);
+                    OperationResult = server.LastError;
+                }
             }
         }
     }

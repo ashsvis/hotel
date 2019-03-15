@@ -3,6 +3,9 @@ using System.Text;
 
 namespace Model
 {
+    /// <summary>
+    /// Генератор номеров паспортов
+    /// </summary>
     public class PassportNumberGenerator
     {
         Random random = new Random();

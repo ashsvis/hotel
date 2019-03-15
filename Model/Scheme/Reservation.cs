@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Model
 {
+    /// <summary>
+    /// Список бронирования
+    /// </summary>
     [Serializable]
     public class Reservations : List<Reservation>
     {
@@ -13,6 +16,15 @@ namespace Model
             _hotel = hotel;
         }
 
+        /// <summary>
+        /// Добавить бронирование
+        /// </summary>
+        /// <param name="idArrival"></param>
+        /// <param name="idClient">Ссылка на клиента</param>
+        /// <param name="idRoom">Ссылка на комнату</param>
+        /// <param name="arrivalDate">Дата заезда</param>
+        /// <param name="departureDate">Дата выезда</param>
+        /// <param name="idEmployee">Ссылка на сотрудника</param>
         public void Add(Guid idArrival, Guid idClient, Guid idRoom, DateTime arrivalDate, DateTime departureDate, Guid idEmployee)
         {
             base.Add(new Reservation(_hotel)
@@ -26,6 +38,14 @@ namespace Model
             });
         }
 
+        /// <summary>
+        /// Добавить бронирование
+        /// </summary>
+        /// <param name="idClient">Ссылка на клиента</param>
+        /// <param name="idRoom">Ссылка на комнату</param>
+        /// <param name="arrivalDate">Дата заезда</param>
+        /// <param name="departureDate">Дата выезда</param>
+        /// <param name="idEmployee">Ссылка на сотрудника</param>
         public void Add(Guid idClient, Guid idRoom, DateTime arrivalDate, DateTime departureDate, Guid idEmployee)
         {
             base.Add(new Reservation(_hotel)
@@ -38,12 +58,19 @@ namespace Model
             });
         }
 
+        /// <summary>
+        /// Удаление бронирования
+        /// </summary>
+        /// <param name="idArrival"></param>
         public void Delete(Guid idArrival)
         {
             base.RemoveAll(item => item.IdReservation == idArrival);
         }
     }
 
+    /// <summary>
+    /// Запись о бронировании
+    /// </summary>
     [Serializable]
     public class Reservation
     {
@@ -55,11 +82,11 @@ namespace Model
         }
 
         public Guid IdReservation { get; set; } = Guid.NewGuid();
-        public Guid IdClient { get; set; }
-        public Guid IdRoom { get; set; }
-        public DateTime ArrivalDate { get; set; } = new DateTime(1753, 1, 1);
-        public DateTime DepartureDate { get; set; } = new DateTime(1753, 1, 1);
-        public Guid IdEmployee { get; set; }
+        public Guid IdClient { get; set; } // ссылка на клиента
+        public Guid IdRoom { get; set; } // ссылка на номер
+        public DateTime ArrivalDate { get; set; } = new DateTime(1753, 1, 1); // дата заезда
+        public DateTime DepartureDate { get; set; } = new DateTime(1753, 1, 1); // дата выезда
+        public Guid IdEmployee { get; set; } // ссылка на сотрудника
 
         public override string ToString()
         {

@@ -3,9 +3,19 @@ using System.Collections.Generic;
 
 namespace Model
 {
+    /// <summary>
+    /// Список должностей
+    /// </summary>
     [Serializable]
     public class EmployeeRoles : List<EmployeeRole>
     {
+        /// <summary>
+        /// Добавить должность
+        /// </summary>
+        /// <param name="idEmployeeRole"></param>
+        /// <param name="nameRole">Должность</param>
+        /// <param name="salary">Зарплата</param>
+        /// <param name="allowedOperations">Права доступа в программе</param>
         public void Add(Guid idEmployeeRole, string nameRole, decimal salary, AllowedOperations allowedOperations)
         {
             base.Add(new EmployeeRole
@@ -17,6 +27,12 @@ namespace Model
             });
         }
 
+        /// <summary>
+        /// Добавить должность
+        /// </summary>
+        /// <param name="nameRole">Должность</param>
+        /// <param name="salary">Зарплата</param>
+        /// <param name="allowedOperations">Права доступа в программе</param>
         public void Add(string nameRole, decimal salary, AllowedOperations allowedOperations)
         {
             base.Add(new EmployeeRole
@@ -27,6 +43,10 @@ namespace Model
             });
         }
 
+        /// <summary>
+        /// Удаление должности
+        /// </summary>
+        /// <param name="idEmployeeRole"></param>
         public void Delete(Guid idEmployeeRole)
         {
             base.RemoveAll(item => item.IdEmployeeRole == idEmployeeRole);
@@ -34,13 +54,16 @@ namespace Model
 
     }
 
+    /// <summary>
+    /// Запись о должности
+    /// </summary>
     [Serializable]
     public class EmployeeRole
     {
         public Guid IdEmployeeRole { get; set; } = Guid.NewGuid();
-        public string NameRole { get; set; }
-        public decimal Salary { get; set; }
-        public AllowedOperations AllowedOperations { get; set; }
+        public string NameRole { get; set; } // наименование
+        public decimal Salary { get; set; } // зарплата
+        public AllowedOperations AllowedOperations { get; set; } // права доступа
 
         public override string ToString()
         {

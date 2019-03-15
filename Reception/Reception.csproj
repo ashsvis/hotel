@@ -58,6 +58,12 @@
     <Compile Include="Accordance\AccordancePayChannelsForm.Designer.cs">
       <DependentUpon>AccordancePayChannelsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\ConnectionStringForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\ConnectionStringForm.Designer.cs">
+      <DependentUpon>ConnectionStringForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeRoles\EmployeeRolesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -69,6 +75,12 @@
     </Compile>
     <Compile Include="EmployeeRoles\EmployeeRoleForm.Designer.cs">
       <DependentUpon>EmployeeRoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PayChannels\PayChannelForm.cs">
       <SubType>Form</SubType>
@@ -82,10 +94,10 @@
     <Compile Include="PayChannels\PayChannelsControl.Designer.cs">
       <DependentUpon>PayChannelsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReportViewControl.cs">
+    <Compile Include="Common\ReportViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ReportViewControl.Designer.cs">
+    <Compile Include="Common\ReportViewControl.Designer.cs">
       <DependentUpon>ReportViewControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Reservations\ReservationForm.cs">
@@ -186,11 +198,17 @@
     <EmbeddedResource Include="Accordance\AccordancePayChannelsForm.resx">
       <DependentUpon>AccordancePayChannelsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Common\ConnectionStringForm.resx">
+      <DependentUpon>ConnectionStringForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EmployeeRoles\EmployeeRolesControl.resx">
       <DependentUpon>EmployeeRolesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeeRoles\EmployeeRoleForm.resx">
       <DependentUpon>EmployeeRoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PayChannels\PayChannelForm.resx">
       <DependentUpon>PayChannelForm.cs</DependentUpon>
@@ -198,7 +216,7 @@
     <EmbeddedResource Include="PayChannels\PayChannelsControl.resx">
       <DependentUpon>PayChannelsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReportViewControl.resx">
+    <EmbeddedResource Include="Common\ReportViewControl.resx">
       <DependentUpon>ReportViewControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reservations\ReservationForm.resx">

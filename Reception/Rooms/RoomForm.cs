@@ -24,7 +24,7 @@ namespace Reception
             for (var seat = 1; seat < 4; seat++)
                 cbNumberSeat.Items.Add(seat);
             // заполнение возможных услуг в номере
-            foreach (var service in hotel.Services)
+            foreach (var service in hotel.Services.OrderBy(item => item.NameService))
                 clbServices.Items.Add(service);
         }
 

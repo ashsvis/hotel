@@ -2,6 +2,9 @@
 
 namespace Model
 {
+    /// <summary>
+    /// Генератор дней рождения
+    /// </summary>
     public class BirthdayGenerator
     {
         Random random = new Random();

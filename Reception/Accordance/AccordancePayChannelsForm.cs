@@ -21,7 +21,7 @@ namespace Reception
             foreach (var reservation in hotel.Reservations)
                 cbReservation.Items.Add(reservation);
             // заполнение возможных каналов для подписки
-            foreach (var channel in hotel.PayChannels)
+            foreach (var channel in hotel.PayChannels.OrderBy(item => item.NameChannel))
                 clbChannels.Items.Add(channel);
         }
 

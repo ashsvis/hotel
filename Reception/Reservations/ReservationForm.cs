@@ -42,23 +42,25 @@ namespace Reception
                     hotelNode.Nodes.Add(floorNode);
                     foreach (var categories in floors.GroupBy(c => c.IdCategory).OrderBy(c => _hotel.Categories[c.Key].NameCategory))
                     {
+                        // добавляем узлы категорий
                         var categoryNode = new TreeNode(_hotel.Categories[categories.Key].NameCategory);
                         floorNode.Nodes.Add(categoryNode);
-                        foreach (var room in categories)
+                        foreach (var room in categories.OrderBy(r => r.RoomNumber))
                         {
+                            // количество занятых мест в номере
                             var count = _hotel.RoomUsed(room, dtpArrivalDate.Value, dtpDepartureDate.Value);
                             var status = room.NumberSeat == count 
                                 ? "(занят)" 
                                 : count != 0 
                                       ? string.Format($"(ещё: {room.NumberSeat - count})") 
                                       : "";
+                            // добавляем узлы номеров
                             var roomNode = new TreeNode(string.Format($"{room.RoomNumber} {status}")) { Tag = room };
                             _index.Add(room, roomNode);
                             categoryNode.Nodes.Add(roomNode);
                         }
                     }
                 }
-
             }
             finally
             {

@@ -6,10 +6,13 @@ using System.Linq;
 
 namespace Database
 {
+    /// <summary>
+    /// Класс для работы с базой данных SQL сервера
+    /// </summary>
     public class SqlServer
     {
-        public string Connection { get; set; } = "Data Source=EPKS;Initial Catalog=Hotel;User ID=mngr;Password=mngr";
-        public string LastError { get; set; } = string.Empty;
+        public string Connection { get; set; } = string.Empty; // строка подключения
+        public string LastError { get; set; } = string.Empty; // последняя ошибка
 
         /// <summary>
         /// Запрос на вставку данных
@@ -24,6 +27,7 @@ namespace Database
                 try
                 {
                     con.Open();
+                    // формирование запроса для вставки
                     var names = new List<string>();
                     var values = new List<string>();
                     foreach (var key in columns.Keys)
@@ -62,6 +66,7 @@ namespace Database
                 try
                 {
                     con.Open();
+                    // формирование запроса для изменения
                     var values = new List<string>();
                     var indexName = columns.Keys.First();
                     var indexValue = columns[indexName];
@@ -100,12 +105,60 @@ namespace Database
                 try
                 {
                     con.Open();
+                    // формирование запроса для удаления
                     var indexName = columns.Keys.First();
                     var indexValue = columns[indexName];
                     var sql = string.Format("DELETE FROM [{0}] WHERE [{1}]='{2}'", table, indexName, indexValue);
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
                         cmd.ExecuteNonQuery();
+                    }
+                    con.Close();
+                    LastError = "";
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    LastError = ex.Message;
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Удаление записей таблицы, которых больше нет в модели, а есть в базе данных
+        /// </summary>
+        /// <param name="table">Имя таблицы</param>
+        /// <param name="keyfield">Ключевой столбец</param>
+        /// <param name="modelKeyList">Спискок ключей в модели</param>
+        /// <returns></returns>
+        public bool DeleteInto(string table, string keyfield, IEnumerable<Guid> modelKeyList)
+        {
+            var ds = GetRows(table);
+            if (ds.Tables.Count == 0) return true;
+            var fordelete = new List<Guid>(); // список ключевых значений для удаления
+            // получаем ключи из базы данных
+            foreach (var row in ds.Tables[0].Rows.Cast<DataRow>())
+            {
+                var key = Guid.Parse(row.ItemArray[0].ToString());
+                // если ключ базы данных отсутствует в списке ключей модели
+                if (!modelKeyList.Contains(key))
+                    fordelete.Add(key); // то добавляем его в список
+            }
+            if (fordelete.Count == 0) return true;
+            using (var con = new SqlConnection(Connection))
+            {
+                try
+                {
+                    con.Open();
+                    // удаление выбранных ключей
+                    foreach (var key in fordelete)
+                    {
+                        var sql = string.Format("DELETE FROM [{0}] WHERE [{1}]='{2}'", table, keyfield, key);
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                     con.Close();
                     LastError = "";
@@ -158,13 +211,6 @@ namespace Database
         private string BuildQuery(string table, string likefield = null, string text2find = null)
         {
             var sql = string.Format("SELECT * FROM [{0}]", table);
-            //switch (table.ToLower())
-            //{
-            //    case "course":
-            //        sql = string.Format("select C.[Id], C.[FacultyID], F.[Faculty], C.[Course]" +
-            //            " from [{0}] C, [Faculty] F where C.[FacultyID] = F.[Id] order by F.[Faculty], C.[Course]", table);
-            //        break;
-            //}
             if (!string.IsNullOrWhiteSpace(likefield) && !string.IsNullOrWhiteSpace(text2find))
                 sql += string.Format(" WHERE ([{0}] LIKE '{1}%')", likefield, text2find);
 

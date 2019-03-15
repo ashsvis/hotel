@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Model
 {
+    /// <summary>
+    /// Перечисление для указания сортировки для таблицы клиентов
+    /// </summary>
     [Serializable]
     public enum ClientOrdered
     {
@@ -14,6 +17,9 @@ namespace Model
         ByCity,
     }
 
+    /// <summary>
+    /// Список клиентов
+    /// </summary>
     [Serializable]
     public class Clients : List<Client>
     {
@@ -55,6 +61,11 @@ namespace Model
             base.RemoveAll(item => item.IdClient == idClient);
         }
 
+        /// <summary>
+        /// Метод для выдачи сортированных списков
+        /// </summary>
+        /// <param name="ordered"></param>
+        /// <returns></returns>
         public List<Client> SortedBy(ClientOrdered ordered = ClientOrdered.None)
         {
             switch (ordered)
@@ -72,39 +83,58 @@ namespace Model
             }
         }
 
+        /// <summary>
+        /// Сортировка по фамилии, имени
+        /// </summary>
+        /// <returns></returns>
         public List<Client> OrderedBySurname()
         {
             return ((IEnumerable<Client>)this).OrderBy(item => string.Concat(item.Surname, item.Name, item.LastName)).ToList();
         }
 
+        /// <summary>
+        /// Сортировка по номеру телифона
+        /// </summary>
+        /// <returns></returns>
         public List<Client> OrderedByPhone()
         {
             return ((IEnumerable<Client>)this).OrderBy(item => item.PhoneNumber).ToList();
         }
 
+        /// <summary>
+        /// Сортировка по дате рождения
+        /// </summary>
+        /// <returns></returns>
         public List<Client> OrderedByBirthday()
         {
             return ((IEnumerable<Client>)this).OrderBy(item => item.Birthday).ToList();
         }
 
+        /// <summary>
+        /// Сортировка по городу проживания
+        /// </summary>
+        /// <returns></returns>
         public List<Client> OrderedByCity()
         {
             return ((IEnumerable<Client>)this).OrderBy(item => item.City).ToList();
         }
     }
 
+    /// <summary>
+    /// Запись о клиенте
+    /// </summary>
     [Serializable]
     public class Client
     {
         public Guid IdClient { get; set; } = Guid.NewGuid();
-        public string Surname { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public DateTime Birthday { get; set; } = new DateTime(1753, 1, 1);
-        public string City { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Passport { get; set; }
-        public int NumberChild { get; set; }
+        public string Surname { get; set; } // Фамилия
+        public string Name { get; set; }    // Имя
+        public string LastName { get; set; }    // Отчество
+        public DateTime Birthday { get; set; } = new DateTime(1753, 1, 1); // дата рождения
+        public string City { get; set; } // город проживания
+        public string PhoneNumber { get; set; } // номер телефона
+        public string Passport { get; set; } // паспорт
+        public int NumberChild { get; set; } // количество детей
 
         public override string ToString()
         {

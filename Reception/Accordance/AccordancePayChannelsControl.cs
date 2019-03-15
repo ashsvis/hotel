@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Model;
+using System.Linq;
 
 namespace Reception
 {
@@ -33,7 +34,7 @@ namespace Reception
 
         private void dgvAccordances_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
-            var sorted = _accordances;
+            var sorted = _accordances.OrderByClient(_hotel);
             if (sorted.Count == 0) return;
             // для каждого столбца виртуальной таблицы
             Reservation reservation;
@@ -72,7 +73,7 @@ namespace Reception
         private void tsbChangeAccordance_Click(object sender, EventArgs e)
         {
             var frm = new AccordancePayChannelsForm(_hotel); // создаем форму
-            var sorted = _accordances;
+            var sorted = _accordances.OrderByClient(_hotel);
             frm.Build(sorted[dgvAccordances.SelectedRows[0].Index]); // заполняем контролы формы параметрами выбранной подписки
             // вызываем форму на редактирование
             if (frm.ShowDialog(this) == DialogResult.OK)
@@ -87,7 +88,7 @@ namespace Reception
             if (MessageBox.Show(this, "Удалить данные подписки?", "Удаление данных подписки",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                var sorted = _accordances;
+                var sorted = _accordances.OrderByClient(_hotel);
                 var channel = sorted[dgvAccordances.SelectedRows[0].Index];
                 try
                 {

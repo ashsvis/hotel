@@ -42,6 +42,7 @@
             this.toolStrip1.Size = new System.Drawing.Size(715, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.Visible = false;
             // 
             // tableLayoutPanel1
             // 
@@ -50,12 +51,12 @@
             this.tableLayoutPanel1.Controls.Add(this.lbReportCaption, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lvReport, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(715, 309);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(715, 334);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // lbReportCaption
@@ -75,7 +76,7 @@
             this.lvReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvReport.Location = new System.Drawing.Point(3, 24);
             this.lvReport.Name = "lvReport";
-            this.lvReport.Size = new System.Drawing.Size(709, 282);
+            this.lvReport.Size = new System.Drawing.Size(709, 307);
             this.lvReport.TabIndex = 1;
             this.lvReport.UseCompatibleStateImageBehavior = false;
             this.lvReport.View = System.Windows.Forms.View.Details;

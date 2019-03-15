@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Model
 {
+    /// <summary>
+    /// Генератор имён пользователей
+    /// </summary>
     public class NamesGenerator
     {
         private static List<string> Names = new List<string>

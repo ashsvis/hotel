@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace Model
 {
+    /// <summary>
+    /// Построитель отчетов
+    /// </summary>
     public class ReportsBuilder
     {
         /// <summary>
@@ -21,11 +24,13 @@ namespace Model
             // заполнение строк отчёта
             foreach (var room in hotel.Rooms.OrderBy(item => item.RoomNumber))
             {
+                // подсчет занятых мест в номере для заданного диапазона
                 var count = hotel.Reservations.Where(item => date >= item.ArrivalDate && date < item.DepartureDate.AddDays(1))
                                  .Count(item => item.IdRoom == room.IdRoom);
-                if (room.NumberSeat - count ==  0) continue;
+                if (room.NumberSeat - count ==  0) continue; // нет свободных мест
                 var status = count != 0 ? string.Format($"ещё свободно мест: {room.NumberSeat - count}") : "";
-                report.ReportRows.Add(room.RoomNumber, status);
+                var category = hotel.Categories[room.IdCategory];
+                report.ReportRows.Add($"{room.RoomNumber} ({category})", status);
             }
             return report;
         }
@@ -49,10 +54,12 @@ namespace Model
                                                    .Distinct()
                                                    .OrderBy(item => item.RoomNumber))
             {
+                // подсчет занятых мест в номере для заданного диапазона
                 var count = hotel.Reservations.Where(item => date >= item.ArrivalDate && date < item.DepartureDate.AddDays(1))
                                  .Count(item => item.IdRoom == room.IdRoom);
                 var status = room.NumberSeat - count != 0 ? string.Format($"ещё свободно мест: {room.NumberSeat - count}") : "";
-                report.ReportRows.Add(room.RoomNumber, status);
+                var category = hotel.Categories[room.IdCategory];
+                report.ReportRows.Add($"{room.RoomNumber} ({category})", status);
             }
             return report;
         }
@@ -77,7 +84,8 @@ namespace Model
             {
                 var client = hotel.GetClient(item.IdClient);
                 var room = hotel.GetRoom(item.IdRoom);
-                report.ReportRows.Add($"{client.Surname} {client.Name} {client.LastName}", room.RoomNumber);
+                var category = hotel.Categories[room.IdCategory];
+                report.ReportRows.Add($"{client.Surname} {client.Name} {client.LastName}", $"{room.RoomNumber} ({category})");
             }
             return report;
         }
@@ -104,7 +112,8 @@ namespace Model
             {
                 var client = hotel.GetClient(item.IdClient);
                 var room = hotel.GetRoom(item.IdRoom);
-                report.ReportRows.Add($"{client.Surname} {client.Name} {client.LastName}", room.RoomNumber, 
+                var category = hotel.Categories[room.IdCategory];
+                report.ReportRows.Add($"{client.Surname} {client.Name} {client.LastName}", $"{room.RoomNumber} ({category})", 
                                       item.ArrivalDate.ToShortDateString(), item.DepartureDate.ToShortDateString());
             }
             return report;

@@ -4,28 +4,34 @@ using System.Linq;
 
 namespace Model
 {
+    /// <summary>
+    /// Главный класс модели
+    /// </summary>
     [Serializable]
     public class Hotel
     {
         public Hotel()
         {
-            Rooms = new Rooms(this);
-            RegistryStaff = new RegistryStaff(this);
-            Reservations = new Reservations(this);
-            Transfers = new Transfers(this);
+            Rooms = new Rooms(this); // список комнат
+            RegistryStaff = new RegistryStaff(this); // список сотрудников
+            Reservations = new Reservations(this); // список бронирования
+            Transfers = new Transfers(this); // список трансфера
         }
 
-        public Categories Categories { get; set; } = new Categories();
-        public Services Services { get; set; } = new Services();
-        public Rooms Rooms { get; set; }
-        public EmployeeRoles EmployeeRoles { get; set; } = new EmployeeRoles();
-        public RegistryStaff RegistryStaff { get; set; }
-        public Clients Clients { get; set; } = new Clients();
-        public Reservations Reservations { get; set; }
-        public Transfers Transfers { get; set; }
-        public PayChannels PayChannels { get; set; } = new PayChannels();
-        public AccordancePayChannels AccordancePayChannels { get; set; } = new AccordancePayChannels();
+        public Categories Categories { get; set; } = new Categories(); // категории
+        public Services Services { get; set; } = new Services(); // услуги
+        public Rooms Rooms { get; set; } // номера
+        public EmployeeRoles EmployeeRoles { get; set; } = new EmployeeRoles(); // должности сотрудников
+        public RegistryStaff RegistryStaff { get; set; } // сотрудники
+        public Clients Clients { get; set; } = new Clients(); // клиенты
+        public Reservations Reservations { get; set; } // бронирование
+        public Transfers Transfers { get; set; } // трансферы
+        public PayChannels PayChannels { get; set; } = new PayChannels(); // платные каналы
+        public AccordancePayChannels AccordancePayChannels { get; set; } = new AccordancePayChannels(); // подписки на каналы
 
+        /// <summary>
+        /// Данные для тестирования
+        /// </summary>
         public void BuildData()
         {
             //EmployeeRoles.Add("Управляющий", 15000, AllowedOperations.All);
@@ -46,60 +52,27 @@ namespace Model
             //Services.Add("Мини бар", 100);
             //Services.Add("Сейф", 100);
 
-            //for (var floor = 1; floor < 5; floor++)
-            //{
-            //    var roomNumber = 1;
-            //    foreach (var category in Categories)
-            //    {
-            //        Room room;
-            //        switch (category.Value.NameCategory)
-            //        {
-            //            case "Эконом":
-            //                for (var i = 0; i < 3; i++)
-            //                {
-            //                    room = Rooms.Add(category.Value.IdCategory, 3, floor, 3500);
-            //                    room.RoomNumber = (floor*100 + roomNumber++).ToString();
-            //                    room.Services.AddRange(Services.Take(1));
-            //                }
-            //                break;
-            //            case "Стандарт":
-            //                for (var i = 0; i < 10; i++)
-            //                {
-            //                    room = Rooms.Add(category.Value.IdCategory, 2, floor, 4500);
-            //                    room.RoomNumber = (floor * 100 + roomNumber++).ToString();
-            //                    room.Services.AddRange(Services.Take(3));
-            //                }
-            //                break;
-            //            case "Семейный":
-            //                for (var i = 0; i < 2; i++)
-            //                {
-            //                    room = Rooms.Add(category.Value.IdCategory, 3, floor, 5500);
-            //                    room.RoomNumber = (floor * 100 + roomNumber++).ToString();
-            //                    room.Services.AddRange(Services.Take(5));
-            //                }
-            //                break;
-            //            case "Люкс":
-            //                for (var i = 0; i < 2; i++)
-            //                {
-            //                    room = Rooms.Add(category.Value.IdCategory, 1, floor, 8700);
-            //                    room.RoomNumber = (floor * 100 + roomNumber++).ToString();
-            //                    room.Services.AddRange(Services);
-            //                }
-            //                break;
-            //            case "Апартаменты":
-            //                room = Rooms.Add(category.Value.IdCategory, 1, floor, 15300);
-            //                room.RoomNumber = (floor * 100 + roomNumber++).ToString();
-            //                room.Services.AddRange(Services);
-            //                break;
-            //        }
-            //    }
-            //}
         }
 
+        /// <summary>
+        /// Проверить на использование платного канала
+        /// </summary>
+        /// <param name="channel"></param>
         public void CheckPayChannelUsed(PayChannel channel)
         {
             if (AccordancePayChannels.Any(item => item.PayChannels.Any(p => p.IdPayChannel == channel.IdPayChannel)))
                 throw new Exception("Этот канал ещё используется!");
+        }
+
+        /// <summary>
+        /// Проверить на использование бронирования
+        /// </summary>
+        /// <param name="reservation"></param>
+        public void CheckReservationUsed(Reservation reservation)
+        {
+            if (Transfers.Any(item => item.IdReservation == reservation.IdReservation) ||
+                AccordancePayChannels.Any(item => item.IdReservation == reservation.IdReservation))
+                throw new Exception("Эти данные о бронировании ещё используются!");
         }
 
         /// <summary>
@@ -354,6 +327,27 @@ namespace Model
         {
             if (RegistryStaff.Any(item => item != employee && item.PhoneNumber == phoneNumber))
                 throw new Exception("Этот номер телефона сотрудника уже используется!");
+        }
+
+        /// <summary>
+        /// Получить список сотрудников, имеющих право работать с программой
+        /// </summary>
+        /// <returns></returns>
+        public List<Employee> GetUsers()
+        {
+            var list = new List<Employee>();
+            list.AddRange(GetAdministrators());
+            list.AddRange(GetRegistrators());
+            return list.OrderBy(item => string.Concat(item.Surname, item.Name, item.LastName)).Distinct().ToList();
+        }
+
+        /// <summary>
+        /// Администратор в системе определён
+        /// </summary>
+        /// <returns></returns>
+        public bool IsAdministratorDefined()
+        {
+            return GetRegistrators().Count > 0;
         }
 
         /// <summary>
