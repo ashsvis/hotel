@@ -40,16 +40,18 @@
             this.tbPhoneNumber = new System.Windows.Forms.TextBox();
             this.cbEmployeeRole = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbPassword = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(250, 167);
+            this.btnCancel.Location = new System.Drawing.Point(250, 203);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 5;
+            this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -57,10 +59,10 @@
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOk.Enabled = false;
-            this.btnOk.Location = new System.Drawing.Point(169, 167);
+            this.btnOk.Location = new System.Drawing.Point(169, 203);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 4;
+            this.btnOk.TabIndex = 6;
             this.btnOk.Text = "Ввод";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -150,7 +152,7 @@
             this.cbEmployeeRole.Location = new System.Drawing.Point(90, 129);
             this.cbEmployeeRole.Name = "cbEmployeeRole";
             this.cbEmployeeRole.Size = new System.Drawing.Size(235, 23);
-            this.cbEmployeeRole.TabIndex = 10;
+            this.cbEmployeeRole.TabIndex = 4;
             this.cbEmployeeRole.SelectionChangeCommitted += new System.EventHandler(this.tbSurname_TextChanged);
             // 
             // label5
@@ -162,15 +164,37 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "Должность:";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(32, 161);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 15);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Пароль:";
+            // 
+            // tbPassword
+            // 
+            this.tbPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbPassword.Location = new System.Drawing.Point(90, 158);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.Size = new System.Drawing.Size(235, 23);
+            this.tbPassword.TabIndex = 5;
+            this.tbPassword.UseSystemPasswordChar = true;
+            this.tbPassword.TextChanged += new System.EventHandler(this.tbSurname_TextChanged);
+            // 
             // EmployeeForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(337, 202);
+            this.ClientSize = new System.Drawing.Size(337, 238);
             this.Controls.Add(this.cbEmployeeRole);
+            this.Controls.Add(this.tbPassword);
             this.Controls.Add(this.tbPhoneNumber);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tbLastName);
@@ -208,5 +232,7 @@
         private System.Windows.Forms.TextBox tbPhoneNumber;
         private System.Windows.Forms.ComboBox cbEmployeeRole;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbPassword;
     }
 }

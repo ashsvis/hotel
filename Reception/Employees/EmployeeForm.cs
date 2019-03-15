@@ -59,6 +59,8 @@ namespace Reception
             // указываем выбранную должность
             if (cbEmployeeRole.SelectedItem != null)
                 Data.IdEmployeeRole = ((EmployeeRole)cbEmployeeRole.SelectedItem).IdEmployeeRole;
+            if (!string.IsNullOrWhiteSpace(tbPassword.Text))
+                Data.Password = Helper.GetHashString(tbPassword.Text);
         }
 
         private void tbSurname_TextChanged(object sender, System.EventArgs e)

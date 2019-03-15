@@ -37,7 +37,8 @@ namespace Model
         /// <param name="lastname"></param>
         /// <param name="phoneNumber"></param>
         /// <param name="idEmployeeRole">ссылка на должность</param>
-        public void Add(Guid idEmployee, string surname, string name, string lastname, string phoneNumber, Guid idEmployeeRole)
+        /// <param name="password">хеш пароля</param>
+        public void Add(Guid idEmployee, string surname, string name, string lastname, string phoneNumber, Guid idEmployeeRole, string password)
         {
             base.Add(new Employee(_hotel)
             {
@@ -46,7 +47,8 @@ namespace Model
                 Name = name,
                 LastName = lastname,
                 PhoneNumber = phoneNumber,
-                IdEmployeeRole = idEmployeeRole
+                IdEmployeeRole = idEmployeeRole,
+                Password = password
             });
         }
 
@@ -58,7 +60,8 @@ namespace Model
         /// <param name="lastname"></param>
         /// <param name="phoneNumber"></param>
         /// <param name="idEmployeeRole">ссылка на должность</param>
-        public void Add(string surname, string name, string lastname, string phoneNumber, Guid idEmployeeRole)
+        /// <param name="password">хеш пароля</param>
+        public void Add(string surname, string name, string lastname, string phoneNumber, Guid idEmployeeRole, string password)
         {
             base.Add(new Employee(_hotel)
             {
@@ -66,7 +69,8 @@ namespace Model
                 Name = name,
                 LastName = lastname,
                 PhoneNumber = phoneNumber,
-                IdEmployeeRole = idEmployeeRole
+                IdEmployeeRole = idEmployeeRole,
+                Password = password
             });
         }
 
@@ -135,10 +139,12 @@ namespace Model
         public string LastName { get; set; } // отчество
         public string PhoneNumber { get; set; } // номер телефона
         public Guid IdEmployeeRole { get; set; } // ссылка на должность
+        public string Password { get; set; } // хеш пароля
 
         public override string ToString()
         {
-            return string.Format($"{Surname} {Name} {LastName}");
+            var role = _hotel.GetEmployeeRole(IdEmployeeRole);
+            return string.Format($"{Surname} {Name} {LastName} ({role})");
         }
     }
 }

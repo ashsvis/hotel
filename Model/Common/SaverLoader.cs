@@ -136,13 +136,14 @@ namespace Model
             if (dataSet.Tables.Count > 0)
                 foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
                 {
-                    if (row.ItemArray.Length != 6) continue;
+                    if (row.ItemArray.Length != 7) continue;
                     hotel.RegistryStaff.Add(Guid.Parse(row.ItemArray[0].ToString()),
                         row.ItemArray[1].ToString(),
                         row.ItemArray[2].ToString(),
                         row.ItemArray[3].ToString(),
                         row.ItemArray[4].ToString(),
-                        Guid.Parse(row.ItemArray[5].ToString()));
+                        Guid.Parse(row.ItemArray[5].ToString()),
+                        row.ItemArray[6].ToString());
                 }
             OperationResult = server.LastError;
             // клиенты
@@ -316,7 +317,8 @@ namespace Model
                     { "Name", item.Name },
                     { "LastName", item.LastName },
                     { "PhoneNumber", item.PhoneNumber },
-                    { "IdEmployeeRole", item.IdEmployeeRole.ToString() }
+                    { "IdEmployeeRole", item.IdEmployeeRole.ToString() },
+                    { "Password", item.Password }
                 };
                 if (!server.InsertInto("RegistryStaff", columns)) server.UpdateInto("RegistryStaff", columns);
                 OperationResult = server.LastError;

@@ -112,8 +112,6 @@ namespace Reception
         {
             var fileName = Path.ChangeExtension(Application.ExecutablePath, ".dat");
             SaverLoader.SaveToFile(fileName, _hotel);
-
-            SaverLoader.SaveToBase(Properties.Settings.Default.ConnectionString, _hotel);
         }
 
         /// <summary>
@@ -123,7 +121,21 @@ namespace Reception
         /// <param name="e"></param>
         private void tsmiSaveToBase_Click(object sender, EventArgs e)
         {
-            SaverLoader.SaveToBase(Properties.Settings.Default.ConnectionString, _hotel);
+            Task.Run(() =>
+            {
+                SaverLoader.SaveToBase(Properties.Settings.Default.ConnectionString, _hotel);
+                var method = new MethodInvoker(() =>
+                {
+                    var result = SaverLoader.OperationResult;
+                    tsslStatusLabel.Text = string.IsNullOrWhiteSpace(result)
+                                     ? "Готово" : result.Substring(0, result.IndexOf('.') + 1);
+                    statusStrip1.Refresh();
+                });
+                if (InvokeRequired)
+                    BeginInvoke(method);
+                else
+                    method();
+            });
         }
 
         /// <summary>
@@ -131,7 +143,7 @@ namespace Reception
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tsmiEmployees_Click(object sender, EventArgs e)
+            private void tsmiEmployees_Click(object sender, EventArgs e)
         {
             var rc = new EmployeesControl() { Dock = DockStyle.Fill };
             rc.Build(_hotel);

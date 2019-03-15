@@ -153,6 +153,7 @@
             this.Column5});
             this.dgvRooms.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRooms.Location = new System.Drawing.Point(0, 0);
+            this.dgvRooms.MultiSelect = false;
             this.dgvRooms.Name = "dgvRooms";
             this.dgvRooms.ReadOnly = true;
             this.dgvRooms.RowHeadersVisible = false;
@@ -160,6 +161,7 @@
             this.dgvRooms.Size = new System.Drawing.Size(653, 352);
             this.dgvRooms.TabIndex = 0;
             this.dgvRooms.VirtualMode = true;
+            this.dgvRooms.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRooms_RowEnter);
             this.dgvRooms.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dgvRooms_CellValueNeeded);
             this.dgvRooms.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRooms_ColumnHeaderMouseClick);
             this.dgvRooms.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRooms_RowEnter);

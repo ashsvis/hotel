@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Helper.cs" />
     <Compile Include="Helpers\BirthdayGenerator.cs" />
     <Compile Include="Helpers\NamesGenerator.cs" />
     <Compile Include="Helpers\PassportNumberGenerator.cs" />

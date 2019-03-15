@@ -10,6 +10,7 @@ namespace Reception
         private readonly Hotel _hotel;
 
         public AllowedOperations AllowedOperations { get; set; }
+        string PasswordHash { get; set; }
 
 
         public LoginForm(Hotel hotel)
@@ -41,7 +42,19 @@ namespace Reception
             {
                 var employee = (Employee)cbUsers.SelectedItem;
                 AllowedOperations = _hotel.GetEmployeeRole(employee.IdEmployeeRole).AllowedOperations;
+                PasswordHash = employee.Password;
             }
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            if (Helper.GetHashString(tbPassword.Text) == PasswordHash)
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            else
+                MessageBox.Show("Пароль не верный!");
         }
     }
 }
