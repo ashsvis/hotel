@@ -64,6 +64,12 @@
     <Compile Include="Common\ConnectionStringForm.Designer.cs">
       <DependentUpon>ConnectionStringForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DefaultControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DefaultControl.Designer.cs">
+      <DependentUpon>DefaultControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeRoles\EmployeeRolesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -200,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Common\ConnectionStringForm.resx">
       <DependentUpon>ConnectionStringForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DefaultControl.resx">
+      <DependentUpon>DefaultControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeeRoles\EmployeeRolesControl.resx">
       <DependentUpon>EmployeeRolesControl.cs</DependentUpon>

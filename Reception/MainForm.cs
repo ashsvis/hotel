@@ -28,6 +28,7 @@ namespace Reception
         /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
+            ShowDefault();
             tsslStatusLabel.Text = "Загрузка данных...";
             LoadFromBaseAsync();
             CenterToScreen();
@@ -138,12 +139,18 @@ namespace Reception
             });
         }
 
+        private void ShowDefault()
+        {
+            var rc = new DefaultControl() { Dock = DockStyle.Fill };
+            CreateAndShowUserControl(rc);
+        }
+
         /// <summary>
         /// Список сотрудников
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-            private void tsmiEmployees_Click(object sender, EventArgs e)
+        private void tsmiEmployees_Click(object sender, EventArgs e)
         {
             var rc = new EmployeesControl() { Dock = DockStyle.Fill };
             rc.Build(_hotel);
@@ -311,6 +318,8 @@ namespace Reception
                 Properties.Settings.Default.ConnectionString = frm.Data;
                 Properties.Settings.Default.Save();
                 tsslStatusLabel.Text = "Загрузка данных...";
+                ShowDefault();
+                _allowedOperations = AllowedOperations.None;
                 LoadFromBaseAsync();
             }
         }
@@ -325,7 +334,7 @@ namespace Reception
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     _allowedOperations = frm.AllowedOperations;
-                    panelView.Controls.Clear();
+                    ShowDefault();
                     tsslStatusLabel.Text = "";
                 }
             }

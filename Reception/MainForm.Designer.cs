@@ -57,8 +57,8 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiConnectionString = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.panelView = new System.Windows.Forms.Panel();
             this.tsslStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panelView = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -305,6 +305,12 @@
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // tsslStatusLabel
+            // 
+            this.tsslStatusLabel.Name = "tsslStatusLabel";
+            this.tsslStatusLabel.Size = new System.Drawing.Size(45, 17);
+            this.tsslStatusLabel.Text = "Готово";
+            // 
             // panelView
             // 
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -312,12 +318,6 @@
             this.panelView.Name = "panelView";
             this.panelView.Size = new System.Drawing.Size(933, 473);
             this.panelView.TabIndex = 2;
-            // 
-            // tsslStatusLabel
-            // 
-            this.tsslStatusLabel.Name = "tsslStatusLabel";
-            this.tsslStatusLabel.Size = new System.Drawing.Size(45, 17);
-            this.tsslStatusLabel.Text = "Готово";
             // 
             // MainForm
             // 
