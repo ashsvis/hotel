@@ -59,6 +59,9 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelView = new System.Windows.Forms.Panel();
+            this.tsmiSaveToFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiLoadFromFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -223,7 +226,10 @@
             this.tsmiEmployeeRoles,
             this.tsmiPayChannelsTV,
             this.toolStripMenuItem1,
-            this.tsmiConnectionString});
+            this.tsmiConnectionString,
+            this.toolStripMenuItem5,
+            this.tsmiSaveToFile,
+            this.tsmiLoadFromFile});
             this.tsmiTuning.Name = "tsmiTuning";
             this.tsmiTuning.Size = new System.Drawing.Size(78, 20);
             this.tsmiTuning.Text = "Настройка";
@@ -319,6 +325,27 @@
             this.panelView.Size = new System.Drawing.Size(933, 473);
             this.panelView.TabIndex = 2;
             // 
+            // tsmiSaveToFile
+            // 
+            this.tsmiSaveToFile.Enabled = false;
+            this.tsmiSaveToFile.Name = "tsmiSaveToFile";
+            this.tsmiSaveToFile.Size = new System.Drawing.Size(257, 22);
+            this.tsmiSaveToFile.Text = "Сохранить данные в файл";
+            this.tsmiSaveToFile.Click += new System.EventHandler(this.tsmiSaveToFile_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(254, 6);
+            // 
+            // tsmiLoadFromFile
+            // 
+            this.tsmiLoadFromFile.Enabled = false;
+            this.tsmiLoadFromFile.Name = "tsmiLoadFromFile";
+            this.tsmiLoadFromFile.Size = new System.Drawing.Size(257, 22);
+            this.tsmiLoadFromFile.Text = "Загрузить данные из файла";
+            this.tsmiLoadFromFile.Click += new System.EventHandler(this.tsmiLoadFromFile_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -375,6 +402,9 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiLogin;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripStatusLabel tsslStatusLabel;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSaveToFile;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem tsmiLoadFromFile;
     }
 }
 
