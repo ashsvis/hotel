@@ -33,7 +33,7 @@ namespace Database
                     foreach (var key in columns.Keys)
                     {
                         names.Add("[" + key + "]");
-                        values.Add("'" + columns[key] + "'");
+                        values.Add("N'" + columns[key] + "'");
                     }
                     var sql = string.Format("INSERT INTO [{0}] ({1}) VALUES({2})",
                             table.ToLower(), string.Join(", ", names), string.Join(", ", values));
@@ -72,9 +72,9 @@ namespace Database
                     var indexValue = columns[indexName];
                     foreach (var key in columns.Keys.Skip(1))
                     {
-                        values.Add("[" + key + "] = '" + columns[key] + "'");
+                        values.Add("[" + key + "] = N'" + columns[key] + "'");
                     }
-                    var sql = string.Format("UPDATE [{0}] SET {1} WHERE [{2}]='{3}'",
+                    var sql = string.Format("UPDATE [{0}] SET {1} WHERE [{2}]=N'{3}'",
                             table.ToLower(), string.Join(", ", values), indexName, indexValue);
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
@@ -108,7 +108,7 @@ namespace Database
                     // формирование запроса для удаления
                     var indexName = columns.Keys.First();
                     var indexValue = columns[indexName];
-                    var sql = string.Format("DELETE FROM [{0}] WHERE [{1}]='{2}'", table, indexName, indexValue);
+                    var sql = string.Format("DELETE FROM [{0}] WHERE [{1}]=N'{2}'", table, indexName, indexValue);
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
                         cmd.ExecuteNonQuery();
@@ -154,7 +154,7 @@ namespace Database
                     // удаление выбранных ключей
                     foreach (var key in fordelete)
                     {
-                        var sql = string.Format("DELETE FROM [{0}] WHERE [{1}]='{2}'", table, keyfield, key);
+                        var sql = string.Format("DELETE FROM [{0}] WHERE [{1}]=N'{2}'", table, keyfield, key);
                         using (SqlCommand cmd = new SqlCommand(sql, con))
                         {
                             cmd.ExecuteNonQuery();
@@ -212,7 +212,7 @@ namespace Database
         {
             var sql = string.Format("SELECT * FROM [{0}]", table);
             if (!string.IsNullOrWhiteSpace(likefield) && !string.IsNullOrWhiteSpace(text2find))
-                sql += string.Format(" WHERE ([{0}] LIKE '{1}%')", likefield, text2find);
+                sql += string.Format(" WHERE ([{0}] LIKE N'{1}%')", likefield, text2find);
 
             return sql;
         }

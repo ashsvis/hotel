@@ -112,23 +112,10 @@ namespace Model
                 foreach (var row in dataSet.Tables[0].Rows.Cast<DataRow>())
                 {
                     if (row.ItemArray.Length != 4) continue;
-                    AllowedOperations allop;
-                    var allow = row.ItemArray[3].ToString();
-                    switch (allow)
-                    {
-                        case "All":
-                            allop = AllowedOperations.All;
-                            break;
-                        case "None":
-                            allop = AllowedOperations.None;
-                            break;
-                        default:
-                            allop = (AllowedOperations)uint.Parse(allow);
-                            break;
-                    }
                     hotel.EmployeeRoles.Add(Guid.Parse(row.ItemArray[0].ToString()),
                         row.ItemArray[1].ToString(),
-                        decimal.Parse(row.ItemArray[2].ToString()), allop);
+                        decimal.Parse(row.ItemArray[2].ToString()),
+                        (AllowedOperations)uint.Parse(row.ItemArray[3].ToString()));
                 }
             OperationResult = server.LastError;
             // штат сотрудников
@@ -301,7 +288,7 @@ namespace Model
                     { "IdEmployeeRole", item.IdEmployeeRole.ToString() },
                     { "NameRole", item.NameRole },
                     { "Salary", item.Salary.ToString() },
-                    { "AllowedOperations", item.AllowedOperations.ToString() }
+                    { "AllowedOperations", ((uint)item.AllowedOperations).ToString() }
                 };
                 if (!server.InsertInto("EmployeeRoles", columns)) server.UpdateInto("EmployeeRoles", columns);
             }

@@ -122,21 +122,31 @@ namespace Reception
         /// <param name="e"></param>
         private void tsmiSaveToBase_Click(object sender, EventArgs e)
         {
+            SaveToBaseAsync();
+        }
+
+        private void SaveToBaseAsync()
+        {
             Task.Run(() =>
             {
-                SaverLoader.SaveToBase(Properties.Settings.Default.ConnectionString, _hotel);
-                var method = new MethodInvoker(() =>
-                {
-                    var result = SaverLoader.OperationResult;
-                    tsslStatusLabel.Text = string.IsNullOrWhiteSpace(result)
-                                     ? "Готово" : result.Substring(0, result.IndexOf('.') + 1);
-                    statusStrip1.Refresh();
-                });
-                if (InvokeRequired)
-                    BeginInvoke(method);
-                else
-                    method();
+                SaveToBase();
             });
+        }
+
+        private void SaveToBase()
+        {
+            SaverLoader.SaveToBase(Properties.Settings.Default.ConnectionString, _hotel);
+            var method = new MethodInvoker(() =>
+            {
+                var result = SaverLoader.OperationResult;
+                tsslStatusLabel.Text = string.IsNullOrWhiteSpace(result)
+                                 ? "Готово" : result.Substring(0, result.IndexOf('.') + 1);
+                statusStrip1.Refresh();
+            });
+            if (InvokeRequired)
+                BeginInvoke(method);
+            else
+                method();
         }
 
         private void ShowDefault()
@@ -367,6 +377,16 @@ namespace Reception
             tsmiEmployees.Enabled = tsmiTuningRooms.Enabled = tsmiCategories.Enabled =
                 tsmiServices.Enabled = tsmiEmployeeRoles.Enabled = tsmiPayChannelsTV.Enabled = 
                 _allowedOperations.HasFlag(AllowedOperations.ManageEmployees);
+        }
+
+        /// <summary>
+        /// Сохранение данных при завершении работы программы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveToBase();
         }
     }
 }
