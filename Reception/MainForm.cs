@@ -123,6 +123,9 @@ namespace Reception
         private void tsmiSaveToBase_Click(object sender, EventArgs e)
         {
             SaveToBaseAsync();
+            // запись тестовых данных
+            var fileName = Path.ChangeExtension(Application.ExecutablePath, ".dat");
+            SaverLoader.SaveToFile(fileName, _hotel);
         }
 
         private void SaveToBaseAsync()
@@ -353,7 +356,13 @@ namespace Reception
             {
                 _allowedOperations = AllowedOperations.All;
                 _hotel.CurrentUser = null;
-                MessageBox.Show("Вам доступны все функции программы, пока не будет определён пользователь с административными правами");
+                var fileName = Path.ChangeExtension(Application.ExecutablePath, ".dat");
+                if (File.Exists(fileName))
+                {
+                    _hotel = SaverLoader.LoadFromFile(fileName);
+                    MessageBox.Show("Загружены тестовые данные программы");
+                }
+                //MessageBox.Show("Вам доступны все функции программы, пока не будет определён пользователь с административными правами");
             }
         }
 
