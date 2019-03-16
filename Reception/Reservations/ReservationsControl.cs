@@ -77,11 +77,12 @@ namespace Reception
         private void tsbReservationClient_Click(object sender, EventArgs e)
         {
             var frm = new ArrivalForm(_hotel); // создаем форму
-            frm.Build(new Reservation(_hotel)); // создаём "пустое" заселение и заполняем контролы формы
+            var arrival = new Reservation(_hotel) { IdEmployee = _hotel.CurrentUser.IdEmployee };
+            frm.Build(arrival); // создаём "пустое" заселение и заполняем контролы формы
             // показываем форму в диалоге
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
-                var arrival = frm.Data; // получаем измененные данные клиента
+                arrival = frm.Data; // получаем измененные данные клиента
                 _reservations.Add(arrival); // добавляем в список клиентов
                 FillTable(); // перестраиваем таблицу
             }

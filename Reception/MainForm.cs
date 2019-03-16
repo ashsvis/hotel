@@ -344,6 +344,7 @@ namespace Reception
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     _allowedOperations = frm.AllowedOperations;
+                    _hotel.CurrentUser = frm.User;
                     ShowDefault();
                     tsslStatusLabel.Text = "";
                 }
@@ -351,6 +352,7 @@ namespace Reception
             else
             {
                 _allowedOperations = AllowedOperations.All;
+                _hotel.CurrentUser = null;
                 MessageBox.Show("Вам доступны все функции программы, пока не будет определён пользователь с административными правами");
             }
         }

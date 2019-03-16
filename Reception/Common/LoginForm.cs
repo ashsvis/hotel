@@ -10,6 +10,7 @@ namespace Reception
         private readonly Hotel _hotel;
 
         public AllowedOperations AllowedOperations { get; set; }
+        public Employee User { get; set; }
         string PasswordHash { get; set; }
 
 
@@ -42,6 +43,7 @@ namespace Reception
             {
                 var employee = (Employee)cbUsers.SelectedItem;
                 AllowedOperations = _hotel.GetEmployeeRole(employee.IdEmployeeRole).AllowedOperations;
+                User = employee;
                 PasswordHash = employee.Password;
             }
         }

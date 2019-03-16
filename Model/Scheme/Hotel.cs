@@ -28,6 +28,7 @@ namespace Model
         public Transfers Transfers { get; set; } // трансферы
         public PayChannels PayChannels { get; set; } = new PayChannels(); // платные каналы
         public AccordancePayChannels AccordancePayChannels { get; set; } = new AccordancePayChannels(); // подписки на каналы
+        public Employee CurrentUser { get; set; }
 
         /// <summary>
         /// Данные для тестирования
