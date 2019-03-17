@@ -70,7 +70,7 @@ namespace Reception
         }
 
         /// <summary>
-        /// Нажатие кнопки "Заселение"
+        /// Нажатие кнопки "Бронирование"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -82,8 +82,8 @@ namespace Reception
             // показываем форму в диалоге
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
-                arrival = frm.Data; // получаем измененные данные клиента
-                _reservations.Add(arrival); // добавляем в список клиентов
+                arrival = frm.Data; // получаем измененные данные заселения
+                _reservations.Add(arrival); // добавляем в список бронирования
                 FillTable(); // перестраиваем таблицу
             }
         }
