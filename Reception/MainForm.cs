@@ -86,7 +86,6 @@ namespace Reception
         /// <param name="rc"></param>
         private void CreateAndShowUserControl(UserControl rc)
         {
-            if (panelView.Controls.Contains(rc)) return;
             panelView.Controls.Add(rc);
             if (panelView.Controls.Count > 1)
                 panelView.Controls.RemoveAt(0);
@@ -125,6 +124,9 @@ namespace Reception
             SaveToBaseAsync();
         }
 
+        /// <summary>
+        /// Сохранение данных модели в базу данных асинхронно
+        /// </summary>
         private void SaveToBaseAsync()
         {
             Task.Run(() =>
@@ -133,6 +135,9 @@ namespace Reception
             });
         }
 
+        /// <summary>
+        /// Сохранение данных модели в базу данных
+        /// </summary>
         private void SaveToBase()
         {
             SaverLoader.SaveToBase(Properties.Settings.Default.ConnectionString, _hotel);
@@ -149,6 +154,9 @@ namespace Reception
                 method();
         }
 
+        /// <summary>
+        /// Показ заставки по умолчанию при первой загрузке программы и при смене пользователя
+        /// </summary>
         private void ShowDefault()
         {
             var rc = new DefaultControl() { Dock = DockStyle.Fill };
@@ -319,6 +327,11 @@ namespace Reception
             CreateAndShowUserControl(rc);
         }
 
+        /// <summary>
+        /// Обработчик пункта меню "Строка подключения к серверу..."
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmiConnectionString_Click(object sender, EventArgs e)
         {
             var frm = new ConnectionStringForm();
@@ -334,25 +347,35 @@ namespace Reception
             }
         }
 
+        /// <summary>
+        /// Обработчик пункта меню "Вход..."
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmiLogin_Click(object sender, EventArgs e)
         {
+            // если есть хотя бы один администратор, записанный в модели данных
             if (_hotel.IsAdministratorDefined())
             {
+                // вызываем форму регистрации, передавая в конструктор ссылку на модель данных
                 var frm = new LoginForm(_hotel);
-                var users = _hotel.GetUsers();
-                frm.Build(users);
+                var users = _hotel.GetUsers(); // список пользователей получаем соответствующим методом
+                frm.Build(users); // форма настраивает свои компоненты, используя передаваемый в метод этот список
+                // показываем форму в диалогом режиме
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
-                    _allowedOperations = frm.AllowedOperations;
-                    _hotel.CurrentUser = frm.User;
-                    ShowDefault();
-                    tsslStatusLabel.Text = "";
+                    // если пользователь нажал кнопку "ОК"
+                    _allowedOperations = frm.AllowedOperations; // получаем набор прав пользователя
+                    _hotel.CurrentUser = frm.User;  // получаем ссылку на выбранного пользователя
+                    ShowDefault(); // показываем "заставку"
+                    tsslStatusLabel.Text = ""; // и очищаем статусную строку
                 }
             }
-            else
+            else // нет администраторов в системе
             {
-                _allowedOperations = AllowedOperations.All;
-                _hotel.CurrentUser = null;
+                _allowedOperations = AllowedOperations.All; // назначаем полный доступ
+                _hotel.CurrentUser = null; // сброс текущего пользователя
+                // сообщаем пользователю это:
                 MessageBox.Show("Вам доступны все функции программы, пока не будет определён пользователь с административными правами");
             }
         }
