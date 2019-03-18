@@ -91,7 +91,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Список постоятельцев за последний месяц
+        /// Список постояльцев за последний месяц
         /// </summary>
         /// <param name="hotel"></param>
         /// <returns></returns>
@@ -99,7 +99,7 @@ namespace Model
         {
             var report = new Report
             {
-                Caption = "Список постоятельцев за последний месяц"
+                Caption = "Список постояльцев за последний месяц"
             };
             report.ReportColumns.Add("Фамилия клиента", "Номер комнаты", "Въезд", "Выезд");
             var last = DateTime.Now;
