@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Reflection;
 
 namespace Model
 {
@@ -53,6 +55,52 @@ namespace Model
             //Services.Add("Мини бар", 100);
             //Services.Add("Сейф", 100);
 
+        }
+
+        public DataTable Find(string text)
+        {
+            var table = new DataTable();
+            table.Columns.Add("Таблица");
+            table.Columns.Add("Столбец");
+            table.Columns.Add("Значение");
+
+            var list = new List<object>
+            {
+                Clients,
+                RegistryStaff,
+                EmployeeRoles,
+                PayChannels,
+                Reservations,
+                Rooms,
+                Services,
+                Transfers,
+                AccordancePayChannels
+            };
+
+            foreach (var collection in list)
+            {
+                foreach (var item in (IEnumerable<object>)collection)
+                {
+                    var type = item.GetType();              // получаем тип объекта, переданного через параметр
+                    MemberInfo[] m = type.GetProperties();  // получаем массив свойств объекта
+                    foreach (var info in m) // для каждого свойства из массива свойств
+                    {
+                        var prop = type.GetProperty(info.Name);
+                        if (prop.PropertyType != typeof(string)) continue;
+                        if (info.Name == "Password") continue;
+                        var value = prop.GetValue(item)?.ToString();
+                        if (value.Contains(text))
+                        {
+                            var row = table.NewRow();
+                            row["Таблица"] = collection.ToString().Substring(6);
+                            row["Столбец"] = info.Name;
+                            row["Значение"] = value;
+                            table.Rows.Add(row);
+                        }
+                    }
+                }
+            }
+            return table;
         }
 
         /// <summary>

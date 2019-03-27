@@ -56,12 +56,14 @@
             this.tsmiPayChannelsTV = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiConnectionString = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiSaveToFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiLoadFromFile = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelView = new System.Windows.Forms.Panel();
-            this.tsmiSaveToFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiLoadFromFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiFind = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -164,7 +166,9 @@
             // 
             this.tsmiReports.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiCurrentTime,
-            this.заПоследнийМесяцToolStripMenuItem});
+            this.заПоследнийМесяцToolStripMenuItem,
+            this.toolStripMenuItem6,
+            this.tsmiFind});
             this.tsmiReports.Name = "tsmiReports";
             this.tsmiReports.Size = new System.Drawing.Size(60, 20);
             this.tsmiReports.Text = "Отчёты";
@@ -301,6 +305,27 @@
             this.tsmiConnectionString.Text = "Строка подключения к серверу...";
             this.tsmiConnectionString.Click += new System.EventHandler(this.tsmiConnectionString_Click);
             // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(254, 6);
+            // 
+            // tsmiSaveToFile
+            // 
+            this.tsmiSaveToFile.Enabled = false;
+            this.tsmiSaveToFile.Name = "tsmiSaveToFile";
+            this.tsmiSaveToFile.Size = new System.Drawing.Size(257, 22);
+            this.tsmiSaveToFile.Text = "Сохранить данные в файл";
+            this.tsmiSaveToFile.Click += new System.EventHandler(this.tsmiSaveToFile_Click);
+            // 
+            // tsmiLoadFromFile
+            // 
+            this.tsmiLoadFromFile.Enabled = false;
+            this.tsmiLoadFromFile.Name = "tsmiLoadFromFile";
+            this.tsmiLoadFromFile.Size = new System.Drawing.Size(257, 22);
+            this.tsmiLoadFromFile.Text = "Загрузить данные из файла";
+            this.tsmiLoadFromFile.Click += new System.EventHandler(this.tsmiLoadFromFile_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -325,26 +350,17 @@
             this.panelView.Size = new System.Drawing.Size(933, 473);
             this.panelView.TabIndex = 2;
             // 
-            // tsmiSaveToFile
+            // toolStripMenuItem6
             // 
-            this.tsmiSaveToFile.Enabled = false;
-            this.tsmiSaveToFile.Name = "tsmiSaveToFile";
-            this.tsmiSaveToFile.Size = new System.Drawing.Size(257, 22);
-            this.tsmiSaveToFile.Text = "Сохранить данные в файл";
-            this.tsmiSaveToFile.Click += new System.EventHandler(this.tsmiSaveToFile_Click);
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(184, 6);
             // 
-            // toolStripMenuItem5
+            // tsmiFind
             // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(254, 6);
-            // 
-            // tsmiLoadFromFile
-            // 
-            this.tsmiLoadFromFile.Enabled = false;
-            this.tsmiLoadFromFile.Name = "tsmiLoadFromFile";
-            this.tsmiLoadFromFile.Size = new System.Drawing.Size(257, 22);
-            this.tsmiLoadFromFile.Text = "Загрузить данные из файла";
-            this.tsmiLoadFromFile.Click += new System.EventHandler(this.tsmiLoadFromFile_Click);
+            this.tsmiFind.Name = "tsmiFind";
+            this.tsmiFind.Size = new System.Drawing.Size(187, 22);
+            this.tsmiFind.Text = "Поиск...";
+            this.tsmiFind.Click += new System.EventHandler(this.tsmiFind_Click);
             // 
             // MainForm
             // 
@@ -405,6 +421,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiSaveToFile;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem tsmiLoadFromFile;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFind;
     }
 }
 

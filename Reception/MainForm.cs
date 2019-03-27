@@ -414,5 +414,12 @@ namespace Reception
         {
             SaveToBase();
         }
+
+        private void tsmiFind_Click(object sender, EventArgs e)
+        {
+            var rc = new FindTextAllControl() { Dock = DockStyle.Fill };
+            rc.Build(_hotel);
+            CreateAndShowUserControl(rc);
+        }
     }
 }

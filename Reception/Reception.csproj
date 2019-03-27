@@ -88,6 +88,12 @@
     <Compile Include="Common\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FindTextAllControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FindTextAllControl.Designer.cs">
+      <DependentUpon>FindTextAllControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="PayChannels\PayChannelForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Common\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindTextAllControl.resx">
+      <DependentUpon>FindTextAllControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PayChannels\PayChannelForm.resx">
       <DependentUpon>PayChannelForm.cs</DependentUpon>
