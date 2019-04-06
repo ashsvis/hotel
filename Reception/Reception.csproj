@@ -180,6 +180,12 @@
     <Compile Include="Rooms\RoomsControl.Designer.cs">
       <DependentUpon>RoomsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectPeriodForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectPeriodForm.Designer.cs">
+      <DependentUpon>SelectPeriodForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\ServiceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -278,6 +284,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Rooms\RoomsControl.resx">
       <DependentUpon>RoomsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectPeriodForm.resx">
+      <DependentUpon>SelectPeriodForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Services\ServiceForm.resx">
       <DependentUpon>ServiceForm.cs</DependentUpon>

@@ -118,5 +118,35 @@ namespace Model
             }
             return report;
         }
+
+        /// <summary>
+        /// Список постояльцев за указанную дату
+        /// </summary>
+        /// <param name="hotel"></param>
+        /// <returns></returns>
+        public Report GetClientsByDate(Hotel hotel, DateTime first, DateTime last)
+        {
+            var caption = string.Format("Список постояльцев за период с {0} по {1}",
+                                        first.ToShortDateString(),
+                                        last.ToShortDateString());
+            var report = new Report
+            {
+                Caption = caption
+            };
+            report.ReportColumns.Add("Фамилия клиента", "Номер комнаты", "Въезд", "Выезд");
+            // заполнение строк отчёта
+            foreach (var item in hotel.Reservations
+                                      .Where(item => item.ArrivalDate >= first && item.ArrivalDate <= last ||
+                                                     item.DepartureDate >= first && item.DepartureDate <= last)
+                                      .OrderBy(item => item.ArrivalDate))
+            {
+                var client = hotel.GetClient(item.IdClient);
+                var room = hotel.GetRoom(item.IdRoom);
+                var category = hotel.Categories[room.IdCategory];
+                report.ReportRows.Add($"{client.Surname} {client.Name} {client.LastName}", $"{room.RoomNumber} ({category})",
+                                      item.ArrivalDate.ToShortDateString(), item.DepartureDate.ToShortDateString());
+            }
+            return report;
+        }
     }
 }

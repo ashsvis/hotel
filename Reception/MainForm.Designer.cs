@@ -46,6 +46,8 @@
             this.tsmiBusyRooms = new System.Windows.Forms.ToolStripMenuItem();
             this.заПоследнийМесяцToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLastMonthClients = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiFind = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTuning = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEmployees = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTuningRooms = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,8 +64,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelView = new System.Windows.Forms.Panel();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiFind = new System.Windows.Forms.ToolStripMenuItem();
+            this.заУказаннуюДатуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiByDateClients = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -167,6 +169,7 @@
             this.tsmiReports.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiCurrentTime,
             this.заПоследнийМесяцToolStripMenuItem,
+            this.заУказаннуюДатуToolStripMenuItem,
             this.toolStripMenuItem6,
             this.tsmiFind});
             this.tsmiReports.Name = "tsmiReports";
@@ -218,6 +221,18 @@
             this.tsmiLastMonthClients.Size = new System.Drawing.Size(188, 22);
             this.tsmiLastMonthClients.Text = "Список постояльцев";
             this.tsmiLastMonthClients.Click += new System.EventHandler(this.tsmiLastMonthClients_Click);
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(184, 6);
+            // 
+            // tsmiFind
+            // 
+            this.tsmiFind.Name = "tsmiFind";
+            this.tsmiFind.Size = new System.Drawing.Size(187, 22);
+            this.tsmiFind.Text = "Поиск...";
+            this.tsmiFind.Click += new System.EventHandler(this.tsmiFind_Click);
             // 
             // tsmiTuning
             // 
@@ -350,17 +365,20 @@
             this.panelView.Size = new System.Drawing.Size(933, 473);
             this.panelView.TabIndex = 2;
             // 
-            // toolStripMenuItem6
+            // заУказаннуюДатуToolStripMenuItem
             // 
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(184, 6);
+            this.заУказаннуюДатуToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiByDateClients});
+            this.заУказаннуюДатуToolStripMenuItem.Name = "заУказаннуюДатуToolStripMenuItem";
+            this.заУказаннуюДатуToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.заУказаннуюДатуToolStripMenuItem.Text = "За указанную дату";
             // 
-            // tsmiFind
+            // tsmiByDateClients
             // 
-            this.tsmiFind.Name = "tsmiFind";
-            this.tsmiFind.Size = new System.Drawing.Size(187, 22);
-            this.tsmiFind.Text = "Поиск...";
-            this.tsmiFind.Click += new System.EventHandler(this.tsmiFind_Click);
+            this.tsmiByDateClients.Name = "tsmiByDateClients";
+            this.tsmiByDateClients.Size = new System.Drawing.Size(197, 22);
+            this.tsmiByDateClients.Text = "Список постояльцев...";
+            this.tsmiByDateClients.Click += new System.EventHandler(this.tsmiByDateClients_Click);
             // 
             // MainForm
             // 
@@ -423,6 +441,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiLoadFromFile;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem tsmiFind;
+        private System.Windows.Forms.ToolStripMenuItem заУказаннуюДатуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiByDateClients;
     }
 }
 

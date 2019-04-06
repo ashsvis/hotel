@@ -415,10 +415,31 @@ namespace Reception
             SaveToBase();
         }
 
+        /// <summary>
+        /// Полнотекстовый поиск, вызов формы для поиска и результатов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmiFind_Click(object sender, EventArgs e)
         {
             var rc = new FindTextAllControl() { Dock = DockStyle.Fill };
             rc.Build(_hotel);
+            CreateAndShowUserControl(rc);
+        }
+
+        /// <summary>
+        /// Вызов списка клиентов за указанный период
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmiByDateClients_Click(object sender, EventArgs e)
+        {
+            var frm = new SelectPeriodForm();
+            if (frm.ShowDialog(this) != DialogResult.OK) return;
+            var rc = new ReportViewControl() { Dock = DockStyle.Fill };
+            var generator = new ReportsBuilder();
+            var report = generator.GetClientsByDate(_hotel, frm.FirstDate, frm.LastDate);
+            rc.Build(_hotel, report);
             CreateAndShowUserControl(rc);
         }
     }
